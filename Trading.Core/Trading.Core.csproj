@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Indicators\" />
+    <Folder Include="Analysis\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="RiskManagement\" />
+    <Folder Include="Strategies\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trading.Shared\Trading.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
