@@ -9,20 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Charts\" />
-    <Folder Include="Resources\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\Trading.Core\Trading.Core.csproj" />
+    <ProjectReference Include="..\Trading.Infrastructure\Trading.Infrastructure.csproj" />
+    <ProjectReference Include="..\Trading.Shared\Trading.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Trading.Infrastructure\Trading.Infrastructure.csproj" />
+    <Folder Include="Charts\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Models\" />
+    <Folder Include="NewFolder\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

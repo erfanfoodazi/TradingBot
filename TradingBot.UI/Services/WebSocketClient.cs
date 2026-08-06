@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TradingBot.UI.Services
 {
-    internal class PythonServiceManager
+    class WebSocketClient
     {
     }
 }
