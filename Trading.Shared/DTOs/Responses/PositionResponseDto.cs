@@ -1,4 +1,6 @@
-﻿namespace Trading.Shared.Responses;
+﻿using System.Text.Json.Serialization;
+
+namespace Trading.Shared.Responses;
 
 public sealed class PositionResponseDto
 {
@@ -12,9 +14,14 @@ public sealed class PositionResponseDto
 
     public double PriceOpen { get; set; }
 
+    [JsonPropertyName("sl")]
     public double StopLoss { get; set; }
 
+    [JsonPropertyName("tp")]
     public double TakeProfit { get; set; }
 
     public double Profit { get; set; }
+
+    /// <summary>UI flag: whether the row is ticked (e.g. for batch closing).</summary>
+    public bool IsSelected { get; set; }
 }

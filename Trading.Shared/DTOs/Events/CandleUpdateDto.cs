@@ -1,4 +1,6 @@
-﻿namespace Trading.Shared.Events;
+﻿using System.Text.Json.Serialization;
+
+namespace Trading.Shared.Events;
 
 public sealed class CandleUpdateDto
 {
@@ -16,5 +18,6 @@ public sealed class CandleUpdateDto
 
     public double Close { get; set; }
 
+    [JsonPropertyName("tick_volume")]
     public long TickVolume { get; set; }
 }

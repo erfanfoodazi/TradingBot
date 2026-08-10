@@ -1,4 +1,5 @@
-﻿using Trading.Core.Interfaces;
+﻿using Trading.Core.Exceptions;
+using Trading.Core.Interfaces;
 using Trading.Shared.Requests;
 using Trading.Shared.Responses;
 
@@ -16,21 +17,13 @@ public class TradingService : ITradingService
     public async Task<TradeResponseDto> BuyAsync(TradeRequestDto request)
     {
         var response = await _python.BuyAsync(request);
-
-        if (response.Data is null)
-            throw new Exception(response.Message);
-
-        return response.Data;
+        return EnsureData(response);
     }
 
     public async Task<TradeResponseDto> SellAsync(TradeRequestDto request)
     {
         var response = await _python.SellAsync(request);
-
-        if (response.Data is null)
-            throw new Exception(response.Message);
-
-        return response.Data;
+        return EnsureData(response);
     }
 
     public async Task CloseAsync(ClosePositionRequestDto request)
@@ -41,7 +34,41 @@ public class TradingService : ITradingService
     public async Task<List<PositionResponseDto>> GetPositionsAsync()
     {
         var response = await _python.GetPositionsAsync();
-
         return response.Data ?? [];
     }
+
+    public async Task<PendingOrderResponseDto> PlacePendingOrderAsync(
+        PendingOrderRequestDto request)
+    {
+        var response = await _python.PlacePendingOrderAsync(request);
+        return EnsureData(response);
+    }
+
+    public async Task<List<PendingOrderResponseDto>> GetPendingOrdersAsync()
+    {
+        var response = await _python.GetPendingOrdersAsync();
+        return response.Data ?? [];
+    }
+
+    public async Task CancelPendingOrderAsync(long ticket)
+    {
+        await _python.CancelPendingOrderAsync(ticket);
+    }
+
+    public async Task ModifyPositionAsync(ModifyPositionRequestDto request)
+    {
+        await _python.ModifyPositionAsync(request);
+    }
+
+    public async Task<List<TradeHistoryResponseDto>> GetTradeHistoryAsync(
+        TradeHistoryRequestDto request)
+    {
+        var response = await _python.GetTradeHistoryAsync(request);
+        return response.Data ?? [];
+    }
+
+    private static T EnsureData<T>(ApiResponseDto<T> response)
+        => response.Data is null
+            ? throw new PythonApiException(response.Message ?? "No data returned from Python API.")
+            : response.Data;
 }

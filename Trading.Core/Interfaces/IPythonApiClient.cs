@@ -22,4 +22,20 @@ public interface IPythonApiClient
     Task<ApiResponseDto<List<PositionResponseDto>>> GetPositionsAsync();
 
     Task<ApiResponseDto<HealthResponseDto>> HealthAsync();
+
+    Task<ApiResponseDto<AccountResponseDto>> GetAccountAsync();
+
+    Task<ApiResponseDto<PendingOrderResponseDto>> PlacePendingOrderAsync(
+        PendingOrderRequestDto request);
+
+    Task<ApiResponseDto<List<PendingOrderResponseDto>>> GetPendingOrdersAsync();
+
+    Task<ApiResponseDto<object>> CancelPendingOrderAsync(
+        long ticket);
+
+    Task<ApiResponseDto<object>> ModifyPositionAsync(
+        ModifyPositionRequestDto request);
+
+    Task<ApiResponseDto<List<TradeHistoryResponseDto>>> GetTradeHistoryAsync(
+        TradeHistoryRequestDto request);
 }

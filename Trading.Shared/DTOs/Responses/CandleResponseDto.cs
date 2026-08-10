@@ -1,4 +1,6 @@
-﻿namespace Trading.Shared.Responses;
+﻿using System.Text.Json.Serialization;
+
+namespace Trading.Shared.Responses;
 
 public sealed class CandleResponseDto
 {
@@ -12,5 +14,6 @@ public sealed class CandleResponseDto
 
     public double Close { get; set; }
 
+    [JsonPropertyName("tick_volume")]
     public long TickVolume { get; set; }
 }

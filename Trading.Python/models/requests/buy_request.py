@@ -13,16 +13,16 @@ class BuyRequest(BaseModel):
         description="Trade volume in lots"
     )
 
-    stop_loss: float = Field(
-        default=0,
+    stop_loss: float | None = Field(
+        default=None,
         ge=0,
-        description="Stop loss price (0 = no stop loss)"
+        description="Stop loss price (0 or None = no stop loss)"
     )
 
-    take_profit: float = Field(
-        default=0,
+    take_profit: float | None = Field(
+        default=None,
         ge=0,
-        description="Take profit price (0 = no take profit)"
+        description="Take profit price (0 or None = no take profit)"
     )
 
     deviation: int = Field(

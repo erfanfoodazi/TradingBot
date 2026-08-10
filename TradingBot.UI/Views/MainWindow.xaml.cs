@@ -1,13 +1,7 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TradingBot.UI.Charts;
 using TradingBot.UI.ViewModels;
 
 namespace TradingBot.UI
@@ -17,11 +11,17 @@ namespace TradingBot.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MainViewModel vm)
+        public MainWindow(
+            MainViewModel vm,
+            ChartService chartService)
         {
             InitializeComponent();
 
             DataContext = vm;
+
+            chartService.Attach(Chart);
+
+            Loaded += async (_, _) => await vm.InitializeCommand.ExecuteAsync(null);
         }
     }
 }

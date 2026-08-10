@@ -2,27 +2,495 @@
     x:Class="TradingBot.UI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:scott="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="Trading Bot"
-    Width="1200"
-    Height="800">
+    Width="1400"
+    Height="900"
+    Background="{DynamicResource ThemeWindowBackground}"
+    Foreground="{DynamicResource ThemeTextBrush}">
 
-   
-    <Grid>
+    <Grid Margin="8">
 
-        <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock
-            FontSize="30"
-            Text="{Binding Title}" />
+        <!-- ===================== Toolbar ===================== -->
+        <Border
+            Grid.Row="0"
+            Padding="8"
+            Background="{DynamicResource ThemePanelBackground}"
+            BorderBrush="{DynamicResource ThemeBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
 
-            <TextBlock
-            Margin="0,10,0,0"
-            FontSize="18"
-            Text="{Binding Status}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Symbol"/>
+                <ComboBox
+                    Width="150"
+                    Margin="0,0,16,0"
+                    IsEditable="True"
+                    IsTextSearchEnabled="True"
+                    IsTextSearchCaseSensitive="False"
+                    TextSearch.TextPath="Name"
+                    DisplayMemberPath="Name"
+                    Text="{Binding SymbolFilter, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding FilteredSymbols}"
+                    SelectedItem="{Binding SelectedSymbol}">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
 
-        </StackPanel>
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Timeframe"/>
+                <ComboBox
+                    Width="70"
+                    Margin="0,0,16,0"
+                    SelectedItem="{Binding SelectedTimeframe}">
+                    <ComboBox.Items>
+                        <sys:String>M1</sys:String>
+                        <sys:String>M5</sys:String>
+                        <sys:String>M15</sys:String>
+                        <sys:String>H1</sys:String>
+                        <sys:String>H4</sys:String>
+                        <sys:String>D1</sys:String>
+                    </ComboBox.Items>
+                </ComboBox>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Count"/>
+                <TextBox
+                    Width="60"
+                    Margin="0,0,16,0"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding CandleCount, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Padding="12,4" Content="Load" Command="{Binding LoadCandlesCommand}"/>
+
+                <Separator Width="16" Margin="8,0"/>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Vol"/>
+                <TextBox Width="60" Margin="0,0,16,0" VerticalContentAlignment="Center"
+                         Text="{Binding Volume, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="SL"/>
+                <TextBox Width="70" Margin="0,0,16,0" VerticalContentAlignment="Center"
+                         Text="{Binding StopLoss, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="TP"/>
+                <TextBox Width="70" Margin="0,0,16,0" VerticalContentAlignment="Center"
+                         Text="{Binding TakeProfit, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Width="80" Margin="0,0,8,0" Padding="12,4"
+                        Background="#C0392B" Foreground="White"
+                        Content="Buy" Command="{Binding BuyCommand}"/>
+                <Button Width="80" Margin="0,0,8,0" Padding="12,4"
+                        Background="#27AE60" Foreground="White"
+                        Content="Sell" Command="{Binding SellCommand}"/>
+                <Button Width="80" Padding="12,4"
+                        Background="#7F8C8D" Foreground="White"
+                        Content="Close" Command="{Binding CloseCommand}"/>
+
+                <Separator Width="16" Margin="8,0"/>
+
+                <Button Width="110" Padding="12,4"
+                        Background="{DynamicResource ThemeAccentBrush}" Foreground="White"
+                        Content="{Binding StrategyButtonText}" Command="{Binding ToggleStrategyCommand}"/>
+
+                <Separator Width="16" Margin="8,0"/>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Theme"/>
+                <ComboBox
+                    Width="90"
+                    ItemsSource="{Binding Themes}"
+                    SelectedItem="{Binding SelectedTheme}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ===================== Account bar ===================== -->
+        <Border
+            Grid.Row="1"
+            Margin="0,6,0,0"
+            Padding="8"
+            Background="{DynamicResource ThemePanelBackground}"
+            BorderBrush="{DynamicResource ThemeBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                    <TextBlock FontWeight="Bold" Text="Account: "/>
+                    <TextBlock Text="{Binding Account.Login}"/>
+                    <TextBlock Text="  "/>
+                    <TextBlock Text="{Binding Account.Currency}"/>
+                    <TextBlock Text="  ("/>
+                    <TextBlock Text="{Binding Account.Server}"/>
+                    <TextBlock Text=")  Leverage: "/>
+                    <TextBlock Text="{Binding Account.Leverage}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                    <TextBlock FontWeight="Bold" Text="Balance: "/>
+                    <TextBlock Text="{Binding Account.Balance}"/>
+                    <TextBlock Text="  Equity: "/>
+                    <TextBlock Text="{Binding Account.Equity}"/>
+                    <TextBlock Text="  Margin: "/>
+                    <TextBlock Text="{Binding Account.Margin}"/>
+                    <TextBlock Text="  Free Margin: "/>
+                    <TextBlock Text="{Binding Account.FreeMargin}"/>
+                    <TextBlock Text="  Margin Lvl: "/>
+                    <TextBlock Text="{Binding Account.MarginLevel}"/>
+                    <TextBlock Text="  Profit: "/>
+                    <TextBlock Text="{Binding Account.Profit}"/>
+                    <TextBlock Text="  Trade: "/>
+                    <TextBlock Text="{Binding Account.TradeAllowed}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold" Text="Bid: "/>
+                    <TextBlock Foreground="{DynamicResource ThemeDownBrush}" Text="{Binding LastBid, StringFormat={}{0:F5}}"/>
+                    <TextBlock Text="  Ask: "/>
+                    <TextBlock Foreground="{DynamicResource ThemeUpBrush}" Text="{Binding LastAsk, StringFormat={}{0:F5}}"/>
+                    <TextBlock Text="  Candles: "/>
+                    <TextBlock Text="{Binding CandlesReceived}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ===================== Chart ===================== -->
+        <scott:WpfPlot
+            x:Name="Chart"
+            Grid.Row="2"
+            Margin="0,8,0,8"/>
+
+        <!-- ===================== Tabs ===================== -->
+        <TabControl Grid.Row="3" Background="{DynamicResource ThemePanelBackground}">
+
+            <!-- Account -->
+            <TabItem Header="Account">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                        <Button Padding="10,4" Content="Refresh" Command="{Binding RefreshAccountCommand}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"
+                                   Foreground="{DynamicResource ThemeAccentBrush}"
+                                   Text="{Binding Account.Connected, StringFormat=Connected: {0}}"/>
+                    </StackPanel>
+
+                    <WrapPanel Grid.Row="1">
+                        <Border Margin="0,0,16,8" Padding="8"
+                                Background="{DynamicResource ThemePanelBackground}"
+                                BorderBrush="{DynamicResource ThemeBorderBrush}"
+                                BorderThickness="1" CornerRadius="4">
+                            <StackPanel Width="260">
+                                <TextBlock FontWeight="Bold" Text="Identity"/>
+                                <TextBlock Text="{Binding Account.Login, StringFormat=Login: {0}}"/>
+                                <TextBlock Text="{Binding Account.Server, StringFormat=Server: {0}}"/>
+                                <TextBlock Text="{Binding Account.Currency, StringFormat=Currency: {0}}"/>
+                                <TextBlock Text="{Binding Account.TradeMode, StringFormat=Trade mode: {0}}"/>
+                                <TextBlock Text="{Binding Account.MarginMode, StringFormat=Margin mode: {0}}"/>
+                                <TextBlock Text="{Binding Account.Leverage, StringFormat=Leverage: {0}:1}"/>
+                                <TextBlock Text="{Binding Account.TradeAllowed, StringFormat=Trade allowed: {0}}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Margin="0,0,16,8" Padding="8"
+                                Background="{DynamicResource ThemePanelBackground}"
+                                BorderBrush="{DynamicResource ThemeBorderBrush}"
+                                BorderThickness="1" CornerRadius="4">
+                            <StackPanel Width="260">
+                                <TextBlock FontWeight="Bold" Text="Funds"/>
+                                <TextBlock Text="{Binding Account.Balance, StringFormat=Balance: {0:N2}}"/>
+                                <TextBlock Text="{Binding Account.Equity, StringFormat=Equity: {0:N2}}"/>
+                                <TextBlock Text="{Binding Account.Profit, StringFormat=Profit: {0:N2}}"/>
+                                <TextBlock Text="{Binding Account.Margin, StringFormat=Margin: {0:N2}}"/>
+                                <TextBlock Text="{Binding Account.FreeMargin, StringFormat=Free margin: {0:N2}}"/>
+                                <TextBlock Text="{Binding Account.MarginLevel, StringFormat=Margin level: {0:N2}%}"/>
+                                <TextBlock Text="{Binding Account.Credit, StringFormat=Credit: {0:N2}}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Margin="0,0,16,8" Padding="8"
+                                Background="{DynamicResource ThemePanelBackground}"
+                                BorderBrush="{DynamicResource ThemeBorderBrush}"
+                                BorderThickness="1" CornerRadius="4">
+                            <StackPanel Width="260">
+                                <TextBlock FontWeight="Bold" Text="Live prices"/>
+                                <TextBlock Text="{Binding LastBid, StringFormat=Bid: {0:F5}}"/>
+                                <TextBlock Text="{Binding LastAsk, StringFormat=Ask: {0:F5}}"/>
+                                <TextBlock Text="{Binding CandlesReceived, StringFormat=Candles received: {0}}"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Positions -->
+            <TabItem Header="Positions">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="SL"/>
+                        <TextBox Width="80" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding ModifyStopLoss, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="TP"/>
+                        <TextBox Width="80" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding ModifyTakeProfit, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Padding="10,4" Content="Apply SL/TP" Command="{Binding ModifyPositionCommand}"/>
+                        <Button Padding="10,4" Margin="12,0,0,0" Content="Close Selected" Command="{Binding CloseSelectedPositionsCommand}"/>
+                    </StackPanel>
+
+                    <DataGrid
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Positions}"
+                        SelectedItem="{Binding SelectedPosition}"
+                        SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="40" Header="Close">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="70" Binding="{Binding Ticket}" Header="Ticket"/>
+                            <DataGridTextColumn Width="100" Binding="{Binding Symbol}" Header="Symbol"/>
+                            <DataGridTextColumn Width="70" Binding="{Binding Type}" Header="Type"/>
+                            <DataGridTextColumn Width="70" Binding="{Binding Volume}" Header="Volume"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding PriceOpen}" Header="Open"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding StopLoss}" Header="SL"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding TakeProfit}" Header="TP"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Profit}" Header="Profit"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Pending orders -->
+            <TabItem Header="Pending Orders">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Type"/>
+                        <ComboBox Width="110" Margin="0,0,12,0"
+                                  ItemsSource="{Binding PendingOrderTypes}"
+                                  SelectedItem="{Binding SelectedPendingType}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Price"/>
+                        <TextBox Width="80" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding PendingOrderPrice, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Vol"/>
+                        <TextBox Width="60" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding PendingOrderVolume, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="SL"/>
+                        <TextBox Width="70" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding PendingStopLoss, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="TP"/>
+                        <TextBox Width="70" Margin="0,0,12,0" VerticalContentAlignment="Center"
+                                 Text="{Binding PendingTakeProfit, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Padding="10,4" Content="Place" Command="{Binding PlacePendingOrderCommand}"/>
+                        <Button Padding="10,4" Margin="12,0,0,0" Content="Refresh" Command="{Binding RefreshPendingOrdersCommand}"/>
+                    </StackPanel>
+
+                    <DataGrid
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding PendingOrders}"
+                        SelectedItem="{Binding SelectedPendingOrder}"
+                        SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="70" Binding="{Binding Ticket}" Header="Ticket"/>
+                            <DataGridTextColumn Width="100" Binding="{Binding Symbol}" Header="Symbol"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Type}" Header="Type"/>
+                            <DataGridTextColumn Width="70" Binding="{Binding Volume}" Header="Volume"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Price}" Header="Price"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding StopLoss}" Header="SL"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding TakeProfit}" Header="TP"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding State}" Header="State"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,6,0,0">
+                        <Button Padding="10,4" Content="Cancel Selected" Command="{Binding CancelPendingOrderCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- History -->
+            <TabItem Header="History">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" HorizontalAlignment="Right" Padding="10,4" Margin="0,0,0,6"
+                            Content="Refresh" Command="{Binding LoadHistoryCommand}"/>
+
+                    <DataGrid
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding TradeHistory}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="70" Binding="{Binding Ticket}" Header="Ticket"/>
+                            <DataGridTextColumn Width="100" Binding="{Binding Symbol}" Header="Symbol"/>
+                            <DataGridTextColumn Width="70" Binding="{Binding Type}" Header="Type"/>
+                            <DataGridTextColumn Width="70" Binding="{Binding Volume}" Header="Volume"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Price}" Header="Price"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Profit}" Header="Profit"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Commission}" Header="Comm"/>
+                            <DataGridTextColumn Width="90" Binding="{Binding Swap}" Header="Swap"/>
+                            <DataGridTextColumn Width="140" Binding="{Binding Time}" Header="Time"/>
+                            <DataGridTextColumn Width="140" Binding="{Binding Comment}" Header="Comment"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Watchlists -->
+            <TabItem Header="Watchlists">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock FontWeight="Bold" Text="Saved watchlists" Margin="0,0,0,4"/>
+                        <ListBox Height="220" Margin="0,0,0,6"
+                                 ItemsSource="{Binding Watchlists}"
+                                 SelectedItem="{Binding SelectedWatchlist}"
+                                 DisplayMemberPath="Name"/>
+                        <Button Padding="10,4" Content="Delete Selected" Command="{Binding DeleteWatchlistCommand}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock FontWeight="Bold" Text="New watchlist" Margin="0,0,0,4"/>
+                        <TextBlock Text="Name"/>
+                        <TextBox Margin="0,0,0,6" Text="{Binding NewWatchlistName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Symbols (comma separated)"/>
+                        <TextBox Height="120" Margin="0,0,0,6" AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Text="{Binding NewWatchlistSymbols, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Padding="10,4" Content="Save Watchlist" Command="{Binding SaveWatchlistCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Strategies -->
+            <TabItem Header="Strategies">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock FontWeight="Bold" Text="Saved strategies" Margin="0,0,0,4"/>
+                        <ListBox Height="220" Margin="0,0,0,6"
+                                 ItemsSource="{Binding Strategies}"
+                                 SelectedItem="{Binding SelectedStrategy}"
+                                 DisplayMemberPath="Name"/>
+                        <Button Padding="10,4" Content="Delete Selected" Command="{Binding DeleteStrategyCommand}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock FontWeight="Bold" Text="New strategy" Margin="0,0,0,4"/>
+                        <TextBlock Text="Name"/>
+                        <TextBox Margin="0,0,0,6" Text="{Binding NewStrategyName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Description"/>
+                        <TextBox Margin="0,0,0,6" Text="{Binding NewStrategyDescription, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Parameters (JSON, extensible)"/>
+                        <TextBox Height="80" Margin="0,0,0,6" AcceptsReturn="True" TextWrapping="Wrap"
+                                 Text="{Binding NewStrategyParameters, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Padding="10,4" Content="Save Strategy" Command="{Binding SaveStrategyCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Settings -->
+            <TabItem Header="Settings">
+                <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Key"/>
+                        <TextBox Width="180" Margin="0,0,12,0"
+                                 Text="{Binding NewSettingKey, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Value"/>
+                        <TextBox Width="260" Margin="0,0,12,0"
+                                 Text="{Binding NewSettingValue, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Padding="10,4" Content="Save Setting" Command="{Binding SaveSettingCommand}"/>
+                    </StackPanel>
+
+                    <DataGrid
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Settings}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="250" Binding="{Binding Key}" Header="Key"/>
+                            <DataGridTextColumn Width="*" Binding="{Binding Value}" Header="Value"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- ===================== Status bar ===================== -->
+        <StatusBar Grid.Row="4" Margin="0,8,0,0"
+                   Background="{DynamicResource ThemePanelBackground}"
+                   Foreground="{DynamicResource ThemeTextBrush}"
+                   BorderBrush="{DynamicResource ThemeBorderBrush}"
+                   BorderThickness="1">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Margin="0,0,8,0">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                        <Setter Property="Fill" Value="LimeGreen"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock Text="{Binding Status}"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
 
     </Grid>
 

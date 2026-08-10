@@ -6,8 +6,12 @@ from mt5.market import Market
 from mt5.trade import Trade
 
 from services.account_service import AccountService
+from services.account_stream import AccountStream
+from services.broadcaster import Broadcaster
 from services.candle_service import CandleService
+from services.candle_stream import CandleStream
 from services.connection_monitor import ConnectionMonitor
+from services.position_stream import PositionStream
 from services.price_feed import PriceFeed
 from services.trade_service import TradeService
 
@@ -29,6 +33,11 @@ _connection_monitor = ConnectionMonitor(
     _connector,
     check_interval=settings.mt5_monitor_interval,
 )
+
+_broadcaster = Broadcaster()
+_candle_stream = CandleStream(_market, _broadcaster)
+_position_stream = PositionStream(_market, _broadcaster, trade=_trade)
+_account_stream = AccountStream(_account, _broadcaster)
 
 logger.info("Dependencies initialized.")
 
@@ -71,3 +80,18 @@ def get_price_feed():
 def get_connection_monitor():
 
     return _connection_monitor
+
+
+def get_candle_stream():
+
+    return _candle_stream
+
+
+def get_position_stream():
+
+    return _position_stream
+
+
+def get_account_stream():
+
+    return _account_stream

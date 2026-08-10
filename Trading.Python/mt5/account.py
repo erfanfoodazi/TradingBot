@@ -35,24 +35,31 @@ class Account:
         return info
 
     def as_dict(self, info):
+        server = ""
+        terminal = mt5.terminal_info()
+        if terminal is not None:
+            parts = [terminal.company or "", terminal.name or ""]
+            server = " | ".join([p for p in parts if p])
+
         return {
-            "login": info.login,
+            "login": int(info.login),
+            "server": server,
             "trade_mode": TRADE_MODE_NAMES.get(
                 info.trade_mode,
                 info.trade_mode
             ),
-            "leverage": info.leverage,
+            "leverage": int(info.leverage),
             "trade_allowed": bool(info.trade_allowed),
             "margin_mode": MARGIN_SO_MODE_NAMES.get(
                 info.margin_mode,
                 info.margin_mode
             ),
             "currency": info.currency,
-            "balance": info.balance,
-            "equity": info.equity,
-            "margin": info.margin,
-            "margin_free": info.margin_free,
-            "margin_level": info.margin_level,
-            "profit": info.profit,
-            "credit": info.credit,
+            "balance": float(info.balance),
+            "equity": float(info.equity),
+            "margin": float(info.margin),
+            "margin_free": float(info.margin_free),
+            "margin_level": float(info.margin_level),
+            "profit": float(info.profit),
+            "credit": float(info.credit),
         }

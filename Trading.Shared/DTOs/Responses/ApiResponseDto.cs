@@ -1,6 +1,6 @@
 ﻿namespace Trading.Shared.Responses;
 
-public sealed class ApiResponseDto<T>
+public sealed class ApiResponseDto<T> : IApiResponse
 {
     public bool Success { get; set; }
 

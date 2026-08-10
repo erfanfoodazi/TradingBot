@@ -14,6 +14,7 @@ from api.orders import router as orders_router
 from api.price import router as price_router
 from api.symbols import router as symbols_router
 from api.account import router as account_router
+from api.streams import router as streams_router
 from dependencies.auth import verify_api_key
 from exceptions.base_exception import TradingException
 from exceptions.exception_handler import (
@@ -48,6 +49,9 @@ app.include_router(account_router, dependencies=[Depends(verify_api_key)])
 
 # Live price feed (auth via ?api_key= query param when API_KEY is set).
 app.include_router(price_router)
+
+# Real-time streaming (candles, positions, account) - auth via query param.
+app.include_router(streams_router)
 
 app.add_exception_handler(
     TradingException,

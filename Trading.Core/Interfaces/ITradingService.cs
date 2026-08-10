@@ -15,4 +15,17 @@ public interface ITradingService
         ClosePositionRequestDto request);
 
     Task<List<PositionResponseDto>> GetPositionsAsync();
+
+    Task<PendingOrderResponseDto> PlacePendingOrderAsync(
+        PendingOrderRequestDto request);
+
+    Task<List<PendingOrderResponseDto>> GetPendingOrdersAsync();
+
+    Task CancelPendingOrderAsync(long ticket);
+
+    Task ModifyPositionAsync(
+        ModifyPositionRequestDto request);
+
+    Task<List<TradeHistoryResponseDto>> GetTradeHistoryAsync(
+        TradeHistoryRequestDto request);
 }
