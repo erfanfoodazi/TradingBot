@@ -9,36 +9,80 @@ namespace TradingBot.UI.Strategy;
 /// <summary>
 /// Manual / discretionary strategy.
 ///
-/// Original trading logic preserved:
-///  - Candles build and detect the trend and the reversing candle.
-///  - Entry levels are computed with the existing Body/Shadow midpoint rules.
-///  - <see cref="Feed(CandleUpdateDto)"/> stays the realtime candle entry point.
+/// Trading logic per the employer's structural rules:
+///  - A trend is a sequence of at least <see cref="DefaultMinTrendCandles"/>
+///    candles of the SAME direction/color, where every valid trend candle
+///    continues the structure by breaking/touching the relevant High (upward)
+///    or Low (downward) of the previous trend candle.
+///  - Noise candles (a candle that breaks neither the previous High nor Low,
+///    or which breaks/touches BOTH of them) are never added to the trend
+///    sequence and never count toward the minimum requirements.
+///  - A reversal follows the exact same structural rules but in the opposite
+///    direction; at least <see cref="DefaultMinReversalCandles"/> valid
+///    reversal candles are required before the reversal is confirmed.
+///  - Entry levels depend on how the FIRST reversal candle broke the LAST
+///    trend candle:
+///      * Body break  -> final one-third of the original trend range.
+///      * Shadow break -> middle (1/2) of the original trend range.
+///    The original trend range is always derived from the trend structure
+///    only (never from reversal candles). The SECOND reversal candle only
+///    confirms the reversal and never changes the Entry level.
+///  - <see cref="Feed(CandleUpdateDto)"/> stays the realtime candle entry point
+///    (closed candles drive trend/reversal analysis). Live ticks drive the
+///    actual entry via <see cref="OnTick(TickUpdateDto)"/>.
 ///
-/// Improvements:
+/// Architecture preserved:
 ///  - All shared mutable state is guarded by <see cref="_gate"/> (thread safety).
-///  - A deterministic state machine (booleans/enums were replaced) prevents
-///    duplicate trades and makes every transition explicit.
-///  - Real-time entry is driven by live ticks via <see cref="OnTick(TickUpdateDto)"/>
-///    instead of relying only on candle High/Low for entry execution.
-///  - Trade submission is serialized; multiple Buy/Sell calls cannot overlap.
+///  - Duplicate entries are prevented by a deterministic state machine plus a
+///    semaphore that serializes Buy/Sell submission.
 ///  - The symbol always comes from the constructor field <c>_symbol</c>;
 ///    CandleResponseDto carries no symbol, so it is never read from candles.
+///  - <see cref="ITradingService"/> is the trading dependency; the account is
+///    read through <see cref="IAccountService"/> for diagnostics only.
+///  - Stop Loss comes from the market structure, NOT from a fixed pip value:
+///      * UP trend (sell)  -> the structural HIGH of the trend is the SL boundary.
+///      * DOWN trend (buy) -> the structural LOW of the trend is the SL boundary.
+///    The SL distance is measured from the actual execution price to that
+///    structural level, so it adapts to the price structure on every trade.
+///  - Risk limit: the expected monetary loss at SL is always approximately
+///    $100 (Maximum Loss = $100), so the volume is derived from
+///    LossPerLotAtSL = (SL distance / tick size) * tick value
+///    and normalized to the broker VolumeMin/VolumeMax/VolumeStep grid.
+///  - Take Profit: a fixed 1 : 2.2 risk/reward ratio:
+///      TP Distance = SL Distance * 2.2  =>  maximum profit ~ $220.
+///  - The P/L math uses the actual MT5 symbol tick specs (trade_tick_value /
+///    trade_tick_size), so the realized loss at SL and profit at TP are correct
+///    regardless of the symbol or the SL distance.
+///    SL is the structural level itself; TP is anchored to the actual current MT5
+///    tick price at execution time (Bid for a sell, Ask for a buy) - never to a
+///    candle Close.
 /// </summary>
 public class ManualStrategy
 {
     /// <summary>
-    /// Minimum number of trend candles required before a reversing candle can
-    /// complete the setup. Configurable through the constructor; defaults to the
-    /// original value of 3 (the rule is not assumed, it is a parameter).
+    /// Minimum number of VALID trend candles required before a reversal setup
+    /// can be considered. Noise candles never count toward this value.
     /// </summary>
     public const int DefaultMinTrendCandles = 3;
 
+    /// <summary>
+    /// Minimum number of VALID reversal candles required before the reversal
+    /// is considered confirmed. Noise candles never count toward this value.
+    /// </summary>
+    public const int DefaultMinReversalCandles = 1;
+
     private readonly ITradingService _trading;
+    private readonly IAccountService _account;
     private readonly string _symbol;
     private readonly int _minTrendCandles;
+    private readonly int _minReversalCandles;
     private readonly object _gate = new();
 
+    /// <summary>Valid trend candles only (same direction/color, no noise).</summary>
     private readonly List<CandleResponseDto> _trend = [];
+
+    /// <summary>Valid reversal candles only (opposite direction, no noise).</summary>
+    private readonly List<CandleResponseDto> _reversals = [];
 
     /// <summary>
     /// The most recently observed sample of the currently forming candle. The live
@@ -52,17 +96,36 @@ public class ManualStrategy
     private TrendMode _modeOfTrend = TrendMode.None;
     private ReversMode _modeOfRevers = ReversMode.None;
 
+    /// <summary>Maximum expected monetary loss at the Stop Loss (account currency).</summary>
+    private const double MaxLossUsd = 100.0;
+
+    /// <summary>Risk/reward ratio applied to the Stop Loss distance (1 : 2.2).</summary>
+    private const double RiskRewardRatio = 2.2;
+
     private int _countOfRevers;
     private double _entry;
 
+    /// <summary>
+    /// Structural Stop Loss boundary derived from the ORIGINAL trend structure only
+    /// (never from reversal candles): the trend's structural HIGH for an up trend
+    /// (sell) or its structural LOW for a down trend (buy).
+    /// </summary>
+    private double _structuralSl;
+
+    /// <summary>Throttle window for the periodic WaitingForEntry tick diagnostics.</summary>
+    private DateTime _lastTickLogUtc;
+
     private StrategyState _state = StrategyState.WaitingForTrend;
 
-    public ManualStrategy(ITradingService trading, string symbol,
-        int minTrendCandles = DefaultMinTrendCandles)
+    public ManualStrategy(ITradingService trading, IAccountService account, string symbol,
+        int minTrendCandles = DefaultMinTrendCandles,
+        int minReversalCandles = DefaultMinReversalCandles)
     {
         _trading = trading ?? throw new ArgumentNullException(nameof(trading));
+        _account = account ?? throw new ArgumentNullException(nameof(account));
         _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
         _minTrendCandles = Math.Max(1, minTrendCandles);
+        _minReversalCandles = Math.Max(1, minReversalCandles);
     }
 
     /// <summary>
@@ -99,7 +162,11 @@ public class ManualStrategy
         lock (_gate)
         {
             if (_forming is not null && _forming.Time != dto.Time)
+            {
+                Log($"Feed: closed candle {_forming.Time:HH:mm:ss} (O={_forming.Open}, H={_forming.High}, " +
+                    $"L={_forming.Low}, C={_forming.Close}) -> processing.");
                 ProcessCandle(_forming);
+            }
 
             _forming = dto;
         }
@@ -121,6 +188,8 @@ public class ManualStrategy
 
         bool sell = false;
         bool shouldTrade = false;
+        bool entryReached = false;
+        double executionPrice = 0;
 
         lock (_gate)
         {
@@ -134,15 +203,30 @@ public class ManualStrategy
             else
                 return;
 
+            entryReached = shouldTrade;
+
+            // Throttled diagnostic so the log shows current Bid/Ask, the state,
+            // the Entry level and whether it has been reached - without flooding.
+            var now = DateTime.UtcNow;
+            if ((now - _lastTickLogUtc).TotalSeconds >= 2.0)
+            {
+                _lastTickLogUtc = now;
+                Log($"WaitingForEntry: state={_state}, trend={_modeOfTrend}, entry={_entry:F5}, " +
+                    $"bid={tick.Bid:F5}, ask={tick.Ask:F5}, entryReached={entryReached}");
+            }
+
             if (shouldTrade)
             {
                 sell = _modeOfTrend == TrendMode.UpWard;
+                executionPrice = sell ? tick.Bid : tick.Ask;
                 _state = StrategyState.ExecutingTrade;
+                Log($"Entry reached ({(sell ? "SELL" : "BUY")}): entry={_entry:F5}, " +
+                    $"executionPrice={executionPrice:F5} (bid={tick.Bid:F5}, ask={tick.Ask:F5}).");
             }
         }
 
         if (shouldTrade)
-            RunTradeAsync(sell);
+            RunTradeAsync(sell, executionPrice);
     }
 
     /// <summary>
@@ -173,152 +257,268 @@ public class ManualStrategy
             if (_state == StrategyState.WaitingForEntry)
                 return;
 
+            // No trend yet: seed it from the first coloured candle.
             if (_trend.Count == 0)
             {
-                _trend.Add(candle);
-                _state = StrategyState.WaitingForTrend;
+                SeedTrend(candle);
                 return;
             }
 
-            // Only after enough trend candles have accumulated may a candle
-            // complete the setup by reversing. (Mirrors the original >= limit.)
-            if (_trend.Count >= _minTrendCandles)
+            // Trend is still building (below the confirmation threshold).
+            if (_trend.Count < _minTrendCandles)
             {
-                CheckForReversTrend(candle);
-
-                if (_state == StrategyState.WaitingForEntry)
-                    return;
-            }
-
-            if (CheckForUpwardTrend(candle))
-            {
-                _modeOfTrend = TrendMode.UpWard;
-                _trend.Add(candle);
-                _state = _trend.Count >= _minTrendCandles
-                    ? StrategyState.WaitingForReversal
-                    : StrategyState.UpTrend;
+                ProcessTrendBuilding(candle);
                 return;
             }
 
-            if (CheckForDownwardTrend(candle))
-            {
-                _modeOfTrend = TrendMode.DownWard;
-                _trend.Add(candle);
-                _state = _trend.Count >= _minTrendCandles
-                    ? StrategyState.WaitingForReversal
-                    : StrategyState.DownTrend;
-                return;
-            }
-
-            ResetTrend(candle);
+            // Trend confirmed: watch for a valid reversal.
+            ProcessReversalPhase(candle);
         }
     }
 
-    #region Trend detection (unchanged candle maths)
+    #region Trend detection (structural rules)
 
-    private bool CheckForUpwardTrend(CandleResponseDto candle)
+    private static bool IsBullish(CandleResponseDto c) => c.Close > c.Open;
+
+    private static bool IsBearish(CandleResponseDto c) => c.Close < c.Open;
+
+    /// <summary>
+    /// A candle is "noise" relative to the reference candle when it either
+    /// breaks neither the reference High nor Low, or breaks/touches BOTH of
+    /// them. Noise candles never enter a trend/reversal sequence and never
+    /// count toward the minimum requirements.
+    /// </summary>
+    private static bool IsNoise(CandleResponseDto candle, CandleResponseDto prev)
     {
-        var previous = _trend.Last();
+        bool breaksHigh = candle.High >= prev.High;
+        bool breaksLow = candle.Low <= prev.Low;
+        // add new types of noise candles 
 
-        bool bullish = candle.Close > candle.Open;
-        if (!bullish)
-            return false;
-
-        return previous.Low < candle.Low &&
-               previous.High < candle.High;
+        return (!breaksHigh && !breaksLow) || (breaksHigh && breaksLow);
     }
 
-    private bool CheckForDownwardTrend(CandleResponseDto candle)
+    /// <summary>
+    /// Valid upward structural candle: bullish, breaks/touches the relevant
+    /// High of the reference candle, and does NOT break/touch the Low (so it
+    /// is not an engulfing noise candle).
+    /// </summary>
+    private static bool IsValidUpward(CandleResponseDto candle, CandleResponseDto prev)
+        => IsBullish(candle) && candle.High >= prev.High && candle.Low > prev.Low;
+
+    /// <summary>
+    /// Valid downward structural candle: bearish, breaks/touches the relevant
+    /// Low of the reference candle, and does NOT break/touch the High (so it
+    /// is not an engulfing noise candle).
+    /// </summary>
+    private static bool IsValidDownward(CandleResponseDto candle, CandleResponseDto prev)
+        => IsBearish(candle) && candle.Low <= prev.Low && candle.High < prev.High;
+
+    private void ProcessTrendBuilding(CandleResponseDto candle)
     {
-        var previous = _trend.Last();
+        var last = _trend[^1];
 
-        bool bearish = candle.Close < candle.Open;
-        if (!bearish)
-            return false;
-
-        return previous.Low > candle.Low &&
-               previous.High > candle.High;
-    }
-
-    private void CheckForReversTrend(CandleResponseDto candle)
-    {
-        var previous = _trend.Last();
-
-        bool bullish = candle.Close > candle.Open;
-        bool bearish = candle.Close < candle.Open;
-
-        if (_modeOfTrend == TrendMode.UpWard)
+        if (_modeOfTrend == TrendMode.UpWard && IsValidUpward(candle, last))
         {
-            if (bearish && previous.Low > candle.Low)
-            {
-                if (previous.Low > candle.Close)
-                {
-                    _modeOfRevers = ReversMode.Body;
-                    _entry = CalculateUpTrendBodyEntry();
-                }
-                else
-                {
-                    _modeOfRevers = ReversMode.Shadow;
-                    _entry = CalculateUpTrendShadowEntry();
-                }
+            _trend.Add(candle);
+        }
+        else if (_modeOfTrend == TrendMode.DownWard && IsValidDownward(candle, last))
+        {
+            _trend.Add(candle);
+        }
+        else if (IsNoise(candle, last))
+        {
+            // Noise candles are neither counted nor allowed to disturb the trend.
+            Log($"Noise candle {candle.Time:HH:mm:ss} skipped (trend={_modeOfTrend}, " +
+                $"trendCandles={_trend.Count}/{_minTrendCandles}).");
+            return;
+        }
+        else
+        {
+            // A non-noise candle that fails to continue the current direction
+            // invalidates the unconfirmed trend: restart from this candle.
+            Log($"Trend {_modeOfTrend} broken at candle {candle.Time:HH:mm:ss} " +
+                $"(H={candle.High}, L={candle.Low} vs last H={last.High}, L={last.Low}); reseeding.");
+            SeedTrend(candle);
+            return;
+        }
 
-                _trend.Add(candle);
+        _state = _trend.Count >= _minTrendCandles
+            ? StrategyState.WaitingForReversal
+            : (_modeOfTrend == TrendMode.UpWard ? StrategyState.UpTrend : StrategyState.DownTrend);
+
+        Log($"Trend {_modeOfTrend}: added candle {candle.Time:HH:mm:ss} -> trendCandles=" +
+            $"{_trend.Count}/{_minTrendCandles}, state={_state}.");
+    }
+
+    #endregion
+
+    #region Reversal detection (same structural rules, opposite direction)
+
+    private void ProcessReversalPhase(CandleResponseDto candle)
+    {
+        var lastTrend = _trend[^1];
+
+        // No valid reversal candle recorded yet: the first one must break the
+        // LAST trend candle using the opposite-direction structure.
+        if (_countOfRevers == 0)
+        {
+            if (IsFirstReversal(candle, lastTrend))
+            {
+                _reversals.Add(candle);
+                _modeOfRevers = UsesBodyBreak(candle, lastTrend)
+                    ? ReversMode.Body
+                    : ReversMode.Shadow;
+
+                
+               
                 _countOfRevers++;
-                _state = StrategyState.WaitingForEntry;
+                Log($"First reversal candle {candle.Time:HH:mm:ss} recorded against last trend " +
+                    $"(H={lastTrend.High}, L={lastTrend.Low}): type={_modeOfRevers}, " +
+                    $"reversalCandles={_countOfRevers}/{_minReversalCandles}, state={_state}.");
                 return;
             }
+
+            // The trend is still alive; extend it with a valid continuation.
+            if (IsValidTrendContinuation(candle, lastTrend))
+            {
+                _trend.Add(candle);
+                Log($"Trend {_modeOfTrend} extended: +candle {candle.Time:HH:mm:ss} -> " +
+                    $"trendCandles={_trend.Count}.");
+            }
+
+            return;
+        }
+
+        // One valid reversal candle already recorded: need the confirming one.
+        var lastReversal = _reversals[^1];
+        if (IsNextReversal(candle, lastReversal))
+        {
+            _reversals.Add(candle);
+            _countOfRevers++;
+            Log($"Reversal candle {candle.Time:HH:mm:ss} recorded (vs last reversal H={lastReversal.High}, " +
+                $"L={lastReversal.Low}) -> reversalCandles={_countOfRevers}/{_minReversalCandles}.");
+
+            if (_countOfRevers >= _minReversalCandles)
+            {
+                _entry = CalculateEntry();
+                _state = StrategyState.WaitingForEntry;
+                Log($"REVERSAL CONFIRMED: trend={_modeOfTrend}, reversalType={_modeOfRevers}, " +
+                    $"trendCandles={_trend.Count}, reversalCandles={_countOfRevers}, " +
+                    $"entry={_entry:F5}, state={_state}. Waiting for price.");
+            }
+
+            return;
+        }
+
+        // A valid trend continuation invalidates the pending reversal attempt.
+        if (IsValidTrendContinuation(candle, lastTrend))
+        {
+            _trend.Add(candle);
+            _reversals.Clear();
+            _countOfRevers = 0;
+            _modeOfRevers = ReversMode.None;
+            Log($"Reversal attempt invalidated by trend continuation candle {candle.Time:HH:mm:ss}; " +
+                $"trendCandles={_trend.Count}, reversalCandles=0.");
+        }
+    }
+
+    /// <summary>
+    /// First reversal condition (UpWard trend -> bearish Low break; DownWard
+    /// trend -> bullish High break), measured against the last trend candle.
+    /// </summary>
+    private bool IsFirstReversal(CandleResponseDto candle, CandleResponseDto lastTrend)
+    {
+        if (_modeOfTrend == TrendMode.UpWard)
+        {
+            // Uptrend -> first reversal must break/touch
+            // the LOW of the last trend candle.
+            return IsBearish(candle) &&
+                   candle.Low <= lastTrend.Low;
         }
 
         if (_modeOfTrend == TrendMode.DownWard)
         {
-            if (bullish && previous.High < candle.High)
-            {
-                if (previous.High < candle.Close)
-                {
-                    _modeOfRevers = ReversMode.Body;
-                    _entry = CalculateDownTrendBodyEntry();
-                }
-                else
-                {
-                    _modeOfRevers = ReversMode.Shadow;
-                    _entry = CalculateDownTrendShadowEntry();
-                }
-
-                _trend.Add(candle);
-                _countOfRevers++;
-                _state = StrategyState.WaitingForEntry;
-                return;
-            }
+            // Downtrend -> first reversal must break/touch
+            // the HIGH of the last trend candle.
+            return IsBullish(candle) &&
+                   candle.High >= lastTrend.High;
         }
+
+        return false;
     }
 
-    // Each routine returns a single real price level (a scalar), not a range.
-    private double CalculateUpTrendBodyEntry()
-    {
-        double low = _trend.First().Low;
-        double high = _trend.Last().High;
-        return low + ((high - low) / 2.0); // midpoint of the range
-    }
+    /// <summary>
+    /// Subsequent reversal condition, chained against the previous reversal
+    /// candle (reversal follows the same structure rules as a trend).
+    /// </summary>
+    private bool IsNextReversal(CandleResponseDto candle, CandleResponseDto lastReversal)
+        => _modeOfTrend == TrendMode.UpWard
+            ? IsValidDownward(candle, lastReversal)
+            : IsValidUpward(candle, lastReversal);
 
-    private double CalculateUpTrendShadowEntry()
-    {
-        double low = _trend.First().Low;
-        double high = _trend.Last().High;
-        return low + (((high - low) / 3.0) * 2.0); // 2/3 into the range
-    }
+    private bool IsValidTrendContinuation(CandleResponseDto candle, CandleResponseDto lastTrend)
+        => _modeOfTrend switch
+        {
+            TrendMode.UpWard => IsValidUpward(candle, lastTrend),
+            TrendMode.DownWard => IsValidDownward(candle, lastTrend),
+            _ => false,
+        };
 
-    private double CalculateDownTrendBodyEntry()
-    {
-        double high = _trend.First().High;
-        double low = _trend.Last().Low;
-        return low + ((high - low) / 2.0); // midpoint of the range
-    }
+    /// <summary>
+    /// Distinguishes a BODY break from a SHADOW/wick break for the FIRST
+    /// reversal candle relative to the LAST trend candle:
+    ///  - UpWard trend (bearish reversal): the body (Close) pierces below the
+    ///    last trend Low.
+    ///  - DownWard trend (bullish reversal): the body (Close) pierces above the
+    ///    last trend High.
+    /// When this returns false, only the shadow/wick broke the level.
+    /// </summary>
+    private bool UsesBodyBreak(CandleResponseDto candle, CandleResponseDto lastTrend)
+        => _modeOfTrend == TrendMode.UpWard
+            ? candle.Close < lastTrend.Low
+            : candle.Close > lastTrend.High;
 
-    private double CalculateDownTrendShadowEntry()
+    /// <summary>
+    /// Entry level from the ORIGINAL trend structure only (never from reversal
+    /// candles):
+    ///  - Body break  -> final one-third of the trend range.
+    ///  - Shadow break -> middle (1/2) of the trend range.
+    ///
+    /// Also derives the structural Stop Loss boundary from the trend structure:
+    ///  - Up trend (sell)  -> the trend's structural HIGH.
+    ///  - Down trend (buy) -> the trend's structural LOW.
+    /// </summary>
+    private double CalculateEntry()
     {
-        double high = _trend.First().High;
-        double low = _trend.Last().Low;
-        return low + ((high - low) / 3.0); // 1/3 up from the range low
+        double entry;
+        if (_modeOfTrend == TrendMode.UpWard)
+        {
+            double low = _trend.First().Low;
+            double high = _trend.Last().High;
+            entry = _modeOfRevers == ReversMode.Body
+                ? low + ((high - low) * 2.0 / 3.0) // final one-third
+                : low + ((high - low) / 2.0);      // middle
+
+            _structuralSl = _trend.Max(t => t.High); // structural high -> SL above entry
+        }
+        else
+        {
+            double h = _trend.First().High;
+            double l = _trend.Last().Low;
+            entry = _modeOfRevers == ReversMode.Body
+                ? l + ((h - l) / 3.0)              // final one-third
+                : l + ((h - l) / 2.0);             // middle
+
+            _structuralSl = _trend.Min(t => t.Low); // structural low -> SL below entry
+        }
+
+        var rangeStart = _modeOfTrend == TrendMode.UpWard ? _trend.First().Low : _trend.First().High;
+        var rangeEnd = _modeOfTrend == TrendMode.UpWard ? _trend.Last().High : _trend.Last().Low;
+        Log($"Entry calc: trend={_modeOfTrend}, trendCandles={_trend.Count}, " +
+            $"rangeStart={rangeStart:F5}, rangeEnd={rangeEnd:F5}, range={(rangeEnd - rangeStart):F5}, " +
+            $"reversalType={_modeOfRevers} -> entry={entry:F5}, structuralSl={_structuralSl:F5}.");
+
+        return entry;
     }
 
     #endregion
@@ -328,7 +528,7 @@ public class ManualStrategy
     /// <summary>Serializes all order submissions for this strategy instance.</summary>
     private readonly SemaphoreSlim _tradeSerial = new(1, 1);
 
-    private async void RunTradeAsync(bool sell)
+    private async void RunTradeAsync(bool sell, double executionPrice)
     {
         // The semaphore guarantees that even if two trigger paths raced, only one
         // Buy/Sell request is in flight at a time for this strategy.
@@ -338,23 +538,83 @@ public class ManualStrategy
             await _tradeSerial.WaitAsync();
             acquired = true;
 
-            const double volume = 0.01;
+            // Diagnostics only: the risk math does not depend on the balance.
+            var account = await _account.GetAccountInfoAsync();
+            double balance = account.Balance;
+            Log($"Account: balance={balance:F2} (risk capped at {MaxLossUsd:F2}, " +
+                $"reward capped at {MaxLossUsd * RiskRewardRatio:F2}).");
+
+            // Symbol specs (MT5): point, digits, tick size/value and the
+            // broker volume min/max/step constraints.
+            var symbol = await _trading.GetSymbolInfoAsync(_symbol);
+
+            // Structural Stop Loss from the original trend structure. This is read
+            // under the lock so it stays consistent with the sealed setup.
+            double structuralSl;
+            lock (_gate)
+            {
+                structuralSl = _structuralSl;
+            }
+
+            // Actual SL price distance from the execution price to the structural
+            // level: above the entry for a SELL, below it for a BUY.
+            double slDistance = sell
+                ? structuralSl - executionPrice   // SL (trend high) above a sell entry
+                : executionPrice - structuralSl;  // SL (trend low) below a buy entry
+            if (slDistance <= 0)
+            {
+                Log($"ABORT: structural SL ({structuralSl:F5}) does not protect the " +
+                    $"{(sell ? "SELL" : "BUY")} entry ({executionPrice:F5}); slDistance={slDistance:F5}.");
+                return;
+            }
+
+            // Expected loss on the position for a 1.0 lot move from entry to SL:
+            // (SL distance / tick size) ticks * tick value per tick per lot.
+            double lossPerLot = (slDistance / symbol.TickSize) * symbol.TickValue;
+
+            // Risk-driven volume so the loss at SL is ~ MaxLossUsd ($100),
+            // normalized to the broker volume grid. Smaller SL -> larger volume.
+            double rawVolume = MaxLossUsd / lossPerLot;
+            double volume = NormalizeVolume(rawVolume, symbol);
+            Log($"Sizing: digits={symbol.Digits}, point={symbol.Point}, tickSize={symbol.TickSize}, " +
+                $"tickValue={symbol.TickValue}, structuralSl={structuralSl:F5}, slDistance={slDistance:F5}, " +
+                $"lossPerLot={lossPerLot:F2}, rawVolume={rawVolume:F5}, volume={volume:F5} " +
+                $"(min={symbol.VolumeMin}, max={symbol.VolumeMax}, step={symbol.VolumeStep}).");
+
+            // Take Profit: fixed 1 : 2.2 risk/reward ratio applied to the ACTUAL
+            // SL distance (never a fixed pip value).
+            double tpDistance = slDistance * RiskRewardRatio;
+
+            // SL is the structural level itself; TP is anchored to the actual
+            // market execution price (a BUY fills at Ask, a SELL fills at Bid).
+            double sl = structuralSl;
+            double tp = sell
+                ? executionPrice - tpDistance
+                : executionPrice + tpDistance;
+            Log($"Trade params: side={(sell ? "SELL" : "BUY")}, executionPrice={executionPrice:F5}, " +
+                $"sl={sl:F5} (distance {slDistance:F5}), tp={tp:F5} (distance {tpDistance:F5}, " +
+                $"{RiskRewardRatio:F1} : 1 risk/reward).");
+
             var request = new TradeRequestDto
             {
                 Symbol = _symbol,
                 Volume = volume,
+                StopLoss = sl,
+                TakeProfit = tp,
             };
 
+            TradeResponseDto result;
             if (sell)
-                await _trading.SellAsync(request);
+                result = await _trading.SellAsync(request);
             else
-                await _trading.BuyAsync(request);
+                result = await _trading.BuyAsync(request);
 
-            Debug.WriteLine($"[ManualStrategy] order for {_symbol} executed.");
+            Log($"ORDER EXECUTED: side={(sell ? "SELL" : "BUY")}, symbol={_symbol}, ticket={result.Ticket}, " +
+                $"volume={volume}, sl={sl:F5}, tp={tp:F5}, executionPrice={executionPrice:F5}.");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[ManualStrategy] trade failed: {ex.Message}");
+            Log($"TRADE FAILED: {ex.GetType().Name}: {ex.Message}");
         }
         finally
         {
@@ -368,35 +628,84 @@ public class ManualStrategy
         }
     }
 
+    /// <summary>
+    /// Clamps a requested volume to the broker's [VolumeMin, VolumeMax] range and
+    /// rounds it down to the nearest <c>VolumeStep</c> multiple.
+    /// </summary>
+    private static double NormalizeVolume(double volume, SymbolInfoResponseDto symbol)
+    {
+        double min = symbol.VolumeMin > 0 ? symbol.VolumeMin : 0;
+        double max = symbol.VolumeMax > 0 ? symbol.VolumeMax : double.MaxValue;
+        double step = symbol.VolumeStep > 0 ? symbol.VolumeStep : 0.01;
+
+        double normalized = Math.Floor(volume / step) * step;
+        return Math.Clamp(normalized, min, max);
+    }
+
     #endregion
 
     #region State reset helpers
 
-    private void ResetTrend(CandleResponseDto candle)
+    /// <summary>
+    /// Clears all state and seeds a fresh trend from the given candle. The trend
+    /// direction/color is taken from that candle; a truly neutral candle leaves
+    /// the strategy waiting for the first coloured candle.
+    /// </summary>
+    private void SeedTrend(CandleResponseDto candle)
     {
         _trend.Clear();
-        _trend.Add(candle);
+        _reversals.Clear();
 
-        _modeOfTrend = TrendMode.None;
         _modeOfRevers = ReversMode.None;
-
-        _entry = 0;
         _countOfRevers = 0;
 
-        _state = StrategyState.WaitingForTrend;
+        _entry = 0;
+        _structuralSl = 0;
+
+        if (IsBullish(candle))
+        {
+            _modeOfTrend = TrendMode.UpWard;
+            _trend.Add(candle);
+        }
+        else if (IsBearish(candle))
+        {
+            _modeOfTrend = TrendMode.DownWard;
+            _trend.Add(candle);
+        }
+        else
+        {
+            _modeOfTrend = TrendMode.None;
+        }
+
+        _state = _trend.Count == 0
+            ? StrategyState.WaitingForTrend
+            : _trend.Count >= _minTrendCandles
+                ? StrategyState.WaitingForReversal
+                : (_modeOfTrend == TrendMode.UpWard
+                    ? StrategyState.UpTrend
+                    : StrategyState.DownTrend);
+
+        Log($"SeedTrend: candle {candle.Time:HH:mm:ss} (O={candle.Open}, H={candle.High}, " +
+            $"L={candle.Low}, C={candle.Close}) -> trend={_modeOfTrend}, trendCandles={_trend.Count}, " +
+            $"state={_state}.");
     }
 
     private void ResetAfterTrade()
     {
         _trend.Clear();
+        _reversals.Clear();
 
         _modeOfTrend = TrendMode.None;
         _modeOfRevers = ReversMode.None;
 
         _entry = 0;
+        _structuralSl = 0;
         _countOfRevers = 0;
 
         _state = StrategyState.WaitingForTrend;
+
+        Log($"State reset after trade -> state={_state}, trendCandles={_trend.Count}, " +
+            $"reversalCandles={_reversals.Count}.");
     }
 
     #endregion
@@ -461,6 +770,13 @@ public class ManualStrategy
     }
 
     #endregion
+
+    /// <summary>
+    /// Writes a structured debug line for this strategy instance. Every call is
+    /// safe from any thread (<see cref="Debug.WriteLine"/> is thread-safe).
+    /// </summary>
+    private void Log(string message)
+        => Debug.WriteLine($"[ManualStrategy][{_symbol}] {message}");
 
     public enum TrendMode
     {

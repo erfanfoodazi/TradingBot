@@ -47,6 +47,10 @@ public class PythonApiClient : IPythonApiClient
         };
     }
 
+    public Task<ApiResponseDto<SymbolInfoResponseDto>> GetSymbolInfoAsync(string symbol)
+        => SendAsync<ApiResponseDto<SymbolInfoResponseDto>>(
+            () => _httpClient.GetAsync($"/api/symbols/{Uri.EscapeDataString(symbol)}"));
+
     public Task<ApiResponseDto<TradeResponseDto>> BuyAsync(TradeRequestDto request)
         => SendAsync<ApiResponseDto<TradeResponseDto>>(
             () => _httpClient.PostAsJsonAsync("/api/orders/buy", request, JsonOptions));

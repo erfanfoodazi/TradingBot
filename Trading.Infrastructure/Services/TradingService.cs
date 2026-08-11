@@ -67,6 +67,12 @@ public class TradingService : ITradingService
         return response.Data ?? [];
     }
 
+    public async Task<SymbolInfoResponseDto> GetSymbolInfoAsync(string symbol)
+    {
+        var response = await _python.GetSymbolInfoAsync(symbol);
+        return EnsureData(response);
+    }
+
     private static T EnsureData<T>(ApiResponseDto<T> response)
         => response.Data is null
             ? throw new PythonApiException(response.Message ?? "No data returned from Python API.")

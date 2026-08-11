@@ -10,6 +10,9 @@ public interface IPythonApiClient
 
     Task<ApiResponseDto<List<SymbolResponseDto>>> GetSymbolsAsync();
 
+    Task<ApiResponseDto<SymbolInfoResponseDto>> GetSymbolInfoAsync(
+        string symbol);
+
     Task<ApiResponseDto<TradeResponseDto>> BuyAsync(
         TradeRequestDto request);
 

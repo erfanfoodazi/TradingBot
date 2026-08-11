@@ -770,7 +770,7 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        _strategy = new ManualStrategy(_tradingService, SelectedSymbol.Name);
+        _strategy = new ManualStrategy(_tradingService, _accountService, SelectedSymbol.Name);
         _realtimeService.CandleReceived += _strategy.Feed;
         _realtimeService.TickReceived += _strategy.OnTick;
         IsStrategyEnabled = true;
@@ -797,7 +797,7 @@ public partial class MainViewModel : ObservableObject
             StopStrategy();
             if (value is not null)
             {
-                _strategy = new ManualStrategy(_tradingService, value.Name);
+                _strategy = new ManualStrategy(_tradingService, _accountService, value.Name);
                 _realtimeService.CandleReceived += _strategy.Feed;
                 _realtimeService.TickReceived += _strategy.OnTick;
                 IsStrategyEnabled = true;

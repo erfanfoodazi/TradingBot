@@ -28,4 +28,6 @@ public interface ITradingService
 
     Task<List<TradeHistoryResponseDto>> GetTradeHistoryAsync(
         TradeHistoryRequestDto request);
+
+    Task<SymbolInfoResponseDto> GetSymbolInfoAsync(string symbol);
 }

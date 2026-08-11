@@ -44,9 +44,9 @@ class Market:
         count: int
     ):
         self.connector.ensure_connected()
-        logger.info(
-            f"Loading candles ({symbol}, tf={timeframe}, pos={start_position}, count={count})"
-        )
+        # logger.info(
+        #     f"Loading candles ({symbol}, tf={timeframe}, pos={start_position}, count={count})"
+        # )
         candles = mt5.copy_rates_from_pos(
             symbol,
             timeframe,
