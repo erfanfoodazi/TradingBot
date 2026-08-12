@@ -293,6 +293,19 @@ public class ManualStrategy
         bool breaksHigh = candle.High >= prev.High;
         bool breaksLow = candle.Low <= prev.Low;
         // add new types of noise candles 
+        if (prev.Open < prev.Close && candle.High > prev.High && candle.Low > prev.Low && candle.Open > candle.Close )
+            return true;
+
+        if (prev.Open > prev.Close && candle.Low < prev.Low && candle.High < prev.High && candle.Open < candle.Close)
+            return true;
+
+        double bodySize = Math.Abs(candle.Close - candle.Open);
+        double totalRange = candle.High - candle.Low;
+        double bodyToRangeRatio = bodySize / totalRange;
+        double thresholdPercen = 0.1;
+
+        if(bodyToRangeRatio <= thresholdPercen)
+            return true;
 
         return (!breaksHigh && !breaksLow) || (breaksHigh && breaksLow);
     }
