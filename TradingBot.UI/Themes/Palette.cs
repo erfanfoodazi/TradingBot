@@ -24,6 +24,10 @@ public sealed class AppPalette
     public System.Windows.Media.Color AlternatingRow { get; init; }
     public System.Windows.Media.Color Up { get; init; }
     public System.Windows.Media.Color Down { get; init; }
+    public System.Windows.Media.Color Hover { get; init; }
+    public System.Windows.Media.Color Pressed { get; init; }
+    public System.Windows.Media.Color DisabledBackground { get; init; }
+    public System.Windows.Media.Color DisabledForeground { get; init; }
     public ChartTheme Chart { get; init; } = null!;
 }
 
@@ -58,6 +62,10 @@ public static class Palette
         AlternatingRow = Rgb(0xF2, 0xF4, 0xF7),
         Up = Rgb(0x27, 0xAE, 0x60),
         Down = Rgb(0xC0, 0x39, 0x2B),
+        Hover = Rgb(0xE6, 0xE9, 0xEC),
+        Pressed = Rgb(0xD8, 0xDC, 0xE1),
+        DisabledBackground = Rgb(0xF0, 0xF1, 0xF3),
+        DisabledForeground = Rgb(0x8F, 0x8F, 0x95),
         Chart = new ChartTheme
         {
             FigureBackground = new Color(0xFF, 0xFF, 0xFF),
@@ -79,6 +87,10 @@ public static class Palette
         AlternatingRow = Rgb(0x25, 0x25, 0x26),
         Up = Rgb(0x69, 0xF0, 0xAE),
         Down = Rgb(0xFF, 0x6B, 0x6B),
+        Hover = Rgb(0x3A, 0x3A, 0x40),
+        Pressed = Rgb(0x46, 0x46, 0x4D),
+        DisabledBackground = Rgb(0x26, 0x26, 0x2A),
+        DisabledForeground = Rgb(0x7A, 0x7A, 0x82),
         Chart = new ChartTheme
         {
             FigureBackground = new Color(0x1E, 0x1E, 0x1E),
@@ -100,6 +112,10 @@ public static class Palette
         AlternatingRow = Rgb(0x13, 0x20, 0x30),
         Up = Rgb(0x69, 0xF0, 0xAE),
         Down = Rgb(0xFF, 0x8A, 0x80),
+        Hover = Rgb(0x1E, 0x34, 0x50),
+        Pressed = Rgb(0x28, 0x43, 0x5F),
+        DisabledBackground = Rgb(0x13, 0x20, 0x30),
+        DisabledForeground = Rgb(0x5A, 0x71, 0x8A),
         Chart = new ChartTheme
         {
             FigureBackground = new Color(0x0F, 0x1B, 0x2B),
@@ -121,6 +137,10 @@ public static class Palette
         AlternatingRow = Rgb(0x10, 0x10, 0x17),
         Up = Rgb(0x69, 0xF0, 0xAE),
         Down = Rgb(0xFF, 0x8A, 0x80),
+        Hover = Rgb(0x1E, 0x1E, 0x2A),
+        Pressed = Rgb(0x28, 0x28, 0x36),
+        DisabledBackground = Rgb(0x10, 0x10, 0x18),
+        DisabledForeground = Rgb(0x5E, 0x5E, 0x6E),
         Chart = new ChartTheme
         {
             FigureBackground = new Color(0x0B, 0x0B, 0x0F),

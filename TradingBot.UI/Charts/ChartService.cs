@@ -136,8 +136,13 @@ public class ChartService : IChartService
 
         if (_candles.Count > 0)
         {
+            // Derive the candle width from the actual spacing between bars so
+            // larger timeframes (H1, H4, D1, ...) stay compact instead of
+            // rendering wildly separated candles.
+            var candleSpan = EstimateCandleSpan(_candles);
+
             var ohlcs = _candles
-                .Select(c => new OHLC(c.Open, c.High, c.Low, c.Close, c.Time, TimeSpan.FromMinutes(1)))
+                .Select(c => new OHLC(c.Open, c.High, c.Low, c.Close, c.Time, candleSpan))
                 .ToList();
             _candlesPlot = _plot.Plot.Add.Candlestick(ohlcs);
             _candlesPlot.RisingColor = _candleUp;
@@ -169,5 +174,26 @@ public class ChartService : IChartService
         {
             dispatcher.Invoke(action);
         }
+    }
+
+    /// <summary>
+    /// Estimates a compact candle width from the smallest positive gap between
+    /// consecutive candles and leaves a small margin so the body and wick of
+    /// each candle stay clearly distinguishable.
+    /// </summary>
+    private static TimeSpan EstimateCandleSpan(List<CandleUpdateDto> candles)
+    {
+        TimeSpan? smallest = null;
+
+        for (var i = 1; i < candles.Count; i++)
+        {
+            var delta = candles[i].Time - candles[i - 1].Time;
+            if (delta > TimeSpan.Zero && (smallest is null || delta < smallest.Value))
+                smallest = delta;
+        }
+
+        // Fall back to one minute when the spacing cannot be derived (e.g. a
+        // single candle or gaps), then reserve 20% as inter-candle gutters.
+        return TimeSpan.FromTicks((smallest ?? TimeSpan.FromMinutes(1)).Ticks * 4 / 5);
     }
 }

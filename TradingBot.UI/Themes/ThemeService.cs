@@ -32,6 +32,10 @@ public sealed class ThemeService
             Set(app, "ThemeRowAlternating", palette.AlternatingRow);
             Set(app, "ThemeUpBrush", palette.Up);
             Set(app, "ThemeDownBrush", palette.Down);
+            Set(app, "ThemeHoverBrush", palette.Hover);
+            Set(app, "ThemePressedBrush", palette.Pressed);
+            Set(app, "ThemeDisabledBackgroundBrush", palette.DisabledBackground);
+            Set(app, "ThemeDisabledForegroundBrush", palette.DisabledForeground);
         }
 
         _chartService.ApplyTheme(palette.Chart);
