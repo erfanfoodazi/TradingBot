@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
+using Trading.Core.Indicators;
 using Trading.Core.Interfaces;
 using Trading.Shared.Enums;
 using Trading.Shared.Events;
 using Trading.Shared.Requests;
 using Trading.Shared.Responses;
+using TradingBot.UI.Models;
 using TradingBot.UI.Strategy;
 using TradingBot.UI.Themes;
 
@@ -177,6 +179,32 @@ public partial class MainViewModel : ObservableObject
     public IEnumerable<PendingOrderType> PendingOrderTypes
         => Enum.GetValues<PendingOrderType>();
 
+    /// <summary>Technical indicators selectable from the toolbar dropdown.</summary>
+    public IReadOnlyList<IndicatorOption> IndicatorOptions { get; private set; } = [];
+
+    [ObservableProperty]
+    private IndicatorOption? selectedIndicator;
+
+    /// <summary>
+    /// True while an oscillator-type indicator (RSI/Stochastic/MACD) is applied -
+    /// drives the visibility of the strip below the price chart.
+    /// </summary>
+    [ObservableProperty]
+    private bool hasOscillatorIndicator;
+
+    /// <summary>
+    /// Applies the indicator currently selected in the toolbar dropdown to the
+    /// chart. Indicators update live as new candles arrive.
+    /// </summary>
+    [RelayCommand]
+    private void SetIndicator()
+    {
+        var type = SelectedIndicator?.Type;
+        _chartService.SetIndicators(type is null ? [] : [type.Value]);
+        HasOscillatorIndicator =
+            type is IndicatorType.Rsi or IndicatorType.Stochastic or IndicatorType.Macd;
+    }
+
     public MainViewModel(
         IMarketDataService marketDataService,
         ITradingService tradingService,
@@ -209,6 +237,27 @@ public partial class MainViewModel : ObservableObject
         _themeService.Apply(SelectedTheme);
 
         WireRealtimeEvents();
+        InitializeIndicators();
+    }
+
+    private void InitializeIndicators()
+    {
+        IndicatorOptions =
+        [
+            new IndicatorOption(null, "None"),
+            new IndicatorOption(IndicatorType.Sma, "SMA (20)"),
+            new IndicatorOption(IndicatorType.Ema, "EMA (20)"),
+            new IndicatorOption(IndicatorType.BollingerBands, "Bollinger Bands (20, 2)"),
+            new IndicatorOption(IndicatorType.Vwap, "VWAP"),
+            new IndicatorOption(IndicatorType.Atr, "ATR (14)"),
+            new IndicatorOption(IndicatorType.Fibonacci, "Fibonacci"),
+            new IndicatorOption(IndicatorType.Ichimoku, "Ichimoku"),
+            new IndicatorOption(IndicatorType.Rsi, "RSI (14)"),
+            new IndicatorOption(IndicatorType.Stochastic, "Stochastic (14, 3, 3)"),
+            new IndicatorOption(IndicatorType.Macd, "MACD (12, 26, 9)"),
+        ];
+
+        SelectedIndicator = IndicatorOptions[0];
     }
 
     partial void OnSelectedThemeChanged(AppTheme value)

@@ -12,6 +12,10 @@
     Background="{DynamicResource ThemeWindowBackground}"
     Foreground="{DynamicResource ThemeTextBrush}">
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </Window.Resources>
+
     <Grid Margin="8">
 
         <Grid.RowDefinitions>
@@ -112,6 +116,17 @@
                     Width="90"
                     ItemsSource="{Binding Themes}"
                     SelectedItem="{Binding SelectedTheme}"/>
+
+                <Separator Width="16" Margin="8,0" VerticalAlignment="Center"/>
+
+                <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Indicator"/>
+                <ComboBox
+                    Width="140"
+                    Margin="0,0,6,0"
+                    ItemsSource="{Binding IndicatorOptions}"
+                    DisplayMemberPath="Name"
+                    SelectedItem="{Binding SelectedIndicator}"/>
+                <Button Padding="12,4" Content="Set" Command="{Binding SetIndicatorCommand}"/>
             </WrapPanel>
         </Border>
 
@@ -175,9 +190,41 @@
             </Grid.ColumnDefinitions>
 
             <!-- Chart -->
-            <scott:WpfPlot
-                x:Name="Chart"
-                Grid.Column="0"/>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1.8*" MinHeight="110"/>
+                </Grid.RowDefinitions>
+
+                <scott:WpfPlot
+                    x:Name="Chart"
+                    Grid.Row="0"/>
+
+                <!-- Resizable divider for the oscillator strip -->
+                <GridSplitter
+                    Grid.Row="1"
+                    Height="6"
+                    Margin="0,2"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{DynamicResource ThemeBorderBrush}"
+                    ResizeBehavior="PreviousAndNext"
+                    ShowsPreview="True"
+                    Visibility="{Binding HasOscillatorIndicator, Converter={StaticResource BoolToVisConverter}}"/>
+
+                <!-- Oscillator strip (RSI / Stochastic / MACD), live -->
+                <Border
+                    Grid.Row="2"
+                    Margin="0,2,0,0"
+                    Background="{DynamicResource ThemePanelBackground}"
+                    BorderBrush="{DynamicResource ThemeBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    Visibility="{Binding HasOscillatorIndicator, Converter={StaticResource BoolToVisConverter}}">
+                    <scott:WpfPlot x:Name="OscillatorChart"/>
+                </Border>
+            </Grid>
 
             <!-- Relocatable divider keeps the split usable at any window size -->
             <GridSplitter

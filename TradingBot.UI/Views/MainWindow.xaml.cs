@@ -20,6 +20,7 @@ namespace TradingBot.UI
             DataContext = vm;
 
             chartService.Attach(Chart);
+            chartService.AttachOscillator(OscillatorChart);
 
             Loaded += async (_, _) => await vm.InitializeCommand.ExecuteAsync(null);
         }
