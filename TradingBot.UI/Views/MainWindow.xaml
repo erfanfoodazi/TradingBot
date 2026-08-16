@@ -81,6 +81,12 @@
 
                 <Separator Width="16" Margin="8,0" VerticalAlignment="Center"/>
 
+                <Button Padding="12,4"
+                        Style="{StaticResource StrategyButtonStyle}"
+                        Content="Back Test Strategy" Command="{Binding RunBackTestCommand}"/>
+
+                <Separator Width="16" Margin="8,0" VerticalAlignment="Center"/>
+
                 <TextBlock VerticalAlignment="Center" Margin="0,0,6,0" Text="Vol"/>
                 <TextBox Width="60" Margin="0,0,16,0" VerticalContentAlignment="Center"
                          Text="{Binding Volume, UpdateSourceTrigger=PropertyChanged}"/>
@@ -501,6 +507,55 @@
                             </StackPanel>
                         </WrapPanel>
                     </ScrollViewer>
+                </TabItem>
+
+                <!-- Backtest -->
+                <TabItem Header="Backtest">
+                    <Grid Margin="4" TextElement.Foreground="{DynamicResource ThemeTextBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <WrapPanel Grid.Row="0" Margin="0,0,0,6">
+                            <Button Padding="10,4" Content="Back Test Strategy" Command="{Binding RunBackTestCommand}"/>
+                            <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"
+                                       Foreground="{DynamicResource ThemeAccentBrush}"
+                                       Text="{Binding IsBackTesting, StringFormat=Running... {0}}"/>
+                        </WrapPanel>
+
+                        <TextBlock Grid.Row="1" Margin="0,0,0,4" TextWrapping="Wrap"
+                                   Text="1) Select symbol/timeframe/count and click Load to fetch real candles. 2) Click 'Back Test Strategy' to replay them into the strategy. 3) The report is saved to TradingBot.UI/results."/>
+                        <TextBlock Grid.Row="2" Margin="0,0,0,6" TextWrapping="Wrap" Text="{Binding BackTestSummary}"/>
+
+                        <TextBlock Grid.Row="3" Margin="0,0,0,6" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource ThemeAccentBrush}"
+                                   Text="{Binding BackTestResultPath}"/>
+
+                        <DataGrid
+                            Grid.Row="4"
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding BackTestTrades}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="60" Binding="{Binding Id}" Header="Ticket"/>
+                                <DataGridTextColumn Width="140" Binding="{Binding OpenTime}" Header="Open Time"/>
+                                <DataGridTextColumn Width="60" Binding="{Binding Side}" Header="Side"/>
+                                <DataGridTextColumn Width="90" Binding="{Binding EntryPrice}" Header="Entry"/>
+                                <DataGridTextColumn Width="90" Binding="{Binding StopLoss}" Header="SL"/>
+                                <DataGridTextColumn Width="90" Binding="{Binding TakeProfit}" Header="TP"/>
+                                <DataGridTextColumn Width="90" Binding="{Binding ExitPrice}" Header="Exit"/>
+                                <DataGridTextColumn Width="140" Binding="{Binding CloseTime}" Header="Close Time"/>
+                                <DataGridTextColumn Width="70" Binding="{Binding ExitReason}" Header="Reason"/>
+                                <DataGridTextColumn Width="70" Binding="{Binding Volume}" Header="Volume"/>
+                                <DataGridTextColumn Width="90" Binding="{Binding Profit}" Header="Profit"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
 
                 <!-- Settings -->

@@ -10,6 +10,7 @@ using Trading.Shared.Enums;
 using Trading.Shared.Events;
 using Trading.Shared.Requests;
 using Trading.Shared.Responses;
+using TradingBot.UI.BackTest;
 using TradingBot.UI.Models;
 using TradingBot.UI.Strategy;
 using TradingBot.UI.Themes;
@@ -157,6 +158,25 @@ public partial class MainViewModel : ObservableObject
     private bool isStrategyEnabled;
 
     public string StrategyButtonText => IsStrategyEnabled ? "Stop Strategy" : "Start Strategy";
+
+    // Backtest
+    [ObservableProperty]
+    private List<CandleResponseDto> backTestData = [];
+
+    [ObservableProperty]
+    private bool isBackTesting;
+
+    [ObservableProperty]
+    private BackTestResult? backTestResult;
+
+    [ObservableProperty]
+    private List<BackTestTrade> backTestTrades = [];
+
+    [ObservableProperty]
+    private string backTestSummary = "Load candles from the broker (symbol/timeframe/count + Load), then run the back test.";
+
+    [ObservableProperty]
+    private string backTestResultPath = "";
 
     // Settings
     [ObservableProperty]
@@ -471,6 +491,17 @@ public partial class MainViewModel : ObservableObject
             _realtimeSession.Symbol = _activeSymbol;
             _realtimeSession.Timeframe = _activeTimeframe;
 
+            // Keep the fetched candles so the back test can replay them.
+            BackTestData = candles;
+            BackTestTrades = [];
+            BackTestResult = null;
+            BackTestResultPath = "";
+            BackTestSummary =
+                $"{candles.Count} candle(s) loaded for back test " +
+                $"({_activeSymbol} {_activeTimeframe}). " +
+                "Click 'Back Test Strategy' to run the test.";
+
+            _chartService.ClearBackTestMarkers();
             _chartService.LoadCandles(candles);
             Status = $"Loaded {candles.Count} candles for {_activeSymbol} ({_activeTimeframe}).";
 
@@ -840,6 +871,14 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnSelectedSymbolChanged(SymbolResponseDto? value)
     {
+        // Loaded candles belong to the previously selected symbol - clear them
+        // so the back test cannot run against mismatched data.
+        BackTestData = [];
+        BackTestTrades = [];
+        BackTestResult = null;
+        BackTestResultPath = "";
+        BackTestSummary = "Load candles from the broker (symbol/timeframe/count + Load), then run the back test.";
+
         if (IsStrategyEnabled)
         {
             // Retarget the strategy to the newly selected symbol.
@@ -857,6 +896,88 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnIsStrategyEnabledChanged(bool value)
         => OnPropertyChanged(nameof(StrategyButtonText));
+
+    [RelayCommand]
+    private async Task RunBackTestAsync()
+    {
+        if (BackTestData.Count == 0)
+        {
+            Status = "Load candles first (select symbol/timeframe/count and click Load).";
+            return;
+        }
+
+        if (SelectedSymbol is null)
+        {
+            Status = "Select a symbol first.";
+            return;
+        }
+
+        IsBackTesting = true;
+
+        try
+        {
+            var symbol = SelectedSymbol.Name;
+            var candles = BackTestData;
+
+            var result = await Task.Run(() => BackTestEngine.Run(symbol, candles));
+
+            BackTestResult = result;
+            BackTestTrades = result.Trades;
+
+            BackTestSummary =
+                $"Symbol: {symbol} | Candles: {result.CandleCount} | " +
+                $"Trades: {result.TotalTrades} | Win rate: {result.WinRate:P1} | " +
+                $"Net P/L: {result.NetProfit:+0.00;-0.00;0.00} {result.Currency} | " +
+                $"Max DD: {result.MaxDrawdown:F2}";
+
+            BackTestResultPath = BackTestEngine.SaveResults(result, symbol);
+
+            _chartService.SetBackTestMarkers(BuildMarkers(result.Trades));
+
+            Status =
+                $"Back test finished: {result.TotalTrades} trade(s), " +
+                $"net P/L {result.NetProfit:+0.00;-0.00;0.00} {result.Currency}. " +
+                $"Report saved to {BackTestResultPath}";
+        }
+        catch (Exception ex)
+        {
+            Status = $"Back test failed: {ex.Message}";
+            await LogErrorAsync("backtest", "run", ex.Message, ex.StackTrace);
+        }
+        finally
+        {
+            IsBackTesting = false;
+        }
+    }
+
+    private static List<BackTestMarker> BuildMarkers(IEnumerable<BackTestTrade> trades)
+    {
+        var markers = new List<BackTestMarker>();
+
+        foreach (var trade in trades)
+        {
+            markers.Add(new BackTestMarker
+            {
+                Kind = BackTestMarkerKind.Entry,
+                Time = trade.OpenTime,
+                Price = trade.EntryPrice,
+            });
+            markers.Add(new BackTestMarker
+            {
+                Kind = BackTestMarkerKind.StopLoss,
+                Time = trade.OpenTime,
+                Price = trade.StopLoss,
+            });
+            markers.Add(new BackTestMarker
+            {
+                Kind = BackTestMarkerKind.TakeProfit,
+                Time = trade.OpenTime,
+                Price = trade.TakeProfit,
+            });
+        }
+
+        return markers;
+    }
 
     [RelayCommand]
     private async Task SaveSettingAsync()

@@ -1,0 +1,32 @@
+﻿==============================================
+          BACKTEST REPORT
+==============================================
+Symbol            : XAUUSD
+Run started       : 2026-08-16 20:31:47
+Duration          : 0.9 s
+Candles           : 50
+Starting balance  : 10000.00 USD
+Ending balance    : 6821.67 USD
+Net profit        : -3178.33 USD
+Total trades      : 3
+Wins / Losses     : 0 / 3
+Win rate          : 0.0%
+Gross profit      : 0.00 USD
+Gross loss        : 3178.33 USD
+Profit factor     : 0.00
+Max drawdown      : 3178.33 USD
+----------------------------------------------
+   #           Open time   Side       Entry          SL          TP        Exit          Close time     Reason    Volume        Profit
+----------------------------------------------
+1000  2026-08-14 19:20:00    BUY  4389.82667  4388.76000  4392.17333  4388.76000  2026-08-14 19:25:00         SL      0.01      -1066.67
+1001  2026-08-14 20:35:00    BUY  4380.41667  4379.25000  4382.98333  4379.25000  2026-08-14 20:40:00         SL      0.01      -1166.67
+1002  2026-08-14 22:40:00   SELL  4377.01500  4377.96000  4374.93600  4377.96000  2026-08-14 22:50:00         SL      0.01       -945.00
+----------------------------------------------
+Notes:
+  - Entry (touch): the wick reaching the entry price is enough
+    to open the trade (Bid for SELL, Ask for BUY).
+  - SL/TP are resolved against the High/Low of the candles that
+    follow the entry candle.
+  - Trades still open at the end of the data are closed at the
+    last candle close and marked EndOfData.
+==============================================

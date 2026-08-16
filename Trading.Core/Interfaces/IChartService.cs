@@ -24,4 +24,12 @@ public interface IChartService
         CandleUpdateDto candle);
 
     void Clear();
+
+    /// <summary>
+    /// Overlays backtest entry / SL / TP markers on the chart.
+    /// </summary>
+    void SetBackTestMarkers(
+        IEnumerable<BackTestMarker> markers);
+
+    void ClearBackTestMarkers();
 }

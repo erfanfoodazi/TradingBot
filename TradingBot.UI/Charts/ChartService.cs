@@ -25,6 +25,7 @@ public class ChartService : IChartService
 
     private readonly List<CandleUpdateDto> _candles = [];
     private readonly HashSet<IndicatorType> _indicators = [];
+    private List<BackTestMarker> _markers = [];
     private WpfPlot? _plot;
     private WpfPlot? _oscPlot;
     private CandlestickPlot? _candlesPlot;
@@ -202,6 +203,27 @@ public class ChartService : IChartService
         });
     }
 
+    /// <summary>
+    /// Overlays the entry / SL / TP markers of a finished backtest on the chart.
+    /// </summary>
+    public void SetBackTestMarkers(IEnumerable<BackTestMarker> markers)
+    {
+        OnUiThread(() =>
+        {
+            _markers = markers.ToList();
+            Render(preserveZoom: false);
+        });
+    }
+
+    public void ClearBackTestMarkers()
+    {
+        OnUiThread(() =>
+        {
+            _markers = [];
+            Render(preserveZoom: false);
+        });
+    }
+
     private void TrimToWindow()
     {
         const int maxVisible = 1000;
@@ -217,6 +239,7 @@ public class ChartService : IChartService
         // Keep the user's current viewport so live updates don't reset
         // the zoom/pan state (captured before the plot is cleared).
         var viewport = _plot.Plot.Axes.GetLimits();
+        bool canPreserve = preserveZoom && IsValid(viewport);
 
         _plot.Plot.Clear();
         _candlesPlot = null;
@@ -238,22 +261,71 @@ public class ChartService : IChartService
             var indicatorCandles = ToIndicatorCandles(_candles);
             if (_indicators.Count > 0)
                 RenderPriceIndicators(_plot.Plot, indicatorCandles);
-
-            var canPreserve = preserveZoom
-                && !double.IsNaN(viewport.Left) && !double.IsInfinity(viewport.Left)
-                && !double.IsNaN(viewport.Right) && !double.IsInfinity(viewport.Right)
-                && !double.IsNaN(viewport.Bottom) && !double.IsInfinity(viewport.Bottom)
-                && !double.IsNaN(viewport.Top) && !double.IsInfinity(viewport.Top);
-
-            if (canPreserve)
-                _plot.Plot.Axes.SetLimits(viewport);
-            else
-                _plot.Plot.Axes.AutoScale();
         }
+
+        RenderBackTestMarkers(_plot.Plot);
+
+        if (canPreserve)
+            _plot.Plot.Axes.SetLimits(viewport);
+        else
+            _plot.Plot.Axes.AutoScale();
 
         _plot.Refresh();
 
         RenderOscillators(ToIndicatorCandles(_candles), viewport);
+    }
+
+    /// <summary>
+    /// Draws backtest entry / SL / TP markers on the price plot.
+    /// </summary>
+    private void RenderBackTestMarkers(Plot plot)
+    {
+        if (_markers.Count == 0)
+            return;
+
+        var entries = new List<(double x, double y)>();
+        var stops = new List<(double x, double y)>();
+        var takes = new List<(double x, double y)>();
+
+        foreach (var marker in _markers)
+        {
+            double x = NumericConversion.ToNumber(marker.Time);
+            switch (marker.Kind)
+            {
+                case BackTestMarkerKind.Entry:
+                    entries.Add((x, marker.Price));
+                    break;
+                case BackTestMarkerKind.StopLoss:
+                    stops.Add((x, marker.Price));
+                    break;
+                case BackTestMarkerKind.TakeProfit:
+                    takes.Add((x, marker.Price));
+                    break;
+            }
+        }
+
+        AddMarkers(plot, entries, new Color(0x1F, 0x77, 0xB4), MarkerShape.FilledCircle, 7);
+        AddMarkers(plot, stops, new Color(0xC0, 0x39, 0x2B), MarkerShape.FilledTriangleDown, 7);
+        AddMarkers(plot, takes, new Color(0x2E, 0x9E, 0x5B), MarkerShape.FilledTriangleUp, 7);
+    }
+
+    private static void AddMarkers(
+        Plot plot,
+        List<(double x, double y)> points,
+        Color color,
+        MarkerShape shape,
+        float size)
+    {
+        if (points.Count == 0)
+            return;
+
+        var scatter = plot.Add.Scatter(
+            points.Select(p => p.x).ToArray(),
+            points.Select(p => p.y).ToArray(),
+            color);
+        scatter.LineWidth = 0;
+        scatter.MarkerShape = shape;
+        scatter.MarkerSize = size;
     }
 
     /// <summary>
@@ -423,7 +495,9 @@ public class ChartService : IChartService
 
     private static bool IsValid(AxisLimits limits)
         => !double.IsNaN(limits.Left) && !double.IsInfinity(limits.Left)
-        && !double.IsNaN(limits.Right) && !double.IsInfinity(limits.Right);
+        && !double.IsNaN(limits.Right) && !double.IsInfinity(limits.Right)
+        && !double.IsNaN(limits.Bottom) && !double.IsInfinity(limits.Bottom)
+        && !double.IsNaN(limits.Top) && !double.IsInfinity(limits.Top);
 
     private static List<CandleResponseDto> ToIndicatorCandles(IEnumerable<CandleUpdateDto> candles)
         => candles.Select(c => new CandleResponseDto
