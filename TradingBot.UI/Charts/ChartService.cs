@@ -19,6 +19,10 @@ public class ChartService : IChartService
     private const int AtrPeriod = 14;
     private const int RsiPeriod = 14;
 
+    // Shared Y-axis width (px) so the price plot area lines up exactly with
+    // the oscillator strip below it, regardless of label text width.
+    private const float SharedAxisWidth = 70;
+
     private readonly List<CandleUpdateDto> _candles = [];
     private readonly HashSet<IndicatorType> _indicators = [];
     private WpfPlot? _plot;
@@ -54,6 +58,15 @@ public class ChartService : IChartService
         _plot = plot;
         _plot.Plot.Title("Trading Bot");
 
+        // Show real date/time labels on the bottom axis, matching the
+        // oscillator strip so both charts read on the same timeline.
+        _plot.Plot.Axes.DateTimeTicksBottom();
+
+        // Pin the Y-axis width so the candle plot area is identical to the
+        // oscillator strip below it.
+        _plot.Plot.Axes.Left.MinimumSize = SharedAxisWidth;
+        _plot.Plot.Axes.Left.MaximumSize = SharedAxisWidth;
+
         // Keep the oscillator strip in sync when the user pans/zooms the chart.
         _plot.AddHandler(
             Mouse.MouseWheelEvent,
@@ -74,6 +87,10 @@ public class ChartService : IChartService
         _oscPlot.Plot.Title("Indicator");
         _oscPlot.UserInputProcessor.Disable();
         _oscPlot.Plot.Axes.DateTimeTicksBottom();
+
+        // Same Y-axis width as the main chart so both plot areas align.
+        _oscPlot.Plot.Axes.Left.MinimumSize = SharedAxisWidth;
+        _oscPlot.Plot.Axes.Left.MaximumSize = SharedAxisWidth;
 
         if (_pendingTheme is not null)
             ApplyThemeToPlot(plot, _pendingTheme);

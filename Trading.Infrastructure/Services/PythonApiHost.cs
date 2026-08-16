@@ -55,6 +55,7 @@ public sealed class PythonApiHost : IDisposable
     private Process? _process;
     private IntPtr _job;
     private bool _started;
+    private bool _stopped;
 
     public PythonApiHost(IOptions<PythonApiOptions> options)
     {
@@ -158,30 +159,137 @@ public sealed class PythonApiHost : IDisposable
 
     public void Stop()
     {
-        // Close the job first: KILL_ON_JOB_CLOSE terminates every process
-        // still inside it (the whole uvicorn tree), so Python cannot outlive
-        // the window even if Process.Kill below misses a child.
+        if (_stopped)
+            return;
+        _stopped = true;
+
+        // Instant, non-blocking: releasing the job handle makes the OS
+        // terminate every process still in the job (KILL_ON_JOB_CLOSE), and
+        // again automatically when this app exits.
         CloseJob();
 
-        if (_process is null)
-            return;
+        var process = _process;
+        _process = null;
 
+        // netstat/taskkill run off the UI thread so the window closes
+        // immediately. taskkill is a detached process, so it completes even
+        // after this app has exited.
+        Task.Run(() =>
+        {
+            // Kill whatever is actually listening on our port.
+            KillListenerOnPort(_options.Port);
+
+            // Kill the known backend tree too (covers the --reload parent and
+            // any process the port lookup missed).
+            if (process is not null)
+            {
+                try
+                {
+                    if (!process.HasExited)
+                        KillTreeDetached(process.Id);
+                }
+                catch
+                {
+                    // Best effort shutdown.
+                }
+                finally
+                {
+                    process.Dispose();
+                }
+            }
+        });
+    }
+
+    /// <summary>
+    /// Terminates every process that is currently LISTENING on the given port,
+    /// using the same fast CLI sequence as manual cleanup:
+    /// <c>netstat -ano</c> to find the PID, then <c>taskkill /PID &lt;pid&gt; /F</c>.
+    /// </summary>
+    private static void KillListenerOnPort(int port)
+    {
         try
         {
-            if (!_process.HasExited)
-            {
-                _process.Kill(entireProcessTree: true);
-                _process.WaitForExit(3000);
-            }
+            foreach (var pid in FindListenerPids(port))
+                TaskKillDetached(pid);
         }
         catch
         {
             // Best effort shutdown.
         }
-        finally
+    }
+
+    private static IEnumerable<int> FindListenerPids(int port)
+    {
+        using var netstat = new Process
         {
-            _process.Dispose();
-            _process = null;
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "netstat.exe",
+                Arguments = "-ano",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+            },
+        };
+        netstat.Start();
+        var output = netstat.StandardOutput.ReadToEnd();
+        netstat.WaitForExit();
+
+        var marker = $":{port}";
+        var pids = new HashSet<int>();
+        foreach (var line in output.Split('\n'))
+        {
+            if (line.IndexOf(marker, StringComparison.OrdinalIgnoreCase) < 0)
+                continue;
+            if (line.IndexOf("LISTENING", StringComparison.OrdinalIgnoreCase) < 0)
+                continue;
+
+            var parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length > 0 && int.TryParse(parts[^1], out var pid))
+                pids.Add(pid);
+        }
+
+        return pids;
+    }
+
+    private static void TaskKillDetached(int pid)
+    {
+        try
+        {
+            using var _ = Process.Start(new ProcessStartInfo
+            {
+                FileName = "taskkill.exe",
+                Arguments = $"/PID {pid} /F",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            });
+        }
+        catch
+        {
+            // Best effort shutdown.
+        }
+    }
+
+    /// <summary>
+    /// Launches <c>taskkill.exe</c> to forcefully terminate the process and all
+    /// of its descendants. Detached (no wait) so this method never blocks the
+    /// UI thread, and the kill completes even after this app has exited.
+    /// </summary>
+    private static void KillTreeDetached(int pid)
+    {
+        try
+        {
+            using var _ = Process.Start(new ProcessStartInfo
+            {
+                FileName = "taskkill.exe",
+                Arguments = $"/PID {pid} /T /F",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            });
+        }
+        catch
+        {
+            // Best effort shutdown.
         }
     }
 

@@ -192,9 +192,9 @@
             <!-- Chart -->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1.8*" MinHeight="110"/>
+                    <RowDefinition Height="1*" MinHeight="110"/>
                 </Grid.RowDefinitions>
 
                 <scott:WpfPlot
