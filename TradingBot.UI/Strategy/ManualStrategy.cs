@@ -391,17 +391,19 @@ public class ManualStrategy
         bool breaksLow = candle.Low <= prev.Low;
 
         // Custom noise rules.
+        // NOTE: these reuse the same >=/<= boundary semantics as
+        // breaksHigh/breaksLow above (instead of strict >/<) so that a
+        // candle whose wick lands EXACTLY on the previous level is
+        // classified consistently with every other check in this method.
         if (prev.Open < prev.Close &&
-            candle.High > prev.High &&
-            candle.Low > prev.Low &&
+            breaksHigh && !breaksLow &&
             candle.Open > candle.Close)
         {
             return true;
         }
 
         if (prev.Open > prev.Close &&
-            candle.Low < prev.Low &&
-            candle.High < prev.High &&
+            breaksLow && !breaksHigh &&
             candle.Open < candle.Close)
         {
             return true;
@@ -497,7 +499,23 @@ public class ManualStrategy
     {
         var lastTrend = _trend[^1];
 
-        if (_modeOfTrend == TrendMode.UpWard &&
+        // IMPORTANT: noise is checked FIRST, before the strict continuation
+        // checks. A candle that technically satisfies IsValidUpward /
+        // IsValidDownward (e.g. it nudges a new High with a tiny body, or
+        // is a wick-trap reversal-looking candle) must still be treated as
+        // noise if IsNoise() flags it — otherwise noise candles that
+        // happen to overlap the structural break conditions were being
+        // counted as real trend candles instead of being skipped.
+        if (IsNoise(candle, lastTrend))
+        {
+            Log(
+                $"Noise candle {candle.Time:HH:mm:ss} skipped. " +
+                $"trend={_modeOfTrend}, " +
+                $"trendCandles={_trend.Count}/{_minTrendCandles}.");
+
+            return;
+        }
+        else if (_modeOfTrend == TrendMode.UpWard &&
             IsValidUpward(candle, lastTrend))
         {
             _trend.Add(candle);
@@ -506,15 +524,6 @@ public class ManualStrategy
                  IsValidDownward(candle, lastTrend))
         {
             _trend.Add(candle);
-        }
-        else if (IsNoise(candle, lastTrend))
-        {
-            Log(
-                $"Noise candle {candle.Time:HH:mm:ss} skipped. " +
-                $"trend={_modeOfTrend}, " +
-                $"trendCandles={_trend.Count}/{_minTrendCandles}.");
-
-            return;
         }
         else
         {
@@ -664,19 +673,30 @@ public class ManualStrategy
                 return;
             }
 
-            // If the candle is not a reversal-direction candle,
-            // it does NOT consume the second reversal opportunity.
+            // If the candle is not a reversal-direction candle and it
+            // actually resumes the ORIGINAL trend, then R1 was never a
+            // real reversal attempt — it was noise. R2 never got a
+            // chance to confirm/deny it, and the market just continued
+            // the original trend straight through it.
             //
-            // A valid trend continuation keeps the trend alive.
+            // In that case R1 must be discarded (treated as noise), not
+            // kept pending, and the resuming candle becomes the new last
+            // trend candle.
             if (IsValidTrendContinuation(candle, _trend[^1]))
             {
-                _trend.Add(candle);
-
                 Log(
-                    $"Trend {_modeOfTrend} extended while R1 is pending: " +
-                    $"{candle.Time:HH:mm:ss} -> " +
-                    $"trendCandles={_trend.Count}, " +
-                    $"R1 still pending.");
+                    $"Trend {_modeOfTrend} resumed before R2 appeared. " +
+                    $"R1 ({_reversals.Count} candle) discarded as noise. " +
+                    $"{candle.Time:HH:mm:ss} -> trendCandles={_trend.Count + 1}.");
+
+                // R1 turned out to be noise, not a genuine reversal
+                // opportunity — drop it instead of leaving it pending.
+                _reversals.Clear();
+                _countOfRevers = 0;
+                _modeOfRevers = ReversMode.None;
+                _lastReversalTrend = null;
+
+                _trend.Add(candle);
             }
 
             return;
@@ -806,11 +826,11 @@ public class ManualStrategy
     ///   High -> highest High among recorded reversal candles (R1/R2).
     ///
     /// UP trend / SELL:
-    ///   Body   -> 2/3 from range Low toward range High.
+    ///   Body   -> 1/3 from range Low toward range High.
     ///   Shadow -> 1/2 from range Low toward range High.
     ///
     /// DOWN trend / BUY:
-    ///   Body   -> 1/3 from range Low toward range High.
+    ///   Body   -> 2/3 from range Low toward range High.
     ///   Shadow -> 1/2 from range Low toward range High.
     /// </summary>
     private double CalculateEntry()
@@ -818,7 +838,7 @@ public class ManualStrategy
         if (_trend.Count == 0 || _reversals.Count == 0)
             return 0;
 
-        
+
         var referenceTrend = _lastReversalTrend ?? _trend[^1];
 
         double trendLow;
@@ -835,7 +855,7 @@ public class ManualStrategy
             range = trendHigh - trendLow;
 
             entry = _modeOfRevers == ReversMode.Body
-                ? trendLow + (range * 2.0 / 3.0)
+                ? trendLow + (range / 3.0)
                 : trendLow + (range / 2.0);
 
             _structuralSl = referenceTrend.High;
@@ -849,7 +869,7 @@ public class ManualStrategy
             range = trendHigh - trendLow;
 
             entry = _modeOfRevers == ReversMode.Body
-                ? trendLow + (range / 3.0)
+                ? trendLow + (range * 2.0 / 3.0)
                 : trendLow + (range / 2.0);
 
             _structuralSl = referenceTrend.Low;

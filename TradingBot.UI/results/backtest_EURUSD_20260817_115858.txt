@@ -1,0 +1,33 @@
+﻿==============================================
+          BACKTEST REPORT
+==============================================
+Symbol            : EURUSD
+Run started       : 2026-08-17 08:28:56
+Duration          : 1.5 s
+Candles           : 100
+Starting balance  : 10000.00 USD
+Ending balance    : 9801.70 USD
+Net profit        : -198.30 USD
+Total trades      : 4
+Wins / Losses     : 0 / 4
+Win rate          : 0.0%
+Gross profit      : 0.00 USD
+Gross loss        : 198.30 USD
+Profit factor     : 0.00
+Max drawdown      : 198.30 USD
+----------------------------------------------
+   #           Open time   Side       Entry          SL          TP        Exit          Close time     Reason    Volume        Profit
+----------------------------------------------
+1000  2026-08-17 05:15:00   SELL     1.15837     1.15842     1.15826     1.15842  2026-08-17 05:25:00         SL      9.99        -49.95
+1001  2026-08-17 08:10:00    BUY     1.15851     1.15843     1.15869     1.15843  2026-08-17 08:15:00         SL      6.21        -49.68
+1002  2026-08-17 08:55:00   SELL     1.15877     1.15884     1.15863     1.15884  2026-08-17 09:00:00         SL      7.42        -49.47
+1003  2026-08-17 10:05:00   SELL     1.15948     1.15968     1.15902     1.15968  2026-08-17 10:10:00         SL      2.40        -49.20
+----------------------------------------------
+Notes:
+  - Entry (touch): the wick reaching the entry price is enough
+    to open the trade (Bid for SELL, Ask for BUY).
+  - SL/TP are resolved against the High/Low of the candles that
+    follow the entry candle.
+  - Trades still open at the end of the data are closed at the
+    last candle close and marked EndOfData.
+==============================================
