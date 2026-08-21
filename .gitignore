@@ -484,4 +484,4 @@ $RECYCLE.BIN/
 *.swp
 
 # BackTest Results
-TradingBot.UI/result
+TradingBot.UI/results/
