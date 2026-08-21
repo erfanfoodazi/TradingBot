@@ -485,6 +485,25 @@ private static bool IsValidUpward(
         CandleResponseDto candle,
         CandleResponseDto lastTrend)
     {
+        if (IsNoise(candle, lastTrend))
+        {
+            // Preserve the noise candle: it may be the start of the next
+            // trend if the current trend breaks (see PromoteNoiseToNextTrend).
+            _noise.Add(candle);
+
+            Log(
+                $"Noise candle {candle.Time:HH:mm:ss} saved (pending). " +
+                $"trend={_modeOfTrend}, " +
+                $"trendCandles={_trend.Count}/{_minTrendCandles}, " +
+                $"savedNoise={_noise.Count}.");
+
+            RaiseDecision(
+                $"noise candle saved (trendCandles={_trend.Count}/{_minTrendCandles}, " +
+                $"savedNoise={_noise.Count})",
+                candle);
+
+            return false;
+        }
         return _modeOfTrend switch
         {
             TrendMode.UpWard =>

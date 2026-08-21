@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Trading.Shared.Events;
 using Trading.Shared.Responses;
 using TradingBot.UI.Strategy;
@@ -163,6 +164,117 @@ public static class BackTestEngine
             .ToList();
     }
 
+    /// <summary>
+    /// Loads OHLC candles from a CSV file asynchronously.
+    /// </summary>
+    public static async Task<List<CandleResponseDto>> LoadCandlesAsync(string path)
+    {
+        if (!File.Exists(path))
+            throw new FileNotFoundException("Data file not found.", path);
+
+        var lines = await File.ReadAllLinesAsync(path);
+        var filteredLines = lines.Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+
+        if (filteredLines.Count == 0)
+            throw new InvalidDataException("The data file is empty.");
+
+        if (filteredLines[0].StartsWith('\uFEFF'))
+            filteredLines[0] = filteredLines[0][1..];
+
+        bool hasHeader = filteredLines[0].Any(ch => char.IsLetter(ch));
+
+        int timeIdx = -1;
+        int dateIdx = -1;
+        int openIdx = -1;
+        int highIdx = -1;
+        int lowIdx = -1;
+        int closeIdx = -1;
+
+        if (hasHeader)
+        {
+            var header = SplitCsv(filteredLines[0]);
+            for (int i = 0; i < header.Count; i++)
+            {
+                switch (header[i].Trim().ToLowerInvariant())
+                {
+                    case "time":
+                    case "datetime":
+                    case "timestamp":
+                        timeIdx = i;
+                        break;
+                    case "date":
+                        dateIdx = i;
+                        break;
+                    case "open":
+                    case "o":
+                        openIdx = i;
+                        break;
+                    case "high":
+                    case "h":
+                        highIdx = i;
+                        break;
+                    case "low":
+                    case "l":
+                        lowIdx = i;
+                        break;
+                    case "close":
+                    case "c":
+                        closeIdx = i;
+                        break;
+                }
+            }
+        }
+
+        if (timeIdx < 0)
+            timeIdx = 0;
+        if (openIdx < 0)
+            openIdx = hasHeader ? -1 : 1;
+        if (highIdx < 0)
+            highIdx = hasHeader ? -1 : 2;
+        if (lowIdx < 0)
+            lowIdx = hasHeader ? -1 : 3;
+        if (closeIdx < 0)
+            closeIdx = hasHeader ? -1 : 4;
+
+        if (openIdx < 0 || highIdx < 0 || lowIdx < 0 || closeIdx < 0)
+        {
+            throw new InvalidDataException(
+                "The CSV must contain Open, High, Low and Close columns " +
+                "(optionally a Time/Date column).");
+        }
+
+        var candles = new List<CandleResponseDto>();
+        int start = hasHeader ? 1 : 0;
+
+        for (int i = start; i < filteredLines.Count; i++)
+        {
+            var parts = SplitCsv(filteredLines[i]);
+            int maxIndex = Math.Max(timeIdx, Math.Max(openIdx, Math.Max(highIdx, Math.Max(lowIdx, closeIdx))));
+            if (parts.Count <= maxIndex)
+                continue;
+
+            var candle = new CandleResponseDto
+            {
+                Open = ParseDouble(parts[openIdx]),
+                High = ParseDouble(parts[highIdx]),
+                Low = ParseDouble(parts[lowIdx]),
+                Close = ParseDouble(parts[closeIdx]),
+            };
+
+            candle.Time = ParseTime(parts, timeIdx, dateIdx);
+
+            if (candle.Open > 0 && candle.High > 0 && candle.Low > 0 && candle.Close > 0)
+                candles.Add(candle);
+        }
+
+        if (candles.Count == 0)
+            throw new InvalidDataException("No valid OHLC rows could be parsed.");
+
+        return candles
+            .OrderBy(c => c.Time)
+            .ToList();
+    }
+
     private static List<string> SplitCsv(string line)
         => line.Split(',', StringSplitOptions.TrimEntries).ToList();
 
@@ -180,7 +292,6 @@ public static class BackTestEngine
     {
         string raw = parts[timeIdx].Trim();
 
-        // Separate Date + Time columns (common in MT4/MT5 exports).
         if (dateIdx >= 0 && dateIdx < parts.Count)
             raw = $"{parts[dateIdx].Trim()} {raw}".Trim();
 
@@ -196,6 +307,20 @@ public static class BackTestEngine
     #endregion
 
     #region Runner
+
+    /// <summary>
+    /// Feeds the given candles into a fresh <see cref="ManualStrategy"/> one by
+    /// one and resolves every opened trade against the following candles.
+    /// </summary>
+    public static Task<BackTestResult> RunAsync(
+        string symbol,
+        List<CandleResponseDto> candles,
+        double startingBalance = 10_000,
+        double spread = DefaultSpread,
+        SymbolInfoResponseDto? symbolInfo = null)
+    {
+        return Task.Run(() => Run(symbol, candles, startingBalance, spread, symbolInfo));
+    }
 
     /// <summary>
     /// Feeds the given candles into a fresh <see cref="ManualStrategy"/> one by
@@ -497,6 +622,24 @@ public static class BackTestEngine
     /// <summary>
     /// Writes a human readable backtest report into
     /// <c>TradingBot.UI/results</c> and returns the full file path.
+    /// </summary>
+    public static async Task<string> SaveResultsAsync(BackTestResult result, string symbol)
+    {
+        var directory = FindResultsDirectory();
+        Directory.CreateDirectory(directory);
+
+        string stamp = DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
+        string safeSymbol = string.Join("_", symbol.Split(Path.GetInvalidFileNameChars()));
+        string path = Path.Combine(directory, $"backtest_{safeSymbol}_{stamp}.txt");
+
+        await File.WriteAllTextAsync(path, BuildReport(result), Encoding.UTF8);
+
+        return path;
+    }
+
+    /// <summary>
+    /// Writes a human readable backtest report into
+    /// <c>TradingBot.UI/results</c> and returns the full file path (synchronous version).
     /// </summary>
     public static string SaveResults(BackTestResult result, string symbol)
     {

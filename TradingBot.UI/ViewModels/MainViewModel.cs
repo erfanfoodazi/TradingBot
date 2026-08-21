@@ -929,7 +929,7 @@ public partial class MainViewModel : ObservableObject
                 symbolInfo = null;
             }
 
-            var result = await Task.Run(() => BackTestEngine.Run(symbol, candles, symbolInfo: symbolInfo));
+            var result = await BackTestEngine.RunAsync(symbol, candles, symbolInfo: symbolInfo);
 
             BackTestResult = result;
             BackTestTrades = result.Trades;
@@ -940,7 +940,7 @@ public partial class MainViewModel : ObservableObject
                 $"Net P/L: {result.NetProfit:+0.00;-0.00;0.00} {result.Currency} | " +
                 $"Max DD: {result.MaxDrawdown:F2}";
 
-            BackTestResultPath = BackTestEngine.SaveResults(result, symbol);
+            BackTestResultPath = await BackTestEngine.SaveResultsAsync(result, symbol);
 
             _chartService.SetBackTestMarkers(BuildMarkers(result.Trades));
 
