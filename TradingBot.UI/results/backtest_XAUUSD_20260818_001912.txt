@@ -1,0 +1,36 @@
+﻿==============================================
+          BACKTEST REPORT
+==============================================
+Symbol            : XAUUSD
+Run started       : 2026-08-17 20:49:11
+Duration          : 1.3 s
+Candles           : 100
+Starting balance  : 10000.00 USD
+Ending balance    : 2028.00 USD
+Net profit        : -7972.00 USD
+Total trades      : 7
+Wins / Losses     : 1 / 6
+Win rate          : 14.3%
+Gross profit      : 11528.00 USD
+Gross loss        : 19500.00 USD
+Profit factor     : 0.59
+Max drawdown      : 13975.00 USD
+----------------------------------------------
+   #           Open time   Side       Entry          SL          TP        Exit          Close time     Reason    Volume        Profit
+----------------------------------------------
+1000  2026-08-17 15:20:00    BUY  4393.78500  4391.92000  4397.88800  4391.92000  2026-08-17 15:25:00         SL      0.01      -1865.00
+1001  2026-08-17 16:00:00    BUY  4382.41000  4377.17000  4393.93800  4393.93800  2026-08-17 16:45:00         TP      0.01      11528.00
+1002  2026-08-17 16:20:00   SELL  4385.86000  4389.52000  4377.80800  4389.52000  2026-08-17 16:30:00         SL      0.01      -3660.00
+1003  2026-08-17 17:30:00   SELL  4421.61500  4427.62000  4408.40400  4427.62000  2026-08-17 18:55:00         SL      0.01      -6005.00
+1004  2026-08-17 20:35:00    BUY  4416.00000  4413.41000  4421.69800  4413.41000  2026-08-17 20:40:00         SL      0.01      -2590.00
+1005  2026-08-17 22:10:00   SELL  4403.81000  4407.51000  4395.67000  4407.51000  2026-08-17 22:15:00         SL      0.01      -3700.00
+1006  2026-08-17 22:30:00   SELL  4415.14000  4416.82000  4411.44400  4416.82000  2026-08-17 22:35:00         SL      0.01      -1680.00
+----------------------------------------------
+Notes:
+  - Entry (touch): the wick reaching the entry price is enough
+    to open the trade (Bid for SELL, Ask for BUY).
+  - SL/TP are resolved against the High/Low of the candles that
+    follow the entry candle.
+  - Trades still open at the end of the data are closed at the
+    last candle close and marked EndOfData.
+==============================================

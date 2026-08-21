@@ -1,0 +1,815 @@
+﻿==============================================
+          BACKTEST REPORT
+==============================================
+Symbol            : XAUUSD
+Run started       : 2026-08-20 07:41:41
+Duration          : 6.1 s
+Candles           : 500
+Starting balance  : 10000.00 USD
+Ending balance    : 6795.43 USD
+Net profit        : -3204.57 USD
+Total trades      : 35
+Wins / Losses     : 9 / 26
+Win rate          : 25.7%
+Gross profit      : 8301.96 USD
+Gross loss        : 11506.52 USD
+Profit factor     : 0.72
+Max drawdown      : 4320.44 USD
+----------------------------------------------
+   #           Open time   Side       Entry          SL          TP        Exit          Close time     Reason    Volume        Profit
+----------------------------------------------
+1000  2026-08-17 13:10:00    BUY  4394.50000  4392.77000  4398.30600  4398.30600  2026-08-17 13:15:00         TP      2.89       1099.93
+1001  2026-08-17 14:20:00   SELL  4401.03000  4403.97000  4394.56200  4403.97000  2026-08-17 14:25:00         SL      1.88       -552.72
+1002  2026-08-17 15:20:00    BUY  4393.62500  4391.60000  4398.08000  4391.60000  2026-08-17 15:25:00         SL      2.60       -526.50
+1003  2026-08-17 16:00:00    BUY  4382.41000  4377.17000  4393.93800  4393.93800  2026-08-17 16:45:00         TP      0.95       1095.16
+1004  2026-08-17 17:30:00   SELL  4421.61500  4427.62000  4408.40400  4427.62000  2026-08-17 18:55:00         SL      0.92       -552.46
+1005  2026-08-17 19:05:00   SELL  4425.38000  4428.16000  4419.26400  4428.16000  2026-08-17 19:10:00         SL      1.89       -525.42
+1006  2026-08-17 20:35:00    BUY  4416.00000  4413.41000  4421.69800  4413.41000  2026-08-17 20:40:00         SL      1.93       -499.87
+1007  2026-08-17 22:10:00   SELL  4403.81000  4407.51000  4395.67000  4407.51000  2026-08-17 22:15:00         SL      1.28       -473.60
+1008  2026-08-17 22:30:00   SELL  4415.34000  4417.42000  4410.76400  4417.42000  2026-08-17 22:40:00         SL      2.17       -451.36
+1009  2026-08-18 03:05:00   SELL  4424.38000  4429.76000  4412.54400  4429.76000  2026-08-18 03:20:00         SL      0.80       -430.40
+1010  2026-08-18 03:45:00   SELL  4430.11000  4433.45000  4422.76200  4433.45000  2026-08-18 03:55:00         SL      1.22       -407.48
+1011  2026-08-18 05:20:00    BUY  4402.01000  4398.48000  4409.77600  4398.48000  2026-08-18 05:30:00         SL      1.10       -388.30
+1012  2026-08-18 06:10:00   SELL  4401.78500  4404.06000  4396.78000  4396.78000  2026-08-18 06:15:00         TP      1.62        810.81
+1013  2026-08-18 06:30:00    BUY  4395.94000  4394.29000  4399.57000  4394.29000  2026-08-18 06:45:00         SL      2.48       -409.20
+1014  2026-08-18 07:10:00    BUY  4391.04500  4389.95000  4393.45400  4393.45400  2026-08-18 07:15:00         TP      3.55        855.20
+1015  2026-08-18 08:00:00   SELL  4393.69333  4395.40000  4389.93867  4395.40000  2026-08-18 08:20:00         SL      2.53       -431.79
+1016  2026-08-18 09:35:00   SELL  4396.82333  4400.15000  4389.50467  4400.15000  2026-08-18 10:00:00         SL      1.23       -409.18
+1017  2026-08-18 10:35:00   SELL  4398.76667  4403.64000  4388.04533  4388.04533  2026-08-18 11:10:00         TP      0.80        857.71
+1018  2026-08-18 11:20:00    BUY  4391.27500  4387.92000  4398.65600  4387.92000  2026-08-18 11:25:00         SL      1.29       -432.79
+1019  2026-08-18 12:35:00    BUY  4391.95000  4388.51000  4399.51800  4388.51000  2026-08-18 12:40:00         SL      1.19       -409.36
+1020  2026-08-18 13:30:00   SELL  4392.95000  4396.15000  4385.91000  4396.15000  2026-08-18 13:35:00         SL      1.22       -390.40
+1021  2026-08-18 13:55:00   SELL  4397.43000  4399.57000  4392.72200  4392.72200  2026-08-18 14:05:00         TP      1.73        814.48
+1022  2026-08-18 14:50:00    BUY  4390.51000  4388.57000  4394.77800  4394.77800  2026-08-18 14:55:00         TP      2.12        904.82
+1023  2026-08-18 14:55:00   SELL  4391.76000  4393.74000  4387.40400  4393.74000  2026-08-18 15:00:00         SL      2.30       -455.40
+1024  2026-08-18 17:50:00    BUY  4384.80333  4377.61000  4400.62867  4377.61000  2026-08-18 17:55:00         SL      0.60       -431.60
+1025  2026-08-18 18:30:00    BUY  4356.24500  4351.50000  4366.68400  4366.68400  2026-08-18 19:00:00         TP      0.87        908.19
+1026  2026-08-18 18:45:00   SELL  4359.41500  4362.33000  4353.00200  4362.33000  2026-08-18 18:50:00         SL      1.41       -411.01
+1027  2026-08-18 19:20:00   SELL  4368.02000  4371.61000  4360.12200  4360.12200  2026-08-18 20:40:00         TP      1.21        955.66
+1028  2026-08-18 21:25:00   SELL  4357.51500  4359.35000  4353.47800  4359.35000  2026-08-18 21:30:00         SL      2.64       -484.44
+1029  2026-08-19 02:00:00   SELL  4334.25500  4335.49000  4331.53800  4335.49000  2026-08-19 02:05:00         SL      3.73       -460.65
+1030  2026-08-19 03:30:00   SELL  4343.89500  4346.34000  4338.51600  4346.34000  2026-08-19 03:35:00         SL      1.79       -437.65
+1031  2026-08-19 04:50:00   SELL  4353.06000  4357.52000  4343.24800  4357.52000  2026-08-19 05:15:00         SL      0.93       -414.78
+1032  2026-08-19 08:00:00    BUY  4346.91667  4343.77000  4353.83933  4343.77000  2026-08-19 08:05:00         SL      1.25       -393.33
+1033  2026-08-19 08:25:00    BUY  4340.59333  4336.66000  4349.24667  4336.66000  2026-08-19 08:45:00         SL      0.95       -373.67
+1034  2026-08-19 09:30:00   SELL  4343.09667  4348.29000  4331.67133  4348.29000  2026-08-19 09:55:00         SL      0.68       -353.15
+----------------------------------------------
+Notes:
+  - Entry: while waiting for the entry price (max 2 candles)
+    the strategy enters ONLY when one of the waiting candles'
+    BODY or SHADOW actually covers the entry point (the blue dot):
+    the entry price must be inside the candle's range [Low..High].
+    SELL -> the candle must rise so its range covers the entry.
+    BUY  -> the candle must fall so its range covers the entry.
+  - SL/TP are resolved against the High/Low of the candles that
+    follow the entry candle.
+  - Trades still open at the end of the data are closed at the
+    last candle close and marked EndOfData.
+==============================================
+          PER-CANDLE DECISION LOG
+==============================================
+               Time             State     Trend   Rev       Entry          O          H          L          C  Decision
+----------------------------------------------
+2026-08-17 12:30:00         DownTrend  DownWard     0     0.00000  4396.80000  4397.45000  4394.31000  4396.49000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 12:35:00         DownTrend  DownWard     0     0.00000  4396.32000  4397.15000  4393.91000  4394.50000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 12:40:00  WaitingForReversal  DownWard     0     0.00000  4394.54000  4396.43000  4393.50000  4394.13000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 12:45:00  WaitingForReversal  DownWard     1     0.00000  4394.20000  4395.28000  4392.43000  4395.15000  R1 recorded (reversalCount=1)
+2026-08-17 12:45:00  WaitingForReversal  DownWard     1     0.00000  4394.20000  4395.28000  4392.43000  4395.15000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-17 12:50:00  WaitingForReversal  DownWard     1     0.00000  4395.22000  4395.85000  4392.77000  4393.45000  trend resumed before R2; R1 discarded as noise
+2026-08-17 12:55:00  WaitingForReversal  DownWard     1     0.00000  4393.57000  4395.61000  4393.38000  4395.56000  R1 recorded (reversalCount=1)
+2026-08-17 12:55:00  WaitingForReversal  DownWard     1     0.00000  4393.57000  4395.61000  4393.38000  4395.56000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-17 13:00:00  WaitingForReversal  DownWard     1     0.00000  4395.58000  4395.97000  4393.11000  4394.10000  R1 pending; candle is not reversal and not continuation
+2026-08-17 13:05:00  WaitingForReversal  DownWard     2     0.00000  4394.12000  4396.23000  4394.12000  4394.19000  R2 recorded (reversalCount=2)
+2026-08-17 13:05:00   WaitingForEntry  DownWard     2  4394.50000  4394.12000  4396.23000  4394.12000  4394.19000  confirm reversal: type=Shadow, entry=4394.50000, SL=4392.77000, waiting for entry
+2026-08-17 13:05:00   WaitingForEntry  DownWard     2  4394.50000  4394.12000  4396.23000  4394.12000  4394.19000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-17 13:10:00   WaitingForEntry  DownWard     0  4394.50000  4394.15000  4396.34000  4393.98000  4395.96000  ENTRY REACHED by BUY BODY (candle body covers entry=4394.50000)
+2026-08-17 13:10:00    ExecutingTrade  DownWard     2  4394.50000  4394.15000  4396.34000  4393.98000  4395.96000  ENTRY REACHED (BUY) at entry=4394.50000, executionPrice=4394.50000
+2026-08-17 13:05:00           UpTrend    UpWard     0     0.00000  4394.12000  4396.23000  4394.12000  4394.19000  Trade completed: preserved successful reversal candle(s): promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-17 13:10:00           UpTrend    UpWard     0     0.00000  4394.15000  4396.34000  4393.98000  4395.96000  noise candle skipped (trendCandles=2/3)
+2026-08-17 13:15:00           UpTrend    UpWard     0     0.00000  4395.95000  4399.95000  4394.91000  4395.92000  noise candle skipped (trendCandles=2/3)
+2026-08-17 13:20:00  WaitingForReversal    UpWard     0     0.00000  4395.95000  4397.28000  4395.09000  4396.58000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 13:25:00  WaitingForReversal    UpWard     0     0.00000  4396.60000  4405.49000  4391.76000  4404.95000  no reversal, trend NOT extended (not valid continuation)
+2026-08-17 13:30:00  WaitingForReversal    UpWard     1     0.00000  4404.88000  4405.69000  4397.03000  4397.21000  R1 recorded (reversalCount=1)
+2026-08-17 13:30:00  WaitingForReversal    UpWard     1     0.00000  4404.88000  4405.69000  4397.03000  4397.21000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-17 13:35:00  WaitingForReversal    UpWard     2     0.00000  4397.29000  4398.31000  4395.56000  4395.91000  R2 recorded (reversalCount=2)
+2026-08-17 13:35:00  WaitingForReversal    UpWard     2     0.00000  4397.29000  4398.31000  4395.56000  4395.91000  R2 did NOT break trend level; both failed -> next trend
+2026-08-17 13:35:00         DownTrend  DownWard     0     0.00000  4397.29000  4398.31000  4395.56000  4395.91000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=2)
+2026-08-17 13:40:00         DownTrend  DownWard     0     0.00000  4395.94000  4398.93000  4395.25000  4398.17000  noise candle skipped (trendCandles=2/3)
+2026-08-17 13:45:00         DownTrend  DownWard     0     0.00000  4398.17000  4399.23000  4396.27000  4396.94000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 13:50:00         DownTrend  DownWard     0     0.00000  4396.96000  4398.58000  4396.56000  4397.63000  noise candle skipped (trendCandles=1/3)
+2026-08-17 13:55:00           UpTrend    UpWard     0     0.00000  4397.64000  4399.47000  4397.04000  4398.97000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 14:00:00           UpTrend    UpWard     0     0.00000  4399.10000  4402.21000  4397.82000  4400.29000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 14:05:00  WaitingForReversal    UpWard     0     0.00000  4400.29000  4403.97000  4400.14000  4402.06000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 14:10:00  WaitingForReversal    UpWard     1     0.00000  4402.09000  4402.79000  4399.56000  4399.64000  R1 recorded (reversalCount=1)
+2026-08-17 14:10:00   WaitingForEntry    UpWard     1  4401.03000  4402.09000  4402.79000  4399.56000  4399.64000  confirm reversal: type=Body, entry=4401.03000, SL=4403.97000, waiting for entry
+2026-08-17 14:10:00   WaitingForEntry    UpWard     1  4401.03000  4402.09000  4402.79000  4399.56000  4399.64000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 14:15:00   WaitingForEntry    UpWard     0  4401.03000  4399.83000  4400.05000  4397.03000  4398.32000  entry NOT reached by SELL (body/shadow did not cover entry=4401.03000)
+2026-08-17 14:15:00   WaitingForEntry    UpWard     1  4401.03000  4399.83000  4400.05000  4397.03000  4398.32000  waiting for entry candle 1/2
+2026-08-17 14:20:00   WaitingForEntry    UpWard     0  4401.03000  4398.33000  4404.12000  4398.33000  4403.58000  ENTRY REACHED by SELL BODY (candle body covers entry=4401.03000)
+2026-08-17 14:20:00    ExecutingTrade    UpWard     1  4401.03000  4398.33000  4404.12000  4398.33000  4403.58000  ENTRY REACHED (SELL) at entry=4401.03000, executionPrice=4401.03000
+2026-08-17 14:15:00         DownTrend  DownWard     0     0.00000  4399.83000  4400.05000  4397.03000  4398.32000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 14:10:00         DownTrend  DownWard     0     0.00000  4402.09000  4402.79000  4399.56000  4399.64000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=DownWard, trendCandles=2)
+2026-08-17 14:20:00           UpTrend    UpWard     0     0.00000  4398.33000  4404.12000  4398.33000  4403.58000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 14:25:00           UpTrend    UpWard     0     0.00000  4403.60000  4404.64000  4402.77000  4403.58000  noise candle skipped (trendCandles=1/3)
+2026-08-17 14:30:00           UpTrend    UpWard     0     0.00000  4403.58000  4404.89000  4402.16000  4404.02000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 14:35:00           UpTrend    UpWard     0     0.00000  4404.03000  4404.83000  4402.69000  4402.70000  noise candle skipped (trendCandles=2/3)
+2026-08-17 14:40:00         DownTrend  DownWard     0     0.00000  4402.83000  4403.14000  4399.17000  4399.51000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 14:45:00         DownTrend  DownWard     0     0.00000  4399.51000  4400.71000  4396.69000  4396.81000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 14:50:00         DownTrend  DownWard     0     0.00000  4397.01000  4398.91000  4395.36000  4396.83000  noise candle skipped (trendCandles=2/3)
+2026-08-17 14:55:00         DownTrend  DownWard     0     0.00000  4396.70000  4397.62000  4395.81000  4396.67000  noise candle skipped (trendCandles=2/3)
+2026-08-17 15:00:00  WaitingForReversal  DownWard     0     0.00000  4396.66000  4397.60000  4393.75000  4394.58000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 15:05:00  WaitingForReversal  DownWard     0     0.00000  4394.60000  4395.15000  4391.92000  4392.55000  trend DownWard extended (trendCandles=4)
+2026-08-17 15:10:00  WaitingForReversal  DownWard     1     0.00000  4392.58000  4394.98000  4391.60000  4393.95000  R1 recorded (reversalCount=1)
+2026-08-17 15:10:00  WaitingForReversal  DownWard     1     0.00000  4392.58000  4394.98000  4391.60000  4393.95000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-17 15:15:00  WaitingForReversal  DownWard     2     0.00000  4393.94000  4395.65000  4393.02000  4394.70000  R2 recorded (reversalCount=2)
+2026-08-17 15:15:00   WaitingForEntry  DownWard     2  4393.62500  4393.94000  4395.65000  4393.02000  4394.70000  confirm reversal: type=Shadow, entry=4393.62500, SL=4391.60000, waiting for entry
+2026-08-17 15:15:00   WaitingForEntry  DownWard     2  4393.62500  4393.94000  4395.65000  4393.02000  4394.70000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-17 15:20:00   WaitingForEntry  DownWard     0  4393.62500  4394.71000  4398.82000  4391.95000  4392.82000  ENTRY REACHED by BUY BODY (candle body covers entry=4393.62500)
+2026-08-17 15:20:00    ExecutingTrade  DownWard     2  4393.62500  4394.71000  4398.82000  4391.95000  4392.82000  ENTRY REACHED (BUY) at entry=4393.62500, executionPrice=4393.62500
+2026-08-17 15:15:00           UpTrend    UpWard     0     0.00000  4393.94000  4395.65000  4393.02000  4394.70000  Trade completed: preserved successful reversal candle(s): promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-17 15:20:00           UpTrend    UpWard     0     0.00000  4394.71000  4398.82000  4391.95000  4392.82000  noise candle skipped (trendCandles=2/3)
+2026-08-17 15:25:00         DownTrend  DownWard     0     0.00000  4392.83000  4393.66000  4382.41000  4385.57000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 15:30:00         DownTrend  DownWard     0     0.00000  4385.45000  4390.25000  4383.94000  4388.88000  noise candle skipped (trendCandles=1/3)
+2026-08-17 15:35:00         DownTrend  DownWard     0     0.00000  4388.88000  4389.35000  4381.27000  4381.33000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 15:40:00  WaitingForReversal  DownWard     0     0.00000  4381.39000  4383.34000  4378.29000  4378.34000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 15:45:00  WaitingForReversal  DownWard     0     0.00000  4378.34000  4380.57000  4377.17000  4378.07000  trend DownWard extended (trendCandles=4)
+2026-08-17 15:50:00  WaitingForReversal  DownWard     1     0.00000  4378.09000  4385.03000  4377.74000  4384.24000  R1 recorded (reversalCount=1)
+2026-08-17 15:50:00   WaitingForEntry  DownWard     1  4382.41000  4378.09000  4385.03000  4377.74000  4384.24000  confirm reversal: type=Body, entry=4382.41000, SL=4377.17000, waiting for entry
+2026-08-17 15:50:00   WaitingForEntry  DownWard     1  4382.41000  4378.09000  4385.03000  4377.74000  4384.24000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 15:55:00   WaitingForEntry  DownWard     0  4382.41000  4384.22000  4386.40000  4383.36000  4384.89000  entry NOT reached by BUY (body/shadow did not cover entry=4382.41000)
+2026-08-17 15:55:00   WaitingForEntry  DownWard     1  4382.41000  4384.22000  4386.40000  4383.36000  4384.89000  waiting for entry candle 1/2
+2026-08-17 16:00:00   WaitingForEntry  DownWard     0  4382.41000  4384.90000  4388.40000  4381.83000  4384.85000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4382.41000)
+2026-08-17 16:00:00    ExecutingTrade  DownWard     1  4382.41000  4384.90000  4388.40000  4381.83000  4384.85000  ENTRY REACHED (BUY) at entry=4382.41000, executionPrice=4382.41000
+2026-08-17 15:55:00           UpTrend    UpWard     0     0.00000  4384.22000  4386.40000  4383.36000  4384.89000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 15:50:00           UpTrend    UpWard     0     0.00000  4378.09000  4385.03000  4377.74000  4384.24000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-17 16:00:00           UpTrend    UpWard     0     0.00000  4384.90000  4388.40000  4381.83000  4384.85000  noise candle skipped (trendCandles=2/3)
+2026-08-17 16:05:00           UpTrend    UpWard     0     0.00000  4384.87000  4386.21000  4382.26000  4385.53000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 16:10:00           UpTrend    UpWard     0     0.00000  4385.56000  4389.52000  4385.14000  4386.40000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 16:15:00         DownTrend  DownWard     0     0.00000  4386.43000  4386.92000  4382.20000  4385.62000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 16:20:00           UpTrend    UpWard     0     0.00000  4385.62000  4388.94000  4384.61000  4386.51000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 16:25:00           UpTrend    UpWard     0     0.00000  4386.66000  4388.44000  4385.96000  4386.28000  noise candle skipped (trendCandles=1/3)
+2026-08-17 16:30:00           UpTrend    UpWard     0     0.00000  4386.25000  4390.34000  4385.73000  4388.82000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 16:35:00           UpTrend    UpWard     0     0.00000  4388.82000  4391.94000  4386.17000  4388.61000  noise candle skipped (trendCandles=2/3)
+2026-08-17 16:40:00         DownTrend  DownWard     0     0.00000  4388.61000  4389.49000  4384.88000  4385.76000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 16:45:00         DownTrend  DownWard     0     0.00000  4385.73000  4395.49000  4384.66000  4395.00000  noise candle skipped (trendCandles=1/3)
+2026-08-17 16:50:00           UpTrend    UpWard     0     0.00000  4395.19000  4407.54000  4394.50000  4401.59000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 16:55:00           UpTrend    UpWard     0     0.00000  4401.61000  4416.20000  4401.44000  4408.65000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 17:00:00           UpTrend    UpWard     0     0.00000  4408.48000  4409.96000  4404.19000  4407.97000  noise candle skipped (trendCandles=2/3)
+2026-08-17 17:05:00           UpTrend    UpWard     0     0.00000  4407.99000  4408.51000  4404.81000  4405.30000  noise candle skipped (trendCandles=2/3)
+2026-08-17 17:10:00           UpTrend    UpWard     0     0.00000  4405.30000  4412.86000  4403.71000  4412.49000  noise candle skipped (trendCandles=2/3)
+2026-08-17 17:15:00  WaitingForReversal    UpWard     0     0.00000  4412.34000  4420.70000  4411.71000  4418.29000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 17:20:00  WaitingForReversal    UpWard     0     0.00000  4418.35000  4427.62000  4417.11000  4423.99000  trend UpWard extended (trendCandles=4)
+2026-08-17 17:25:00  WaitingForReversal    UpWard     1     0.00000  4423.98000  4426.36000  4415.61000  4418.18000  R1 recorded (reversalCount=1)
+2026-08-17 17:25:00   WaitingForEntry    UpWard     1  4421.61500  4423.98000  4426.36000  4415.61000  4418.18000  confirm reversal: type=Shadow, entry=4421.61500, SL=4427.62000, waiting for entry
+2026-08-17 17:25:00   WaitingForEntry    UpWard     1  4421.61500  4423.98000  4426.36000  4415.61000  4418.18000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 17:30:00   WaitingForEntry    UpWard     0  4421.61500  4418.31000  4424.65000  4417.97000  4422.04000  ENTRY REACHED by SELL BODY (candle body covers entry=4421.61500)
+2026-08-17 17:30:00    ExecutingTrade    UpWard     1  4421.61500  4418.31000  4424.65000  4417.97000  4422.04000  ENTRY REACHED (SELL) at entry=4421.61500, executionPrice=4421.61500
+2026-08-17 17:25:00         DownTrend  DownWard     0     0.00000  4423.98000  4426.36000  4415.61000  4418.18000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-17 17:30:00         DownTrend  DownWard     0     0.00000  4418.31000  4424.65000  4417.97000  4422.04000  noise candle skipped (trendCandles=1/3)
+2026-08-17 17:35:00         DownTrend  DownWard     0     0.00000  4422.17000  4423.58000  4416.28000  4417.73000  noise candle skipped (trendCandles=1/3)
+2026-08-17 17:40:00         DownTrend  DownWard     0     0.00000  4417.79000  4421.68000  4417.22000  4417.41000  noise candle skipped (trendCandles=1/3)
+2026-08-17 17:45:00         DownTrend  DownWard     0     0.00000  4417.44000  4419.62000  4413.92000  4417.06000  noise candle skipped (trendCandles=1/3)
+2026-08-17 17:50:00         DownTrend  DownWard     0     0.00000  4417.26000  4421.01000  4415.75000  4416.33000  noise candle skipped (trendCandles=1/3)
+2026-08-17 17:55:00         DownTrend  DownWard     0     0.00000  4416.33000  4418.24000  4414.47000  4417.30000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:00:00         DownTrend  DownWard     0     0.00000  4417.30000  4419.17000  4415.13000  4418.58000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:05:00         DownTrend  DownWard     0     0.00000  4418.63000  4419.82000  4415.91000  4417.02000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:10:00         DownTrend  DownWard     0     0.00000  4416.83000  4422.37000  4416.01000  4421.27000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:15:00         DownTrend  DownWard     0     0.00000  4421.19000  4423.23000  4419.39000  4422.14000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:20:00         DownTrend  DownWard     0     0.00000  4422.18000  4423.81000  4421.47000  4423.22000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:25:00         DownTrend  DownWard     0     0.00000  4423.20000  4425.97000  4420.77000  4425.44000  noise candle skipped (trendCandles=1/3)
+2026-08-17 18:30:00         DownTrend  DownWard     0     0.00000  4425.58000  4426.43000  4421.28000  4422.81000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 18:35:00         DownTrend  DownWard     0     0.00000  4422.82000  4423.89000  4420.07000  4421.96000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 18:40:00  WaitingForReversal  DownWard     0     0.00000  4421.96000  4423.48000  4418.79000  4419.33000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 18:45:00  WaitingForReversal  DownWard     1     0.00000  4419.31000  4424.34000  4417.68000  4423.83000  R1 recorded (reversalCount=1)
+2026-08-17 18:45:00   WaitingForEntry  DownWard     1  4422.12000  4419.31000  4424.34000  4417.68000  4423.83000  confirm reversal: type=Body, entry=4422.12000, SL=4417.68000, waiting for entry
+2026-08-17 18:45:00   WaitingForEntry  DownWard     1  4422.12000  4419.31000  4424.34000  4417.68000  4423.83000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 18:50:00   WaitingForEntry  DownWard     0  4422.12000  4423.82000  4426.72000  4423.02000  4426.34000  entry NOT reached by BUY (body/shadow did not cover entry=4422.12000)
+2026-08-17 18:50:00   WaitingForEntry  DownWard     1  4422.12000  4423.82000  4426.72000  4423.02000  4426.34000  waiting for entry candle 1/2
+2026-08-17 18:55:00   WaitingForEntry  DownWard     0  4422.12000  4426.36000  4427.81000  4425.85000  4427.50000  entry NOT reached by BUY (body/shadow did not cover entry=4422.12000)
+2026-08-17 18:55:00   WaitingForEntry  DownWard     1  4422.12000  4426.36000  4427.81000  4425.85000  4427.50000  waiting for entry candle 2/2
+2026-08-17 18:50:00           UpTrend    UpWard     0     0.00000  4423.82000  4426.72000  4423.02000  4426.34000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 18:55:00  WaitingForReversal    UpWard     0     0.00000  4426.36000  4427.81000  4425.85000  4427.50000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 18:45:00  WaitingForReversal    UpWard     0     0.00000  4419.31000  4424.34000  4417.68000  4423.83000  ConvertReversalToTrend: promoted 1 reversal + 2 waited candle(s) into next trend (trend=UpWard, trendCandles=3)
+2026-08-17 19:00:00  WaitingForReversal    UpWard     1     0.00000  4427.64000  4428.16000  4423.99000  4425.44000  R1 recorded (reversalCount=1)
+2026-08-17 19:00:00   WaitingForEntry    UpWard     1  4425.38000  4427.64000  4428.16000  4423.99000  4425.44000  confirm reversal: type=Body, entry=4425.38000, SL=4428.16000, waiting for entry
+2026-08-17 19:00:00   WaitingForEntry    UpWard     1  4425.38000  4427.64000  4428.16000  4423.99000  4425.44000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 19:05:00   WaitingForEntry    UpWard     0  4425.38000  4425.44000  4428.34000  4424.03000  4427.39000  ENTRY REACHED by SELL SHADOW (candle wick covers entry=4425.38000)
+2026-08-17 19:05:00    ExecutingTrade    UpWard     1  4425.38000  4425.44000  4428.34000  4424.03000  4427.39000  ENTRY REACHED (SELL) at entry=4425.38000, executionPrice=4425.38000
+2026-08-17 19:00:00         DownTrend  DownWard     0     0.00000  4427.64000  4428.16000  4423.99000  4425.44000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-17 19:05:00           UpTrend    UpWard     0     0.00000  4425.44000  4428.34000  4424.03000  4427.39000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 19:10:00           UpTrend    UpWard     0     0.00000  4427.38000  4428.83000  4425.67000  4425.95000  noise candle skipped (trendCandles=1/3)
+2026-08-17 19:15:00           UpTrend    UpWard     0     0.00000  4426.02000  4427.49000  4425.18000  4425.76000  noise candle skipped (trendCandles=1/3)
+2026-08-17 19:20:00           UpTrend    UpWard     0     0.00000  4425.76000  4427.66000  4424.67000  4425.07000  noise candle skipped (trendCandles=1/3)
+2026-08-17 19:25:00         DownTrend  DownWard     0     0.00000  4425.11000  4425.24000  4422.94000  4424.80000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 19:30:00         DownTrend  DownWard     0     0.00000  4424.93000  4425.39000  4422.78000  4424.03000  noise candle skipped (trendCandles=1/3)
+2026-08-17 19:35:00           UpTrend    UpWard     0     0.00000  4424.01000  4427.08000  4423.38000  4426.65000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 19:40:00           UpTrend    UpWard     0     0.00000  4426.60000  4426.83000  4424.32000  4424.66000  noise candle skipped (trendCandles=1/3)
+2026-08-17 19:45:00         DownTrend  DownWard     0     0.00000  4424.68000  4424.89000  4422.41000  4424.11000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 19:50:00         DownTrend  DownWard     0     0.00000  4424.11000  4425.70000  4422.59000  4423.34000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 19:55:00         DownTrend  DownWard     0     0.00000  4423.34000  4425.47000  4423.33000  4424.24000  noise candle skipped (trendCandles=1/3)
+2026-08-17 20:00:00           UpTrend    UpWard     0     0.00000  4424.24000  4426.13000  4423.64000  4424.70000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 20:05:00         DownTrend  DownWard     0     0.00000  4424.71000  4424.97000  4421.15000  4422.29000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 20:10:00         DownTrend  DownWard     0     0.00000  4422.24000  4423.40000  4421.62000  4422.94000  noise candle skipped (trendCandles=1/3)
+2026-08-17 20:15:00         DownTrend  DownWard     0     0.00000  4422.91000  4423.25000  4418.84000  4419.43000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 20:20:00  WaitingForReversal  DownWard     0     0.00000  4419.44000  4420.26000  4415.80000  4416.68000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 20:25:00  WaitingForReversal  DownWard     0     0.00000  4416.69000  4417.40000  4413.41000  4416.57000  trend DownWard extended (trendCandles=4)
+2026-08-17 20:30:00  WaitingForReversal  DownWard     1     0.00000  4416.56000  4418.59000  4413.83000  4417.20000  R1 recorded (reversalCount=1)
+2026-08-17 20:30:00   WaitingForEntry  DownWard     1  4416.00000  4416.56000  4418.59000  4413.83000  4417.20000  confirm reversal: type=Shadow, entry=4416.00000, SL=4413.41000, waiting for entry
+2026-08-17 20:30:00   WaitingForEntry  DownWard     1  4416.00000  4416.56000  4418.59000  4413.83000  4417.20000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 20:35:00   WaitingForEntry  DownWard     0  4416.00000  4417.20000  4417.45000  4411.73000  4411.81000  ENTRY REACHED by BUY BODY (candle body covers entry=4416.00000)
+2026-08-17 20:35:00    ExecutingTrade  DownWard     1  4416.00000  4417.20000  4417.45000  4411.73000  4411.81000  ENTRY REACHED (BUY) at entry=4416.00000, executionPrice=4416.00000
+2026-08-17 20:30:00           UpTrend    UpWard     0     0.00000  4416.56000  4418.59000  4413.83000  4417.20000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-17 20:35:00         DownTrend  DownWard     0     0.00000  4417.20000  4417.45000  4411.73000  4411.81000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 20:40:00         DownTrend  DownWard     0     0.00000  4411.81000  4417.43000  4411.20000  4417.38000  noise candle skipped (trendCandles=1/3)
+2026-08-17 20:45:00           UpTrend    UpWard     0     0.00000  4417.39000  4420.39000  4417.12000  4419.13000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 20:50:00           UpTrend    UpWard     0     0.00000  4419.08000  4420.54000  4416.89000  4417.17000  noise candle skipped (trendCandles=1/3)
+2026-08-17 20:55:00         DownTrend  DownWard     0     0.00000  4417.19000  4417.98000  4413.20000  4413.68000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 21:00:00         DownTrend  DownWard     0     0.00000  4413.69000  4414.56000  4410.85000  4411.23000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 21:05:00         DownTrend  DownWard     0     0.00000  4411.23000  4413.14000  4410.20000  4411.71000  noise candle skipped (trendCandles=2/3)
+2026-08-17 21:10:00         DownTrend  DownWard     0     0.00000  4411.64000  4413.87000  4410.09000  4413.76000  noise candle skipped (trendCandles=2/3)
+2026-08-17 21:15:00           UpTrend    UpWard     0     0.00000  4413.79000  4416.13000  4413.39000  4415.01000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 21:20:00         DownTrend  DownWard     0     0.00000  4415.00000  4415.34000  4408.82000  4409.05000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 21:25:00         DownTrend  DownWard     0     0.00000  4409.14000  4409.79000  4404.74000  4406.24000  trend DownWard added candle (trendCandles=2/3)
+2026-08-17 21:30:00  WaitingForReversal  DownWard     0     0.00000  4406.28000  4406.90000  4398.14000  4399.94000  trend DownWard added candle (trendCandles=3/3)
+2026-08-17 21:35:00  WaitingForReversal  DownWard     1     0.00000  4399.90000  4402.43000  4399.19000  4402.21000  R1 recorded (reversalCount=1)
+2026-08-17 21:35:00  WaitingForReversal  DownWard     1     0.00000  4399.90000  4402.43000  4399.19000  4402.21000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-17 21:40:00  WaitingForReversal  DownWard     1     0.00000  4402.21000  4404.72000  4401.35000  4401.36000  R1 pending; candle is not reversal and not continuation
+2026-08-17 21:45:00  WaitingForReversal  DownWard     2     0.00000  4401.36000  4406.11000  4400.13000  4405.84000  R2 recorded (reversalCount=2)
+2026-08-17 21:45:00  WaitingForReversal  DownWard     2     0.00000  4401.36000  4406.11000  4400.13000  4405.84000  R2 did NOT break trend level; both failed -> next trend
+2026-08-17 21:45:00           UpTrend    UpWard     0     0.00000  4401.36000  4406.11000  4400.13000  4405.84000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-17 21:50:00  WaitingForReversal    UpWard     0     0.00000  4405.85000  4407.51000  4405.09000  4406.52000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 21:55:00  WaitingForReversal    UpWard     0     0.00000  4406.52000  4406.98000  4405.78000  4406.62000  no reversal, trend NOT extended (not valid continuation)
+2026-08-17 22:00:00  WaitingForReversal    UpWard     1     0.00000  4406.60000  4407.21000  4401.96000  4403.00000  R1 recorded (reversalCount=1)
+2026-08-17 22:00:00   WaitingForEntry    UpWard     1  4403.81000  4406.60000  4407.21000  4401.96000  4403.00000  confirm reversal: type=Body, entry=4403.81000, SL=4407.51000, waiting for entry
+2026-08-17 22:00:00   WaitingForEntry    UpWard     1  4403.81000  4406.60000  4407.21000  4401.96000  4403.00000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 22:05:00   WaitingForEntry    UpWard     0  4403.81000  4403.01000  4403.69000  4400.23000  4403.65000  entry NOT reached by SELL (body/shadow did not cover entry=4403.81000)
+2026-08-17 22:05:00   WaitingForEntry    UpWard     1  4403.81000  4403.01000  4403.69000  4400.23000  4403.65000  waiting for entry candle 1/2
+2026-08-17 22:10:00   WaitingForEntry    UpWard     0  4403.81000  4403.68000  4408.62000  4403.66000  4408.58000  ENTRY REACHED by SELL BODY (candle body covers entry=4403.81000)
+2026-08-17 22:10:00    ExecutingTrade    UpWard     1  4403.81000  4403.68000  4408.62000  4403.66000  4408.58000  ENTRY REACHED (SELL) at entry=4403.81000, executionPrice=4403.81000
+2026-08-17 22:05:00         DownTrend  DownWard     0     0.00000  4403.01000  4403.69000  4400.23000  4403.65000  noise candle skipped (trendCandles=1/3)
+2026-08-17 22:00:00         DownTrend  DownWard     0     0.00000  4406.60000  4407.21000  4401.96000  4403.00000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-17 22:10:00           UpTrend    UpWard     0     0.00000  4403.68000  4408.62000  4403.66000  4408.58000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 22:15:00           UpTrend    UpWard     0     0.00000  4408.58000  4416.12000  4408.58000  4414.97000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 22:20:00  WaitingForReversal    UpWard     0     0.00000  4414.94000  4416.82000  4414.88000  4416.04000  trend UpWard added candle (trendCandles=3/3)
+2026-08-17 22:25:00  WaitingForReversal    UpWard     1     0.00000  4416.04000  4417.42000  4414.30000  4414.45000  R1 recorded (reversalCount=1)
+2026-08-17 22:25:00   WaitingForEntry    UpWard     1  4415.34000  4416.04000  4417.42000  4414.30000  4414.45000  confirm reversal: type=Body, entry=4415.34000, SL=4417.42000, waiting for entry
+2026-08-17 22:25:00   WaitingForEntry    UpWard     1  4415.34000  4416.04000  4417.42000  4414.30000  4414.45000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-17 22:30:00   WaitingForEntry    UpWard     0  4415.34000  4414.47000  4416.64000  4413.97000  4416.34000  ENTRY REACHED by SELL BODY (candle body covers entry=4415.34000)
+2026-08-17 22:30:00    ExecutingTrade    UpWard     1  4415.34000  4414.47000  4416.64000  4413.97000  4416.34000  ENTRY REACHED (SELL) at entry=4415.34000, executionPrice=4415.34000
+2026-08-17 22:25:00         DownTrend  DownWard     0     0.00000  4416.04000  4417.42000  4414.30000  4414.45000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-17 22:30:00         DownTrend  DownWard     0     0.00000  4414.47000  4416.64000  4413.97000  4416.34000  noise candle skipped (trendCandles=1/3)
+2026-08-17 22:35:00         DownTrend  DownWard     0     0.00000  4416.33000  4417.16000  4415.05000  4416.58000  noise candle skipped (trendCandles=1/3)
+2026-08-17 22:40:00           UpTrend    UpWard     0     0.00000  4416.52000  4420.44000  4415.57000  4419.38000  seed trend: trend=UpWard, trendCandles=1
+2026-08-17 22:45:00           UpTrend    UpWard     0     0.00000  4419.38000  4420.96000  4418.54000  4420.15000  trend UpWard added candle (trendCandles=2/3)
+2026-08-17 22:50:00         DownTrend  DownWard     0     0.00000  4420.15000  4420.19000  4416.44000  4418.02000  seed trend: trend=DownWard, trendCandles=1
+2026-08-17 22:55:00           UpTrend    UpWard     0     0.00000  4418.02000  4420.82000  4417.62000  4419.68000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 01:00:00           UpTrend    UpWard     0     0.00000  4406.60000  4418.43000  4405.48000  4415.74000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 01:05:00           UpTrend    UpWard     0     0.00000  4415.99000  4416.67000  4414.77000  4415.60000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:10:00           UpTrend    UpWard     0     0.00000  4415.60000  4416.87000  4415.31000  4416.74000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:15:00           UpTrend    UpWard     0     0.00000  4416.74000  4417.10000  4415.63000  4415.64000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:20:00           UpTrend    UpWard     0     0.00000  4415.64000  4416.29000  4415.16000  4415.44000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:25:00           UpTrend    UpWard     0     0.00000  4415.44000  4415.57000  4411.83000  4412.36000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:30:00           UpTrend    UpWard     0     0.00000  4412.36000  4413.30000  4411.44000  4412.51000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:35:00           UpTrend    UpWard     0     0.00000  4412.54000  4414.67000  4412.25000  4413.18000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:40:00           UpTrend    UpWard     0     0.00000  4413.12000  4415.65000  4412.88000  4414.58000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:45:00           UpTrend    UpWard     0     0.00000  4414.55000  4416.22000  4414.07000  4415.04000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:50:00           UpTrend    UpWard     0     0.00000  4415.06000  4415.45000  4411.92000  4411.92000  noise candle skipped (trendCandles=1/3)
+2026-08-18 01:55:00           UpTrend    UpWard     0     0.00000  4411.94000  4413.20000  4410.41000  4411.74000  noise candle skipped (trendCandles=1/3)
+2026-08-18 02:00:00           UpTrend    UpWard     0     0.00000  4411.91000  4413.66000  4409.66000  4413.44000  noise candle skipped (trendCandles=1/3)
+2026-08-18 02:05:00           UpTrend    UpWard     0     0.00000  4413.24000  4414.38000  4412.71000  4413.77000  noise candle skipped (trendCandles=1/3)
+2026-08-18 02:10:00           UpTrend    UpWard     0     0.00000  4413.76000  4414.88000  4413.34000  4414.72000  noise candle skipped (trendCandles=1/3)
+2026-08-18 02:15:00           UpTrend    UpWard     0     0.00000  4414.72000  4418.45000  4414.72000  4417.58000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 02:20:00           UpTrend    UpWard     0     0.00000  4417.56000  4418.15000  4416.40000  4417.79000  noise candle skipped (trendCandles=2/3)
+2026-08-18 02:25:00  WaitingForReversal    UpWard     0     0.00000  4417.81000  4421.83000  4417.66000  4420.23000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 02:30:00  WaitingForReversal    UpWard     0     0.00000  4419.93000  4422.22000  4419.93000  4422.07000  trend UpWard extended (trendCandles=4)
+2026-08-18 02:35:00  WaitingForReversal    UpWard     1     0.00000  4422.05000  4422.27000  4420.59000  4421.10000  R1 recorded (reversalCount=1)
+2026-08-18 02:35:00  WaitingForReversal    UpWard     1     0.00000  4422.05000  4422.27000  4420.59000  4421.10000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 02:40:00  WaitingForReversal    UpWard     1     0.00000  4421.10000  4422.76000  4420.13000  4422.62000  trend resumed before R2; R1 discarded as noise
+2026-08-18 02:45:00  WaitingForReversal    UpWard     0     0.00000  4422.58000  4423.96000  4421.50000  4423.77000  trend UpWard extended (trendCandles=6)
+2026-08-18 02:50:00  WaitingForReversal    UpWard     1     0.00000  4423.80000  4424.31000  4422.53000  4423.52000  R1 recorded (reversalCount=1)
+2026-08-18 02:50:00  WaitingForReversal    UpWard     1     0.00000  4423.80000  4424.31000  4422.53000  4423.52000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 02:55:00  WaitingForReversal    UpWard     1     0.00000  4423.52000  4426.03000  4423.03000  4425.93000  trend resumed before R2; R1 discarded as noise
+2026-08-18 03:00:00  WaitingForReversal    UpWard     1     0.00000  4425.92000  4429.76000  4419.00000  4425.26000  R1 recorded (reversalCount=1)
+2026-08-18 03:00:00   WaitingForEntry    UpWard     1  4424.38000  4425.92000  4429.76000  4419.00000  4425.26000  confirm reversal: type=Shadow, entry=4424.38000, SL=4429.76000, waiting for entry
+2026-08-18 03:00:00   WaitingForEntry    UpWard     1  4424.38000  4425.92000  4429.76000  4419.00000  4425.26000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 03:05:00   WaitingForEntry    UpWard     0  4424.38000  4425.29000  4426.14000  4420.04000  4420.14000  ENTRY REACHED by SELL BODY (candle body covers entry=4424.38000)
+2026-08-18 03:05:00    ExecutingTrade    UpWard     1  4424.38000  4425.29000  4426.14000  4420.04000  4420.14000  ENTRY REACHED (SELL) at entry=4424.38000, executionPrice=4424.38000
+2026-08-18 03:00:00         DownTrend  DownWard     0     0.00000  4425.92000  4429.76000  4419.00000  4425.26000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 03:05:00         DownTrend  DownWard     0     0.00000  4425.29000  4426.14000  4420.04000  4420.14000  noise candle skipped (trendCandles=1/3)
+2026-08-18 03:10:00         DownTrend  DownWard     0     0.00000  4420.12000  4422.36000  4418.95000  4421.73000  noise candle skipped (trendCandles=1/3)
+2026-08-18 03:15:00         DownTrend  DownWard     0     0.00000  4421.71000  4428.19000  4420.83000  4426.84000  noise candle skipped (trendCandles=1/3)
+2026-08-18 03:20:00           UpTrend    UpWard     0     0.00000  4426.93000  4431.28000  4422.68000  4427.90000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 03:25:00           UpTrend    UpWard     0     0.00000  4427.67000  4431.54000  4425.03000  4431.18000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 03:30:00           UpTrend    UpWard     0     0.00000  4431.11000  4431.95000  4428.25000  4431.27000  noise candle skipped (trendCandles=2/3)
+2026-08-18 03:35:00  WaitingForReversal    UpWard     0     0.00000  4431.11000  4433.45000  4430.30000  4432.92000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 03:40:00  WaitingForReversal    UpWard     1     0.00000  4432.90000  4432.96000  4428.44000  4429.45000  R1 recorded (reversalCount=1)
+2026-08-18 03:40:00   WaitingForEntry    UpWard     1  4430.11000  4432.90000  4432.96000  4428.44000  4429.45000  confirm reversal: type=Body, entry=4430.11000, SL=4433.45000, waiting for entry
+2026-08-18 03:40:00   WaitingForEntry    UpWard     1  4430.11000  4432.90000  4432.96000  4428.44000  4429.45000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 03:45:00   WaitingForEntry    UpWard     0  4430.11000  4429.45000  4430.21000  4428.37000  4429.13000  ENTRY REACHED by SELL SHADOW (candle wick covers entry=4430.11000)
+2026-08-18 03:45:00    ExecutingTrade    UpWard     1  4430.11000  4429.45000  4430.21000  4428.37000  4429.13000  ENTRY REACHED (SELL) at entry=4430.11000, executionPrice=4430.11000
+2026-08-18 03:40:00         DownTrend  DownWard     0     0.00000  4432.90000  4432.96000  4428.44000  4429.45000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 03:45:00         DownTrend  DownWard     0     0.00000  4429.45000  4430.21000  4428.37000  4429.13000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 03:50:00         DownTrend  DownWard     0     0.00000  4429.13000  4430.50000  4428.57000  4429.18000  noise candle skipped (trendCandles=2/3)
+2026-08-18 03:55:00           UpTrend    UpWard     0     0.00000  4429.18000  4434.93000  4428.83000  4434.64000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 04:00:00           UpTrend    UpWard     0     0.00000  4434.34000  4436.10000  4429.09000  4431.02000  noise candle skipped (trendCandles=1/3)
+2026-08-18 04:05:00           UpTrend    UpWard     0     0.00000  4430.84000  4436.15000  4428.93000  4430.41000  noise candle skipped (trendCandles=1/3)
+2026-08-18 04:10:00         DownTrend  DownWard     0     0.00000  4430.39000  4431.78000  4428.43000  4429.21000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 04:15:00         DownTrend  DownWard     0     0.00000  4429.23000  4430.79000  4422.64000  4425.26000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 04:20:00  WaitingForReversal  DownWard     0     0.00000  4425.48000  4426.51000  4421.94000  4423.62000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 04:25:00  WaitingForReversal  DownWard     1     0.00000  4423.52000  4425.84000  4420.21000  4424.89000  R1 recorded (reversalCount=1)
+2026-08-18 04:25:00  WaitingForReversal  DownWard     1     0.00000  4423.52000  4425.84000  4420.21000  4424.89000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 04:30:00  WaitingForReversal  DownWard     1     0.00000  4424.94000  4426.23000  4421.11000  4422.36000  trend resumed before R2; R1 discarded as noise
+2026-08-18 04:35:00  WaitingForReversal  DownWard     0     0.00000  4422.38000  4423.52000  4420.17000  4420.33000  trend DownWard extended (trendCandles=5)
+2026-08-18 04:40:00  WaitingForReversal  DownWard     0     0.00000  4420.33000  4421.79000  4411.61000  4411.61000  trend DownWard extended (trendCandles=6)
+2026-08-18 04:45:00  WaitingForReversal  DownWard     0     0.00000  4411.61000  4412.04000  4404.07000  4407.58000  trend DownWard extended (trendCandles=7)
+2026-08-18 04:50:00  WaitingForReversal  DownWard     1     0.00000  4407.46000  4408.51000  4404.21000  4408.05000  R1 recorded (reversalCount=1)
+2026-08-18 04:50:00  WaitingForReversal  DownWard     1     0.00000  4407.46000  4408.51000  4404.21000  4408.05000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 04:55:00  WaitingForReversal  DownWard     1     0.00000  4408.05000  4409.32000  4407.27000  4407.99000  R1 pending; candle is not reversal and not continuation
+2026-08-18 05:00:00  WaitingForReversal  DownWard     1     0.00000  4407.93000  4408.13000  4400.73000  4402.09000  trend resumed before R2; R1 discarded as noise
+2026-08-18 05:05:00  WaitingForReversal  DownWard     0     0.00000  4402.18000  4404.03000  4399.57000  4399.95000  trend DownWard extended (trendCandles=9)
+2026-08-18 05:10:00  WaitingForReversal  DownWard     1     0.00000  4399.94000  4402.70000  4398.48000  4400.98000  R1 recorded (reversalCount=1)
+2026-08-18 05:10:00  WaitingForReversal  DownWard     1     0.00000  4399.94000  4402.70000  4398.48000  4400.98000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 05:15:00  WaitingForReversal  DownWard     2     0.00000  4400.98000  4405.54000  4400.28000  4403.67000  R2 recorded (reversalCount=2)
+2026-08-18 05:15:00   WaitingForEntry  DownWard     2  4402.01000  4400.98000  4405.54000  4400.28000  4403.67000  confirm reversal: type=Shadow, entry=4402.01000, SL=4398.48000, waiting for entry
+2026-08-18 05:15:00   WaitingForEntry  DownWard     2  4402.01000  4400.98000  4405.54000  4400.28000  4403.67000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-18 05:20:00   WaitingForEntry  DownWard     0  4402.01000  4403.92000  4404.47000  4401.34000  4404.04000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4402.01000)
+2026-08-18 05:20:00    ExecutingTrade  DownWard     2  4402.01000  4403.92000  4404.47000  4401.34000  4404.04000  ENTRY REACHED (BUY) at entry=4402.01000, executionPrice=4402.01000
+2026-08-18 05:15:00           UpTrend    UpWard     0     0.00000  4400.98000  4405.54000  4400.28000  4403.67000  Trade completed: preserved successful reversal candle(s): promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-18 05:20:00           UpTrend    UpWard     0     0.00000  4403.92000  4404.47000  4401.34000  4404.04000  noise candle skipped (trendCandles=2/3)
+2026-08-18 05:25:00           UpTrend    UpWard     0     0.00000  4404.04000  4405.40000  4402.16000  4402.31000  noise candle skipped (trendCandles=2/3)
+2026-08-18 05:30:00         DownTrend  DownWard     0     0.00000  4402.31000  4402.63000  4395.81000  4396.22000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 05:35:00         DownTrend  DownWard     0     0.00000  4396.21000  4399.72000  4395.04000  4396.24000  noise candle skipped (trendCandles=1/3)
+2026-08-18 05:40:00         DownTrend  DownWard     0     0.00000  4396.45000  4396.87000  4394.05000  4394.89000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 05:45:00           UpTrend    UpWard     0     0.00000  4394.93000  4398.03000  4394.26000  4397.13000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 05:50:00           UpTrend    UpWard     0     0.00000  4397.11000  4398.19000  4395.64000  4397.78000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 05:55:00  WaitingForReversal    UpWard     0     0.00000  4397.81000  4400.45000  4397.26000  4399.86000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 06:00:00  WaitingForReversal    UpWard     0     0.00000  4399.85000  4404.06000  4399.80000  4403.14000  trend UpWard extended (trendCandles=4)
+2026-08-18 06:05:00  WaitingForReversal    UpWard     1     0.00000  4403.09000  4403.58000  4399.51000  4401.32000  R1 recorded (reversalCount=1)
+2026-08-18 06:05:00   WaitingForEntry    UpWard     1  4401.78500  4403.09000  4403.58000  4399.51000  4401.32000  confirm reversal: type=Shadow, entry=4401.78500, SL=4404.06000, waiting for entry
+2026-08-18 06:05:00   WaitingForEntry    UpWard     1  4401.78500  4403.09000  4403.58000  4399.51000  4401.32000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 06:10:00   WaitingForEntry    UpWard     0  4401.78500  4401.41000  4402.49000  4398.79000  4401.46000  ENTRY REACHED by SELL SHADOW (candle wick covers entry=4401.78500)
+2026-08-18 06:10:00    ExecutingTrade    UpWard     1  4401.78500  4401.41000  4402.49000  4398.79000  4401.46000  ENTRY REACHED (SELL) at entry=4401.78500, executionPrice=4401.78500
+2026-08-18 06:05:00         DownTrend  DownWard     0     0.00000  4403.09000  4403.58000  4399.51000  4401.32000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 06:10:00         DownTrend  DownWard     0     0.00000  4401.41000  4402.49000  4398.79000  4401.46000  noise candle skipped (trendCandles=1/3)
+2026-08-18 06:15:00         DownTrend  DownWard     0     0.00000  4401.44000  4402.04000  4395.56000  4396.46000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 06:20:00  WaitingForReversal  DownWard     0     0.00000  4396.57000  4397.35000  4394.29000  4395.07000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 06:25:00  WaitingForReversal  DownWard     1     0.00000  4395.07000  4397.59000  4394.85000  4397.12000  R1 recorded (reversalCount=1)
+2026-08-18 06:25:00   WaitingForEntry  DownWard     1  4395.94000  4395.07000  4397.59000  4394.85000  4397.12000  confirm reversal: type=Shadow, entry=4395.94000, SL=4394.29000, waiting for entry
+2026-08-18 06:25:00   WaitingForEntry  DownWard     1  4395.94000  4395.07000  4397.59000  4394.85000  4397.12000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 06:30:00   WaitingForEntry  DownWard     0  4395.94000  4397.14000  4397.24000  4395.56000  4396.34000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4395.94000)
+2026-08-18 06:30:00    ExecutingTrade  DownWard     1  4395.94000  4397.14000  4397.24000  4395.56000  4396.34000  ENTRY REACHED (BUY) at entry=4395.94000, executionPrice=4395.94000
+2026-08-18 06:25:00           UpTrend    UpWard     0     0.00000  4395.07000  4397.59000  4394.85000  4397.12000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 06:30:00           UpTrend    UpWard     0     0.00000  4397.14000  4397.24000  4395.56000  4396.34000  noise candle skipped (trendCandles=1/3)
+2026-08-18 06:35:00           UpTrend    UpWard     0     0.00000  4396.32000  4396.74000  4394.88000  4394.96000  noise candle skipped (trendCandles=1/3)
+2026-08-18 06:40:00         DownTrend  DownWard     0     0.00000  4394.95000  4395.76000  4394.54000  4394.77000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 06:45:00         DownTrend  DownWard     0     0.00000  4394.74000  4395.00000  4393.70000  4393.94000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 06:50:00  WaitingForReversal  DownWard     0     0.00000  4393.95000  4393.95000  4391.44000  4392.02000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 06:55:00  WaitingForReversal  DownWard     0     0.00000  4391.88000  4392.47000  4390.57000  4391.75000  trend DownWard extended (trendCandles=4)
+2026-08-18 07:00:00  WaitingForReversal  DownWard     0     0.00000  4391.79000  4392.00000  4390.01000  4390.70000  trend DownWard extended (trendCandles=5)
+2026-08-18 07:05:00  WaitingForReversal  DownWard     1     0.00000  4390.73000  4392.14000  4389.95000  4391.08000  R1 recorded (reversalCount=1)
+2026-08-18 07:05:00   WaitingForEntry  DownWard     1  4391.04500  4390.73000  4392.14000  4389.95000  4391.08000  confirm reversal: type=Shadow, entry=4391.04500, SL=4389.95000, waiting for entry
+2026-08-18 07:05:00   WaitingForEntry  DownWard     1  4391.04500  4390.73000  4392.14000  4389.95000  4391.08000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 07:10:00   WaitingForEntry  DownWard     0  4391.04500  4391.01000  4392.75000  4390.85000  4392.28000  ENTRY REACHED by BUY BODY (candle body covers entry=4391.04500)
+2026-08-18 07:10:00    ExecutingTrade  DownWard     1  4391.04500  4391.01000  4392.75000  4390.85000  4392.28000  ENTRY REACHED (BUY) at entry=4391.04500, executionPrice=4391.04500
+2026-08-18 07:05:00           UpTrend    UpWard     0     0.00000  4390.73000  4392.14000  4389.95000  4391.08000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 07:10:00           UpTrend    UpWard     0     0.00000  4391.01000  4392.75000  4390.85000  4392.28000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 07:15:00           UpTrend    UpWard     0     0.00000  4392.26000  4393.63000  4390.82000  4391.39000  noise candle skipped (trendCandles=2/3)
+2026-08-18 07:20:00           UpTrend    UpWard     0     0.00000  4391.39000  4392.50000  4390.67000  4392.46000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 07:25:00           UpTrend    UpWard     0     0.00000  4392.48000  4392.86000  4391.50000  4392.39000  noise candle skipped (trendCandles=1/3)
+2026-08-18 07:30:00           UpTrend    UpWard     0     0.00000  4392.39000  4393.90000  4391.40000  4391.99000  noise candle skipped (trendCandles=1/3)
+2026-08-18 07:35:00           UpTrend    UpWard     0     0.00000  4392.03000  4393.03000  4388.76000  4391.35000  noise candle skipped (trendCandles=1/3)
+2026-08-18 07:40:00           UpTrend    UpWard     0     0.00000  4391.52000  4394.31000  4390.24000  4393.53000  noise candle skipped (trendCandles=1/3)
+2026-08-18 07:45:00           UpTrend    UpWard     0     0.00000  4393.56000  4395.01000  4392.14000  4394.70000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 07:50:00  WaitingForReversal    UpWard     0     0.00000  4394.72000  4395.38000  4393.58000  4395.38000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 07:55:00  WaitingForReversal    UpWard     1     0.00000  4395.35000  4395.40000  4392.84000  4393.56000  R1 recorded (reversalCount=1)
+2026-08-18 07:55:00   WaitingForEntry    UpWard     1  4393.69333  4395.35000  4395.40000  4392.84000  4393.56000  confirm reversal: type=Body, entry=4393.69333, SL=4395.40000, waiting for entry
+2026-08-18 07:55:00   WaitingForEntry    UpWard     1  4393.69333  4395.35000  4395.40000  4392.84000  4393.56000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 08:00:00   WaitingForEntry    UpWard     0  4393.69333  4393.58000  4393.72000  4391.08000  4391.38000  ENTRY REACHED by SELL SHADOW (candle wick covers entry=4393.69333)
+2026-08-18 08:00:00    ExecutingTrade    UpWard     1  4393.69333  4393.58000  4393.72000  4391.08000  4391.38000  ENTRY REACHED (SELL) at entry=4393.69333, executionPrice=4393.69333
+2026-08-18 07:55:00         DownTrend  DownWard     0     0.00000  4395.35000  4395.40000  4392.84000  4393.56000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 08:00:00         DownTrend  DownWard     0     0.00000  4393.58000  4393.72000  4391.08000  4391.38000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 08:05:00           UpTrend    UpWard     0     0.00000  4391.38000  4394.11000  4391.38000  4393.83000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 08:10:00         DownTrend  DownWard     0     0.00000  4393.83000  4394.00000  4390.79000  4391.29000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 08:15:00           UpTrend    UpWard     0     0.00000  4391.27000  4394.44000  4391.04000  4394.41000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 08:20:00           UpTrend    UpWard     0     0.00000  4394.41000  4395.86000  4394.34000  4395.54000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 08:25:00           UpTrend    UpWard     0     0.00000  4395.54000  4395.93000  4391.35000  4391.36000  noise candle skipped (trendCandles=2/3)
+2026-08-18 08:30:00         DownTrend  DownWard     0     0.00000  4391.33000  4391.51000  4385.90000  4386.85000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 08:35:00         DownTrend  DownWard     0     0.00000  4386.84000  4390.90000  4386.64000  4389.95000  noise candle skipped (trendCandles=1/3)
+2026-08-18 08:40:00           UpTrend    UpWard     0     0.00000  4389.97000  4394.15000  4388.46000  4393.61000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 08:45:00           UpTrend    UpWard     0     0.00000  4393.59000  4395.76000  4392.96000  4395.73000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 08:50:00           UpTrend    UpWard     0     0.00000  4395.66000  4397.46000  4393.95000  4395.63000  noise candle skipped (trendCandles=2/3)
+2026-08-18 08:55:00           UpTrend    UpWard     0     0.00000  4395.63000  4396.89000  4393.81000  4394.19000  noise candle skipped (trendCandles=2/3)
+2026-08-18 09:00:00         DownTrend  DownWard     0     0.00000  4394.19000  4394.38000  4388.88000  4390.53000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 09:05:00         DownTrend  DownWard     0     0.00000  4390.55000  4393.80000  4387.49000  4392.82000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:10:00           UpTrend    UpWard     0     0.00000  4392.79000  4395.29000  4392.37000  4395.14000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 09:15:00           UpTrend    UpWard     0     0.00000  4395.12000  4396.27000  4393.56000  4395.24000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:20:00           UpTrend    UpWard     0     0.00000  4395.19000  4397.91000  4394.23000  4397.65000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 09:25:00  WaitingForReversal    UpWard     0     0.00000  4397.65000  4399.76000  4396.61000  4399.40000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 09:30:00  WaitingForReversal    UpWard     1     0.00000  4399.40000  4400.15000  4395.16000  4395.19000  R1 recorded (reversalCount=1)
+2026-08-18 09:30:00   WaitingForEntry    UpWard     1  4396.82333  4399.40000  4400.15000  4395.16000  4395.19000  confirm reversal: type=Body, entry=4396.82333, SL=4400.15000, waiting for entry
+2026-08-18 09:30:00   WaitingForEntry    UpWard     1  4396.82333  4399.40000  4400.15000  4395.16000  4395.19000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 09:35:00   WaitingForEntry    UpWard     0  4396.82333  4395.19000  4397.46000  4395.03000  4397.03000  ENTRY REACHED by SELL BODY (candle body covers entry=4396.82333)
+2026-08-18 09:35:00    ExecutingTrade    UpWard     1  4396.82333  4395.19000  4397.46000  4395.03000  4397.03000  ENTRY REACHED (SELL) at entry=4396.82333, executionPrice=4396.82333
+2026-08-18 09:30:00         DownTrend  DownWard     0     0.00000  4399.40000  4400.15000  4395.16000  4395.19000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 09:35:00         DownTrend  DownWard     0     0.00000  4395.19000  4397.46000  4395.03000  4397.03000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:40:00         DownTrend  DownWard     0     0.00000  4397.03000  4398.70000  4396.67000  4397.12000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:45:00         DownTrend  DownWard     0     0.00000  4397.19000  4399.33000  4397.19000  4397.98000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:50:00         DownTrend  DownWard     0     0.00000  4397.98000  4398.96000  4397.45000  4398.42000  noise candle skipped (trendCandles=1/3)
+2026-08-18 09:55:00         DownTrend  DownWard     0     0.00000  4398.42000  4399.05000  4397.26000  4398.77000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:00:00           UpTrend    UpWard     0     0.00000  4398.77000  4400.25000  4396.72000  4399.74000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 10:05:00           UpTrend    UpWard     0     0.00000  4399.88000  4400.78000  4397.15000  4397.59000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:10:00           UpTrend    UpWard     0     0.00000  4397.61000  4399.33000  4396.82000  4397.62000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:15:00           UpTrend    UpWard     0     0.00000  4397.59000  4400.67000  4397.40000  4399.56000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 10:20:00  WaitingForReversal    UpWard     0     0.00000  4399.54000  4401.38000  4399.27000  4401.30000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 10:25:00  WaitingForReversal    UpWard     0     0.00000  4401.11000  4403.31000  4401.02000  4403.06000  trend UpWard extended (trendCandles=4)
+2026-08-18 10:30:00  WaitingForReversal    UpWard     1     0.00000  4403.07000  4403.64000  4396.33000  4396.91000  R1 recorded (reversalCount=1)
+2026-08-18 10:30:00   WaitingForEntry    UpWard     1  4398.76667  4403.07000  4403.64000  4396.33000  4396.91000  confirm reversal: type=Body, entry=4398.76667, SL=4403.64000, waiting for entry
+2026-08-18 10:30:00   WaitingForEntry    UpWard     1  4398.76667  4403.07000  4403.64000  4396.33000  4396.91000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 10:35:00   WaitingForEntry    UpWard     0  4398.76667  4396.91000  4402.58000  4396.44000  4401.92000  ENTRY REACHED by SELL BODY (candle body covers entry=4398.76667)
+2026-08-18 10:35:00    ExecutingTrade    UpWard     1  4398.76667  4396.91000  4402.58000  4396.44000  4401.92000  ENTRY REACHED (SELL) at entry=4398.76667, executionPrice=4398.76667
+2026-08-18 10:30:00         DownTrend  DownWard     0     0.00000  4403.07000  4403.64000  4396.33000  4396.91000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 10:35:00         DownTrend  DownWard     0     0.00000  4396.91000  4402.58000  4396.44000  4401.92000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:40:00         DownTrend  DownWard     0     0.00000  4401.92000  4403.50000  4400.09000  4401.47000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:45:00         DownTrend  DownWard     0     0.00000  4401.45000  4402.65000  4399.59000  4399.96000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:50:00         DownTrend  DownWard     0     0.00000  4399.67000  4400.40000  4397.92000  4398.34000  noise candle skipped (trendCandles=1/3)
+2026-08-18 10:55:00         DownTrend  DownWard     0     0.00000  4398.37000  4398.71000  4395.43000  4395.58000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 11:00:00  WaitingForReversal  DownWard     0     0.00000  4395.58000  4396.12000  4394.02000  4394.34000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 11:05:00  WaitingForReversal  DownWard     0     0.00000  4394.37000  4394.46000  4389.91000  4390.85000  trend DownWard extended (trendCandles=4)
+2026-08-18 11:10:00  WaitingForReversal  DownWard     1     0.00000  4390.76000  4394.63000  4387.92000  4392.47000  R1 recorded (reversalCount=1)
+2026-08-18 11:10:00   WaitingForEntry  DownWard     1  4391.27500  4390.76000  4394.63000  4387.92000  4392.47000  confirm reversal: type=Shadow, entry=4391.27500, SL=4387.92000, waiting for entry
+2026-08-18 11:10:00   WaitingForEntry  DownWard     1  4391.27500  4390.76000  4394.63000  4387.92000  4392.47000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 11:15:00   WaitingForEntry  DownWard     0  4391.27500  4392.47000  4393.47000  4391.55000  4392.00000  entry NOT reached by BUY (body/shadow did not cover entry=4391.27500)
+2026-08-18 11:15:00   WaitingForEntry  DownWard     1  4391.27500  4392.47000  4393.47000  4391.55000  4392.00000  waiting for entry candle 1/2
+2026-08-18 11:20:00   WaitingForEntry  DownWard     0  4391.27500  4392.02000  4392.45000  4386.83000  4388.56000  ENTRY REACHED by BUY BODY (candle body covers entry=4391.27500)
+2026-08-18 11:20:00    ExecutingTrade  DownWard     1  4391.27500  4392.02000  4392.45000  4386.83000  4388.56000  ENTRY REACHED (BUY) at entry=4391.27500, executionPrice=4391.27500
+2026-08-18 11:15:00           UpTrend    UpWard     0     0.00000  4392.47000  4393.47000  4391.55000  4392.00000  noise candle skipped (trendCandles=1/3)
+2026-08-18 11:10:00           UpTrend    UpWard     0     0.00000  4390.76000  4394.63000  4387.92000  4392.47000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 11:20:00         DownTrend  DownWard     0     0.00000  4392.02000  4392.45000  4386.83000  4388.56000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 11:25:00         DownTrend  DownWard     0     0.00000  4388.53000  4389.50000  4387.32000  4389.35000  noise candle skipped (trendCandles=1/3)
+2026-08-18 11:30:00           UpTrend    UpWard     0     0.00000  4389.34000  4394.03000  4389.07000  4393.56000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 11:35:00           UpTrend    UpWard     0     0.00000  4393.58000  4398.60000  4393.57000  4398.23000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 11:40:00           UpTrend    UpWard     0     0.00000  4398.23000  4398.46000  4396.47000  4396.51000  noise candle skipped (trendCandles=2/3)
+2026-08-18 11:45:00         DownTrend  DownWard     0     0.00000  4396.49000  4396.90000  4391.66000  4393.11000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 11:50:00         DownTrend  DownWard     0     0.00000  4393.11000  4393.76000  4391.43000  4393.73000  noise candle skipped (trendCandles=1/3)
+2026-08-18 11:55:00         DownTrend  DownWard     0     0.00000  4393.74000  4394.57000  4392.31000  4393.21000  noise candle skipped (trendCandles=1/3)
+2026-08-18 12:00:00         DownTrend  DownWard     0     0.00000  4393.23000  4393.84000  4391.95000  4392.25000  noise candle skipped (trendCandles=1/3)
+2026-08-18 12:05:00         DownTrend  DownWard     0     0.00000  4392.26000  4392.92000  4391.02000  4391.65000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 12:10:00           UpTrend    UpWard     0     0.00000  4391.69000  4393.49000  4391.33000  4392.68000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 12:15:00         DownTrend  DownWard     0     0.00000  4392.65000  4392.74000  4390.77000  4391.20000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 12:20:00         DownTrend  DownWard     0     0.00000  4391.18000  4391.42000  4388.93000  4390.08000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 12:25:00  WaitingForReversal  DownWard     0     0.00000  4390.15000  4391.41000  4388.51000  4389.36000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 12:30:00  WaitingForReversal  DownWard     1     0.00000  4389.09000  4393.67000  4389.09000  4393.60000  R1 recorded (reversalCount=1)
+2026-08-18 12:30:00   WaitingForEntry  DownWard     1  4391.95000  4389.09000  4393.67000  4389.09000  4393.60000  confirm reversal: type=Body, entry=4391.95000, SL=4388.51000, waiting for entry
+2026-08-18 12:30:00   WaitingForEntry  DownWard     1  4391.95000  4389.09000  4393.67000  4389.09000  4393.60000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 12:35:00   WaitingForEntry  DownWard     0  4391.95000  4393.60000  4394.96000  4390.29000  4391.21000  ENTRY REACHED by BUY BODY (candle body covers entry=4391.95000)
+2026-08-18 12:35:00    ExecutingTrade  DownWard     1  4391.95000  4393.60000  4394.96000  4390.29000  4391.21000  ENTRY REACHED (BUY) at entry=4391.95000, executionPrice=4391.95000
+2026-08-18 12:30:00           UpTrend    UpWard     0     0.00000  4389.09000  4393.67000  4389.09000  4393.60000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 12:35:00           UpTrend    UpWard     0     0.00000  4393.60000  4394.96000  4390.29000  4391.21000  noise candle skipped (trendCandles=1/3)
+2026-08-18 12:40:00         DownTrend  DownWard     0     0.00000  4391.23000  4391.69000  4387.24000  4388.38000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 12:45:00         DownTrend  DownWard     0     0.00000  4388.29000  4392.28000  4386.97000  4392.00000  noise candle skipped (trendCandles=1/3)
+2026-08-18 12:50:00           UpTrend    UpWard     0     0.00000  4392.01000  4394.20000  4391.98000  4393.97000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 12:55:00           UpTrend    UpWard     0     0.00000  4393.98000  4394.92000  4392.75000  4393.29000  noise candle skipped (trendCandles=1/3)
+2026-08-18 13:00:00           UpTrend    UpWard     0     0.00000  4393.29000  4395.69000  4392.25000  4393.97000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 13:05:00           UpTrend    UpWard     0     0.00000  4393.96000  4394.69000  4392.42000  4393.39000  noise candle skipped (trendCandles=2/3)
+2026-08-18 13:10:00           UpTrend    UpWard     0     0.00000  4393.45000  4394.77000  4392.65000  4394.50000  noise candle skipped (trendCandles=2/3)
+2026-08-18 13:15:00  WaitingForReversal    UpWard     0     0.00000  4394.50000  4396.15000  4394.09000  4395.46000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 13:20:00  WaitingForReversal    UpWard     1     0.00000  4395.54000  4395.54000  4391.35000  4391.60000  R1 recorded (reversalCount=1)
+2026-08-18 13:20:00   WaitingForEntry    UpWard     1  4392.95000  4395.54000  4395.54000  4391.35000  4391.60000  confirm reversal: type=Body, entry=4392.95000, SL=4396.15000, waiting for entry
+2026-08-18 13:20:00   WaitingForEntry    UpWard     1  4392.95000  4395.54000  4395.54000  4391.35000  4391.60000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 13:25:00   WaitingForEntry    UpWard     0  4392.95000  4391.63000  4392.18000  4389.63000  4391.99000  entry NOT reached by SELL (body/shadow did not cover entry=4392.95000)
+2026-08-18 13:25:00   WaitingForEntry    UpWard     1  4392.95000  4391.63000  4392.18000  4389.63000  4391.99000  waiting for entry candle 1/2
+2026-08-18 13:30:00   WaitingForEntry    UpWard     0  4392.95000  4391.99000  4394.17000  4391.66000  4393.61000  ENTRY REACHED by SELL BODY (candle body covers entry=4392.95000)
+2026-08-18 13:30:00    ExecutingTrade    UpWard     1  4392.95000  4391.99000  4394.17000  4391.66000  4393.61000  ENTRY REACHED (SELL) at entry=4392.95000, executionPrice=4392.95000
+2026-08-18 13:25:00         DownTrend  DownWard     0     0.00000  4391.63000  4392.18000  4389.63000  4391.99000  noise candle skipped (trendCandles=1/3)
+2026-08-18 13:20:00         DownTrend  DownWard     0     0.00000  4395.54000  4395.54000  4391.35000  4391.60000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 13:30:00         DownTrend  DownWard     0     0.00000  4391.99000  4394.17000  4391.66000  4393.61000  noise candle skipped (trendCandles=1/3)
+2026-08-18 13:35:00           UpTrend    UpWard     0     0.00000  4393.59000  4397.67000  4393.45000  4397.50000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 13:40:00           UpTrend    UpWard     0     0.00000  4397.47000  4398.56000  4396.97000  4398.55000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 13:45:00  WaitingForReversal    UpWard     0     0.00000  4398.53000  4399.57000  4398.12000  4398.87000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 13:50:00  WaitingForReversal    UpWard     1     0.00000  4398.81000  4399.31000  4396.36000  4396.85000  R1 recorded (reversalCount=1)
+2026-08-18 13:50:00   WaitingForEntry    UpWard     1  4397.43000  4398.81000  4399.31000  4396.36000  4396.85000  confirm reversal: type=Body, entry=4397.43000, SL=4399.57000, waiting for entry
+2026-08-18 13:50:00   WaitingForEntry    UpWard     1  4397.43000  4398.81000  4399.31000  4396.36000  4396.85000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 13:55:00   WaitingForEntry    UpWard     0  4397.43000  4396.83000  4397.70000  4396.43000  4397.59000  ENTRY REACHED by SELL BODY (candle body covers entry=4397.43000)
+2026-08-18 13:55:00    ExecutingTrade    UpWard     1  4397.43000  4396.83000  4397.70000  4396.43000  4397.59000  ENTRY REACHED (SELL) at entry=4397.43000, executionPrice=4397.43000
+2026-08-18 13:50:00         DownTrend  DownWard     0     0.00000  4398.81000  4399.31000  4396.36000  4396.85000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 13:55:00         DownTrend  DownWard     0     0.00000  4396.83000  4397.70000  4396.43000  4397.59000  noise candle skipped (trendCandles=1/3)
+2026-08-18 14:00:00         DownTrend  DownWard     0     0.00000  4397.59000  4399.04000  4393.50000  4393.82000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 14:05:00  WaitingForReversal  DownWard     0     0.00000  4393.81000  4394.60000  4392.47000  4393.57000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 14:10:00  WaitingForReversal  DownWard     0     0.00000  4393.58000  4394.05000  4391.97000  4393.51000  trend DownWard extended (trendCandles=4)
+2026-08-18 14:15:00  WaitingForReversal  DownWard     0     0.00000  4393.49000  4394.66000  4392.05000  4393.05000  no reversal, trend NOT extended (not valid continuation)
+2026-08-18 14:20:00  WaitingForReversal  DownWard     0     0.00000  4393.12000  4393.88000  4390.24000  4390.33000  trend DownWard extended (trendCandles=5)
+2026-08-18 14:25:00  WaitingForReversal  DownWard     0     0.00000  4390.32000  4391.77000  4389.55000  4390.01000  trend DownWard extended (trendCandles=6)
+2026-08-18 14:30:00  WaitingForReversal  DownWard     0     0.00000  4390.02000  4391.71000  4389.36000  4389.49000  trend DownWard extended (trendCandles=7)
+2026-08-18 14:35:00  WaitingForReversal  DownWard     1     0.00000  4389.48000  4391.61000  4388.57000  4390.46000  R1 recorded (reversalCount=1)
+2026-08-18 14:35:00  WaitingForReversal  DownWard     1     0.00000  4389.48000  4391.61000  4388.57000  4390.46000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 14:40:00  WaitingForReversal  DownWard     2     0.00000  4390.38000  4392.45000  4389.49000  4390.90000  R2 recorded (reversalCount=2)
+2026-08-18 14:40:00   WaitingForEntry  DownWard     2  4390.51000  4390.38000  4392.45000  4389.49000  4390.90000  confirm reversal: type=Shadow, entry=4390.51000, SL=4388.57000, waiting for entry
+2026-08-18 14:40:00   WaitingForEntry  DownWard     2  4390.51000  4390.38000  4392.45000  4389.49000  4390.90000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-18 14:45:00   WaitingForEntry  DownWard     0  4390.51000  4390.91000  4393.74000  4390.72000  4392.19000  entry NOT reached by BUY (body/shadow did not cover entry=4390.51000)
+2026-08-18 14:45:00   WaitingForEntry  DownWard     2  4390.51000  4390.91000  4393.74000  4390.72000  4392.19000  waiting for entry candle 1/2
+2026-08-18 14:50:00   WaitingForEntry  DownWard     0  4390.51000  4392.17000  4393.05000  4389.78000  4390.79000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4390.51000)
+2026-08-18 14:50:00    ExecutingTrade  DownWard     2  4390.51000  4392.17000  4393.05000  4389.78000  4390.79000  ENTRY REACHED (BUY) at entry=4390.51000, executionPrice=4390.51000
+2026-08-18 14:45:00  WaitingForReversal    UpWard     0     0.00000  4390.91000  4393.74000  4390.72000  4392.19000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 14:40:00  WaitingForReversal    UpWard     0     0.00000  4390.38000  4392.45000  4389.49000  4390.90000  Trade completed: preserved successful reversal candle(s): promoted 2 reversal + 1 waited candle(s) into next trend (trend=UpWard, trendCandles=3)
+2026-08-18 14:50:00  WaitingForReversal    UpWard     1     0.00000  4392.17000  4393.05000  4389.78000  4390.79000  R1 recorded (reversalCount=1)
+2026-08-18 14:50:00   WaitingForEntry    UpWard     1  4391.76000  4392.17000  4393.05000  4389.78000  4390.79000  confirm reversal: type=Shadow, entry=4391.76000, SL=4393.74000, waiting for entry
+2026-08-18 14:50:00   WaitingForEntry    UpWard     1  4391.76000  4392.17000  4393.05000  4389.78000  4390.79000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 14:55:00   WaitingForEntry    UpWard     0  4391.76000  4390.77000  4396.77000  4390.56000  4395.91000  ENTRY REACHED by SELL BODY (candle body covers entry=4391.76000)
+2026-08-18 14:55:00    ExecutingTrade    UpWard     1  4391.76000  4390.77000  4396.77000  4390.56000  4395.91000  ENTRY REACHED (SELL) at entry=4391.76000, executionPrice=4391.76000
+2026-08-18 14:50:00         DownTrend  DownWard     0     0.00000  4392.17000  4393.05000  4389.78000  4390.79000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 14:55:00           UpTrend    UpWard     0     0.00000  4390.77000  4396.77000  4390.56000  4395.91000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 15:00:00           UpTrend    UpWard     0     0.00000  4395.91000  4396.93000  4391.44000  4396.59000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 15:05:00           UpTrend    UpWard     0     0.00000  4396.57000  4397.03000  4390.40000  4391.18000  noise candle skipped (trendCandles=2/3)
+2026-08-18 15:10:00           UpTrend    UpWard     0     0.00000  4391.16000  4393.38000  4389.47000  4393.03000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 15:15:00           UpTrend    UpWard     0     0.00000  4393.04000  4393.60000  4391.43000  4392.91000  noise candle skipped (trendCandles=1/3)
+2026-08-18 15:20:00           UpTrend    UpWard     0     0.00000  4392.84000  4400.78000  4392.81000  4395.64000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 15:25:00         DownTrend  DownWard     0     0.00000  4395.81000  4395.94000  4391.82000  4395.15000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 15:30:00           UpTrend    UpWard     0     0.00000  4395.16000  4398.11000  4392.17000  4396.56000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 15:35:00           UpTrend    UpWard     0     0.00000  4396.67000  4397.78000  4392.71000  4394.20000  noise candle skipped (trendCandles=1/3)
+2026-08-18 15:40:00         DownTrend  DownWard     0     0.00000  4394.03000  4394.07000  4391.05000  4392.13000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 15:45:00           UpTrend    UpWard     0     0.00000  4392.15000  4396.54000  4392.12000  4395.91000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 15:50:00           UpTrend    UpWard     0     0.00000  4395.91000  4396.93000  4392.29000  4393.06000  noise candle skipped (trendCandles=1/3)
+2026-08-18 15:55:00           UpTrend    UpWard     0     0.00000  4393.04000  4395.72000  4390.64000  4394.18000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 16:00:00           UpTrend    UpWard     0     0.00000  4394.15000  4397.29000  4390.25000  4395.64000  noise candle skipped (trendCandles=1/3)
+2026-08-18 16:05:00           UpTrend    UpWard     0     0.00000  4395.66000  4396.54000  4388.76000  4388.99000  noise candle skipped (trendCandles=1/3)
+2026-08-18 16:10:00           UpTrend    UpWard     0     0.00000  4388.97000  4395.97000  4388.21000  4395.69000  noise candle skipped (trendCandles=1/3)
+2026-08-18 16:15:00           UpTrend    UpWard     0     0.00000  4395.61000  4395.96000  4388.38000  4390.91000  noise candle skipped (trendCandles=1/3)
+2026-08-18 16:20:00         DownTrend  DownWard     0     0.00000  4391.01000  4393.45000  4388.12000  4389.67000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 16:25:00         DownTrend  DownWard     0     0.00000  4389.73000  4392.28000  4388.12000  4388.96000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 16:30:00         DownTrend  DownWard     0     0.00000  4388.97000  4398.80000  4376.11000  4396.81000  noise candle skipped (trendCandles=2/3)
+2026-08-18 16:35:00           UpTrend    UpWard     0     0.00000  4396.85000  4403.39000  4395.21000  4402.96000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 16:40:00           UpTrend    UpWard     0     0.00000  4402.86000  4406.56000  4399.55000  4401.17000  noise candle skipped (trendCandles=1/3)
+2026-08-18 16:45:00         DownTrend  DownWard     0     0.00000  4401.18000  4402.22000  4391.39000  4395.11000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 16:50:00         DownTrend  DownWard     0     0.00000  4394.91000  4398.15000  4389.39000  4390.88000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 16:55:00         DownTrend  DownWard     0     0.00000  4391.30000  4395.03000  4389.69000  4394.46000  noise candle skipped (trendCandles=2/3)
+2026-08-18 17:00:00           UpTrend    UpWard     0     0.00000  4394.46000  4406.53000  4393.18000  4403.98000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 17:05:00           UpTrend    UpWard     0     0.00000  4404.01000  4404.56000  4397.70000  4398.12000  noise candle skipped (trendCandles=1/3)
+2026-08-18 17:10:00         DownTrend  DownWard     0     0.00000  4398.24000  4399.06000  4390.99000  4393.14000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 17:15:00           UpTrend    UpWard     0     0.00000  4393.27000  4404.95000  4392.86000  4401.48000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 17:20:00           UpTrend    UpWard     0     0.00000  4401.51000  4402.76000  4395.70000  4397.73000  noise candle skipped (trendCandles=1/3)
+2026-08-18 17:25:00         DownTrend  DownWard     0     0.00000  4397.76000  4398.82000  4392.29000  4394.13000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 17:30:00         DownTrend  DownWard     0     0.00000  4394.13000  4396.26000  4385.21000  4389.75000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 17:35:00  WaitingForReversal  DownWard     0     0.00000  4389.77000  4390.06000  4381.93000  4382.83000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 17:40:00  WaitingForReversal  DownWard     0     0.00000  4382.86000  4384.89000  4377.61000  4379.58000  trend DownWard extended (trendCandles=4)
+2026-08-18 17:45:00  WaitingForReversal  DownWard     1     0.00000  4379.61000  4388.40000  4377.94000  4386.81000  R1 recorded (reversalCount=1)
+2026-08-18 17:45:00   WaitingForEntry  DownWard     1  4384.80333  4379.61000  4388.40000  4377.94000  4386.81000  confirm reversal: type=Body, entry=4384.80333, SL=4377.61000, waiting for entry
+2026-08-18 17:45:00   WaitingForEntry  DownWard     1  4384.80333  4379.61000  4388.40000  4377.94000  4386.81000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 17:50:00   WaitingForEntry  DownWard     0  4384.80333  4387.03000  4388.77000  4372.32000  4378.68000  ENTRY REACHED by BUY BODY (candle body covers entry=4384.80333)
+2026-08-18 17:50:00    ExecutingTrade  DownWard     1  4384.80333  4387.03000  4388.77000  4372.32000  4378.68000  ENTRY REACHED (BUY) at entry=4384.80333, executionPrice=4384.80333
+2026-08-18 17:45:00           UpTrend    UpWard     0     0.00000  4379.61000  4388.40000  4377.94000  4386.81000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 17:50:00           UpTrend    UpWard     0     0.00000  4387.03000  4388.77000  4372.32000  4378.68000  noise candle skipped (trendCandles=1/3)
+2026-08-18 17:55:00         DownTrend  DownWard     0     0.00000  4378.64000  4382.96000  4363.72000  4366.58000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 18:00:00         DownTrend  DownWard     0     0.00000  4366.54000  4376.58000  4365.64000  4375.50000  noise candle skipped (trendCandles=1/3)
+2026-08-18 18:05:00         DownTrend  DownWard     0     0.00000  4375.48000  4377.60000  4364.92000  4365.69000  noise candle skipped (trendCandles=1/3)
+2026-08-18 18:10:00         DownTrend  DownWard     0     0.00000  4365.69000  4368.31000  4358.93000  4359.87000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 18:15:00  WaitingForReversal  DownWard     0     0.00000  4359.87000  4365.17000  4355.09000  4355.14000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 18:20:00  WaitingForReversal  DownWard     0     0.00000  4355.06000  4356.95000  4351.50000  4354.47000  trend DownWard extended (trendCandles=4)
+2026-08-18 18:25:00  WaitingForReversal  DownWard     1     0.00000  4354.40000  4360.99000  4353.12000  4354.87000  R1 recorded (reversalCount=1)
+2026-08-18 18:25:00   WaitingForEntry  DownWard     1  4356.24500  4354.40000  4360.99000  4353.12000  4354.87000  confirm reversal: type=Shadow, entry=4356.24500, SL=4351.50000, waiting for entry
+2026-08-18 18:25:00   WaitingForEntry  DownWard     1  4356.24500  4354.40000  4360.99000  4353.12000  4354.87000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 18:30:00   WaitingForEntry  DownWard     0  4356.24500  4354.90000  4362.04000  4354.43000  4359.69000  ENTRY REACHED by BUY BODY (candle body covers entry=4356.24500)
+2026-08-18 18:30:00    ExecutingTrade  DownWard     1  4356.24500  4354.90000  4362.04000  4354.43000  4359.69000  ENTRY REACHED (BUY) at entry=4356.24500, executionPrice=4356.24500
+2026-08-18 18:25:00           UpTrend    UpWard     0     0.00000  4354.40000  4360.99000  4353.12000  4354.87000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-18 18:30:00           UpTrend    UpWard     0     0.00000  4354.90000  4362.04000  4354.43000  4359.69000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 18:35:00  WaitingForReversal    UpWard     0     0.00000  4359.83000  4362.33000  4356.60000  4361.09000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 18:40:00  WaitingForReversal    UpWard     1     0.00000  4361.09000  4362.00000  4356.50000  4358.57000  R1 recorded (reversalCount=1)
+2026-08-18 18:40:00   WaitingForEntry    UpWard     1  4359.41500  4361.09000  4362.00000  4356.50000  4358.57000  confirm reversal: type=Shadow, entry=4359.41500, SL=4362.33000, waiting for entry
+2026-08-18 18:40:00   WaitingForEntry    UpWard     1  4359.41500  4361.09000  4362.00000  4356.50000  4358.57000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 18:45:00   WaitingForEntry    UpWard     0  4359.41500  4358.94000  4365.01000  4358.71000  4364.02000  ENTRY REACHED by SELL BODY (candle body covers entry=4359.41500)
+2026-08-18 18:45:00    ExecutingTrade    UpWard     1  4359.41500  4358.94000  4365.01000  4358.71000  4364.02000  ENTRY REACHED (SELL) at entry=4359.41500, executionPrice=4359.41500
+2026-08-18 18:40:00         DownTrend  DownWard     0     0.00000  4361.09000  4362.00000  4356.50000  4358.57000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 18:45:00           UpTrend    UpWard     0     0.00000  4358.94000  4365.01000  4358.71000  4364.02000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 18:50:00           UpTrend    UpWard     0     0.00000  4364.02000  4366.62000  4361.15000  4364.51000  noise candle skipped (trendCandles=1/3)
+2026-08-18 18:55:00           UpTrend    UpWard     0     0.00000  4364.62000  4365.97000  4363.24000  4364.74000  noise candle skipped (trendCandles=1/3)
+2026-08-18 19:00:00           UpTrend    UpWard     0     0.00000  4364.87000  4369.24000  4364.87000  4368.12000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 19:05:00  WaitingForReversal    UpWard     0     0.00000  4368.01000  4371.60000  4366.81000  4371.39000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 19:10:00  WaitingForReversal    UpWard     1     0.00000  4371.39000  4371.61000  4367.38000  4367.63000  R1 recorded (reversalCount=1)
+2026-08-18 19:10:00  WaitingForReversal    UpWard     1     0.00000  4371.39000  4371.61000  4367.38000  4367.63000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 19:15:00  WaitingForReversal    UpWard     2     0.00000  4367.62000  4368.35000  4364.43000  4367.11000  R2 recorded (reversalCount=2)
+2026-08-18 19:15:00   WaitingForEntry    UpWard     2  4368.02000  4367.62000  4368.35000  4364.43000  4367.11000  confirm reversal: type=Shadow, entry=4368.02000, SL=4371.61000, waiting for entry
+2026-08-18 19:15:00   WaitingForEntry    UpWard     2  4368.02000  4367.62000  4368.35000  4364.43000  4367.11000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-18 19:20:00   WaitingForEntry    UpWard     0  4368.02000  4367.12000  4369.67000  4366.53000  4368.24000  ENTRY REACHED by SELL BODY (candle body covers entry=4368.02000)
+2026-08-18 19:20:00    ExecutingTrade    UpWard     2  4368.02000  4367.12000  4369.67000  4366.53000  4368.24000  ENTRY REACHED (SELL) at entry=4368.02000, executionPrice=4368.02000
+2026-08-18 19:15:00         DownTrend  DownWard     0     0.00000  4367.62000  4368.35000  4364.43000  4367.11000  Trade completed: preserved successful reversal candle(s): promoted 2 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=2)
+2026-08-18 19:20:00           UpTrend    UpWard     0     0.00000  4367.12000  4369.67000  4366.53000  4368.24000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 19:25:00         DownTrend  DownWard     0     0.00000  4368.24000  4369.11000  4363.42000  4363.91000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 19:30:00         DownTrend  DownWard     0     0.00000  4364.56000  4366.79000  4363.21000  4365.72000  noise candle skipped (trendCandles=1/3)
+2026-08-18 19:35:00         DownTrend  DownWard     0     0.00000  4365.92000  4367.07000  4363.00000  4365.17000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 19:40:00           UpTrend    UpWard     0     0.00000  4365.17000  4368.57000  4365.05000  4367.31000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 19:45:00         DownTrend  DownWard     0     0.00000  4367.42000  4367.72000  4363.14000  4363.49000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 19:50:00         DownTrend  DownWard     0     0.00000  4363.48000  4368.77000  4362.99000  4368.53000  noise candle skipped (trendCandles=1/3)
+2026-08-18 19:55:00         DownTrend  DownWard     0     0.00000  4368.55000  4368.55000  4363.02000  4363.79000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:00:00         DownTrend  DownWard     0     0.00000  4363.63000  4365.76000  4363.54000  4364.47000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:05:00         DownTrend  DownWard     0     0.00000  4364.51000  4366.19000  4364.25000  4365.71000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:10:00         DownTrend  DownWard     0     0.00000  4365.89000  4367.11000  4364.66000  4366.86000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:15:00         DownTrend  DownWard     0     0.00000  4366.86000  4368.27000  4363.03000  4364.28000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:20:00         DownTrend  DownWard     0     0.00000  4364.35000  4367.48000  4364.24000  4367.48000  noise candle skipped (trendCandles=1/3)
+2026-08-18 20:25:00         DownTrend  DownWard     0     0.00000  4367.45000  4368.26000  4363.60000  4365.35000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 20:30:00         DownTrend  DownWard     0     0.00000  4365.27000  4366.21000  4361.24000  4364.38000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 20:35:00  WaitingForReversal  DownWard     0     0.00000  4364.38000  4365.25000  4360.80000  4362.63000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 20:40:00  WaitingForReversal  DownWard     0     0.00000  4362.63000  4365.10000  4358.65000  4358.67000  trend DownWard extended (trendCandles=4)
+2026-08-18 20:45:00  WaitingForReversal  DownWard     0     0.00000  4358.66000  4360.47000  4356.93000  4357.88000  trend DownWard extended (trendCandles=5)
+2026-08-18 20:50:00  WaitingForReversal  DownWard     1     0.00000  4357.83000  4359.81000  4357.75000  4358.60000  R1 recorded (reversalCount=1)
+2026-08-18 20:50:00  WaitingForReversal  DownWard     1     0.00000  4357.83000  4359.81000  4357.75000  4358.60000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 20:55:00  WaitingForReversal  DownWard     1     0.00000  4358.61000  4359.11000  4356.58000  4357.68000  trend resumed before R2; R1 discarded as noise
+2026-08-18 21:00:00  WaitingForReversal  DownWard     0     0.00000  4357.68000  4357.95000  4352.63000  4353.48000  trend DownWard extended (trendCandles=7)
+2026-08-18 21:05:00  WaitingForReversal  DownWard     1     0.00000  4353.45000  4355.78000  4352.67000  4355.65000  R1 recorded (reversalCount=1)
+2026-08-18 21:05:00  WaitingForReversal  DownWard     1     0.00000  4353.45000  4355.78000  4352.67000  4355.65000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-18 21:10:00  WaitingForReversal  DownWard     2     0.00000  4355.66000  4358.12000  4352.84000  4357.78000  R2 recorded (reversalCount=2)
+2026-08-18 21:10:00   WaitingForEntry  DownWard     2  4355.37500  4355.66000  4358.12000  4352.84000  4357.78000  confirm reversal: type=Shadow, entry=4355.37500, SL=4352.63000, waiting for entry
+2026-08-18 21:10:00   WaitingForEntry  DownWard     2  4355.37500  4355.66000  4358.12000  4352.84000  4357.78000  REVERSAL CONFIRMED by R2 (body/shadow break)
+2026-08-18 21:15:00   WaitingForEntry  DownWard     0  4355.37500  4357.78000  4359.06000  4356.71000  4358.92000  entry NOT reached by BUY (body/shadow did not cover entry=4355.37500)
+2026-08-18 21:15:00   WaitingForEntry  DownWard     2  4355.37500  4357.78000  4359.06000  4356.71000  4358.92000  waiting for entry candle 1/2
+2026-08-18 21:20:00   WaitingForEntry  DownWard     0  4355.37500  4358.90000  4359.35000  4355.68000  4356.96000  entry NOT reached by BUY (body/shadow did not cover entry=4355.37500)
+2026-08-18 21:20:00   WaitingForEntry  DownWard     2  4355.37500  4358.90000  4359.35000  4355.68000  4356.96000  waiting for entry candle 2/2
+2026-08-18 21:15:00  WaitingForReversal    UpWard     0     0.00000  4357.78000  4359.06000  4356.71000  4358.92000  trend UpWard added candle (trendCandles=3/3)
+2026-08-18 21:20:00  WaitingForReversal    UpWard     1     0.00000  4358.90000  4359.35000  4355.68000  4356.96000  R1 recorded (reversalCount=1)
+2026-08-18 21:20:00   WaitingForEntry    UpWard     1  4357.51500  4358.90000  4359.35000  4355.68000  4356.96000  confirm reversal: type=Shadow, entry=4357.51500, SL=4359.35000, waiting for entry
+2026-08-18 21:20:00   WaitingForEntry    UpWard     1  4357.51500  4358.90000  4359.35000  4355.68000  4356.96000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-18 21:10:00   WaitingForEntry    UpWard     1  4357.51500  4355.66000  4358.12000  4352.84000  4357.78000  ConvertReversalToTrend: promoted 2 reversal + 2 waited candle(s) into next trend (trend=UpWard, trendCandles=3)
+2026-08-18 21:25:00   WaitingForEntry    UpWard     0  4357.51500  4356.96000  4360.98000  4356.39000  4360.19000  ENTRY REACHED by SELL BODY (candle body covers entry=4357.51500)
+2026-08-18 21:25:00    ExecutingTrade    UpWard     1  4357.51500  4356.96000  4360.98000  4356.39000  4360.19000  ENTRY REACHED (SELL) at entry=4357.51500, executionPrice=4357.51500
+2026-08-18 21:20:00         DownTrend  DownWard     0     0.00000  4358.90000  4359.35000  4355.68000  4356.96000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-18 21:25:00           UpTrend    UpWard     0     0.00000  4356.96000  4360.98000  4356.39000  4360.19000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 21:30:00           UpTrend    UpWard     0     0.00000  4360.29000  4360.54000  4357.98000  4359.66000  noise candle skipped (trendCandles=1/3)
+2026-08-18 21:35:00           UpTrend    UpWard     0     0.00000  4359.66000  4360.25000  4358.33000  4359.65000  noise candle skipped (trendCandles=1/3)
+2026-08-18 21:40:00         DownTrend  DownWard     0     0.00000  4359.64000  4359.78000  4353.40000  4354.16000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 21:45:00         DownTrend  DownWard     0     0.00000  4354.18000  4355.49000  4352.82000  4353.85000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 21:50:00         DownTrend  DownWard     0     0.00000  4353.82000  4355.14000  4353.80000  4354.56000  noise candle skipped (trendCandles=2/3)
+2026-08-18 21:55:00         DownTrend  DownWard     0     0.00000  4354.55000  4356.05000  4353.92000  4354.20000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 22:00:00           UpTrend    UpWard     0     0.00000  4354.24000  4358.01000  4354.03000  4355.29000  seed trend: trend=UpWard, trendCandles=1
+2026-08-18 22:05:00           UpTrend    UpWard     0     0.00000  4355.20000  4356.92000  4354.76000  4355.22000  noise candle skipped (trendCandles=1/3)
+2026-08-18 22:10:00           UpTrend    UpWard     0     0.00000  4355.20000  4358.38000  4354.59000  4356.98000  trend UpWard added candle (trendCandles=2/3)
+2026-08-18 22:15:00           UpTrend    UpWard     0     0.00000  4356.96000  4358.64000  4353.96000  4354.58000  noise candle skipped (trendCandles=2/3)
+2026-08-18 22:20:00         DownTrend  DownWard     0     0.00000  4354.58000  4356.32000  4352.59000  4353.17000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 22:25:00         DownTrend  DownWard     0     0.00000  4353.12000  4355.85000  4352.38000  4354.80000  noise candle skipped (trendCandles=1/3)
+2026-08-18 22:30:00         DownTrend  DownWard     0     0.00000  4354.85000  4356.75000  4353.68000  4354.15000  seed trend: trend=DownWard, trendCandles=1
+2026-08-18 22:35:00         DownTrend  DownWard     0     0.00000  4354.06000  4355.59000  4353.56000  4354.92000  noise candle skipped (trendCandles=1/3)
+2026-08-18 22:40:00         DownTrend  DownWard     0     0.00000  4354.90000  4357.77000  4349.64000  4349.84000  noise candle skipped (trendCandles=1/3)
+2026-08-18 22:45:00         DownTrend  DownWard     0     0.00000  4349.93000  4353.28000  4343.73000  4345.86000  trend DownWard added candle (trendCandles=2/3)
+2026-08-18 22:50:00  WaitingForReversal  DownWard     0     0.00000  4345.74000  4346.80000  4342.10000  4345.26000  trend DownWard added candle (trendCandles=3/3)
+2026-08-18 22:55:00  WaitingForReversal  DownWard     0     0.00000  4345.53000  4346.38000  4338.24000  4345.50000  trend DownWard extended (trendCandles=4)
+2026-08-19 01:00:00  WaitingForReversal  DownWard     1     0.00000  4316.78000  4341.40000  4314.80000  4340.07000  R1 recorded (reversalCount=1)
+2026-08-19 01:00:00  WaitingForReversal  DownWard     1     0.00000  4316.78000  4341.40000  4314.80000  4340.07000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 01:05:00  WaitingForReversal  DownWard     2     0.00000  4340.15000  4343.31000  4340.05000  4341.90000  R2 recorded (reversalCount=2)
+2026-08-19 01:05:00  WaitingForReversal  DownWard     2     0.00000  4340.15000  4343.31000  4340.05000  4341.90000  R2 did NOT break trend level; both failed -> next trend
+2026-08-19 01:05:00           UpTrend    UpWard     0     0.00000  4340.15000  4343.31000  4340.05000  4341.90000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-19 01:10:00         DownTrend  DownWard     0     0.00000  4341.85000  4342.71000  4339.15000  4339.97000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 01:15:00         DownTrend  DownWard     0     0.00000  4339.97000  4341.31000  4338.06000  4338.59000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 01:20:00  WaitingForReversal  DownWard     0     0.00000  4338.59000  4339.69000  4333.15000  4334.78000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 01:25:00  WaitingForReversal  DownWard     1     0.00000  4334.78000  4338.66000  4334.12000  4335.97000  R1 recorded (reversalCount=1)
+2026-08-19 01:25:00  WaitingForReversal  DownWard     1     0.00000  4334.78000  4338.66000  4334.12000  4335.97000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 01:30:00  WaitingForReversal  DownWard     1     0.00000  4335.97000  4336.50000  4334.79000  4335.28000  R1 pending; candle is not reversal and not continuation
+2026-08-19 01:35:00  WaitingForReversal  DownWard     1     0.00000  4335.59000  4336.33000  4332.92000  4333.55000  trend resumed before R2; R1 discarded as noise
+2026-08-19 01:40:00  WaitingForReversal  DownWard     1     0.00000  4333.35000  4334.54000  4332.38000  4333.64000  R1 recorded (reversalCount=1)
+2026-08-19 01:40:00  WaitingForReversal  DownWard     1     0.00000  4333.35000  4334.54000  4332.38000  4333.64000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 01:45:00  WaitingForReversal  DownWard     2     0.00000  4333.62000  4334.77000  4333.07000  4334.59000  R2 recorded (reversalCount=2)
+2026-08-19 01:45:00  WaitingForReversal  DownWard     2     0.00000  4333.62000  4334.77000  4333.07000  4334.59000  R2 did NOT break trend level; both failed -> next trend
+2026-08-19 01:45:00           UpTrend    UpWard     0     0.00000  4333.62000  4334.77000  4333.07000  4334.59000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-19 01:50:00  WaitingForReversal    UpWard     0     0.00000  4334.59000  4335.49000  4333.67000  4334.81000  trend UpWard added candle (trendCandles=3/3)
+2026-08-19 01:55:00  WaitingForReversal    UpWard     1     0.00000  4334.84000  4334.95000  4333.02000  4333.74000  R1 recorded (reversalCount=1)
+2026-08-19 01:55:00   WaitingForEntry    UpWard     1  4334.25500  4334.84000  4334.95000  4333.02000  4333.74000  confirm reversal: type=Shadow, entry=4334.25500, SL=4335.49000, waiting for entry
+2026-08-19 01:55:00   WaitingForEntry    UpWard     1  4334.25500  4334.84000  4334.95000  4333.02000  4333.74000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 02:00:00   WaitingForEntry    UpWard     0  4334.25500  4333.74000  4336.03000  4332.80000  4335.87000  ENTRY REACHED by SELL BODY (candle body covers entry=4334.25500)
+2026-08-19 02:00:00    ExecutingTrade    UpWard     1  4334.25500  4333.74000  4336.03000  4332.80000  4335.87000  ENTRY REACHED (SELL) at entry=4334.25500, executionPrice=4334.25500
+2026-08-19 01:55:00         DownTrend  DownWard     0     0.00000  4334.84000  4334.95000  4333.02000  4333.74000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-19 02:00:00         DownTrend  DownWard     0     0.00000  4333.74000  4336.03000  4332.80000  4335.87000  noise candle skipped (trendCandles=1/3)
+2026-08-19 02:05:00         DownTrend  DownWard     0     0.00000  4335.87000  4338.23000  4334.51000  4335.15000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 02:10:00         DownTrend  DownWard     0     0.00000  4335.15000  4335.37000  4332.57000  4334.01000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 02:15:00  WaitingForReversal  DownWard     0     0.00000  4333.95000  4334.86000  4332.07000  4332.34000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 02:20:00  WaitingForReversal  DownWard     1     0.00000  4332.37000  4337.30000  4330.55000  4332.54000  R1 recorded (reversalCount=1)
+2026-08-19 02:20:00   WaitingForEntry  DownWard     1  4333.92500  4332.37000  4337.30000  4330.55000  4332.54000  confirm reversal: type=Shadow, entry=4333.92500, SL=4330.55000, waiting for entry
+2026-08-19 02:20:00   WaitingForEntry  DownWard     1  4333.92500  4332.37000  4337.30000  4330.55000  4332.54000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 02:25:00   WaitingForEntry  DownWard     0  4333.92500  4332.66000  4333.56000  4329.96000  4330.41000  entry NOT reached by BUY (body/shadow did not cover entry=4333.92500)
+2026-08-19 02:25:00   WaitingForEntry  DownWard     1  4333.92500  4332.66000  4333.56000  4329.96000  4330.41000  waiting for entry candle 1/2
+2026-08-19 02:30:00   WaitingForEntry  DownWard     0  4333.92500  4330.44000  4332.59000  4327.01000  4330.84000  entry NOT reached by BUY (body/shadow did not cover entry=4333.92500)
+2026-08-19 02:30:00   WaitingForEntry  DownWard     1  4333.92500  4330.44000  4332.59000  4327.01000  4330.84000  waiting for entry candle 2/2
+2026-08-19 02:25:00         DownTrend  DownWard     0     0.00000  4332.66000  4333.56000  4329.96000  4330.41000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 02:30:00         DownTrend  DownWard     0     0.00000  4330.44000  4332.59000  4327.01000  4330.84000  noise candle skipped (trendCandles=1/3)
+2026-08-19 02:20:00         DownTrend  DownWard     0     0.00000  4332.37000  4337.30000  4330.55000  4332.54000  ConvertReversalToTrend: promoted 1 reversal + 2 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-19 02:35:00         DownTrend  DownWard     0     0.00000  4330.84000  4331.74000  4327.14000  4328.82000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 02:40:00         DownTrend  DownWard     0     0.00000  4328.82000  4330.25000  4328.00000  4329.73000  noise candle skipped (trendCandles=2/3)
+2026-08-19 02:45:00           UpTrend    UpWard     0     0.00000  4329.77000  4332.02000  4329.41000  4330.91000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 02:50:00           UpTrend    UpWard     0     0.00000  4330.83000  4334.19000  4329.85000  4333.88000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 02:55:00           UpTrend    UpWard     0     0.00000  4333.88000  4333.91000  4331.36000  4332.92000  noise candle skipped (trendCandles=2/3)
+2026-08-19 03:00:00  WaitingForReversal    UpWard     0     0.00000  4332.77000  4340.61000  4331.49000  4336.82000  trend UpWard added candle (trendCandles=3/3)
+2026-08-19 03:05:00  WaitingForReversal    UpWard     0     0.00000  4336.82000  4341.21000  4335.91000  4339.87000  trend UpWard extended (trendCandles=4)
+2026-08-19 03:10:00  WaitingForReversal    UpWard     0     0.00000  4339.87000  4344.90000  4338.15000  4342.85000  trend UpWard extended (trendCandles=5)
+2026-08-19 03:15:00  WaitingForReversal    UpWard     0     0.00000  4342.78000  4346.34000  4342.78000  4343.54000  trend UpWard extended (trendCandles=6)
+2026-08-19 03:20:00  WaitingForReversal    UpWard     1     0.00000  4343.56000  4346.08000  4341.45000  4343.05000  R1 recorded (reversalCount=1)
+2026-08-19 03:20:00   WaitingForEntry    UpWard     1  4343.89500  4343.56000  4346.08000  4341.45000  4343.05000  confirm reversal: type=Shadow, entry=4343.89500, SL=4346.34000, waiting for entry
+2026-08-19 03:20:00   WaitingForEntry    UpWard     1  4343.89500  4343.56000  4346.08000  4341.45000  4343.05000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 03:25:00   WaitingForEntry    UpWard     0  4343.89500  4343.05000  4343.65000  4339.07000  4342.88000  entry NOT reached by SELL (body/shadow did not cover entry=4343.89500)
+2026-08-19 03:25:00   WaitingForEntry    UpWard     1  4343.89500  4343.05000  4343.65000  4339.07000  4342.88000  waiting for entry candle 1/2
+2026-08-19 03:30:00   WaitingForEntry    UpWard     0  4343.89500  4342.86000  4345.66000  4339.55000  4340.63000  ENTRY REACHED by SELL SHADOW (candle wick covers entry=4343.89500)
+2026-08-19 03:30:00    ExecutingTrade    UpWard     1  4343.89500  4342.86000  4345.66000  4339.55000  4340.63000  ENTRY REACHED (SELL) at entry=4343.89500, executionPrice=4343.89500
+2026-08-19 03:25:00         DownTrend  DownWard     0     0.00000  4343.05000  4343.65000  4339.07000  4342.88000  noise candle skipped (trendCandles=1/3)
+2026-08-19 03:20:00         DownTrend  DownWard     0     0.00000  4343.56000  4346.08000  4341.45000  4343.05000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 1 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-19 03:30:00         DownTrend  DownWard     0     0.00000  4342.86000  4345.66000  4339.55000  4340.63000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 03:35:00           UpTrend    UpWard     0     0.00000  4340.63000  4346.71000  4340.45000  4344.73000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 03:40:00           UpTrend    UpWard     0     0.00000  4344.68000  4347.09000  4343.02000  4343.59000  noise candle skipped (trendCandles=1/3)
+2026-08-19 03:45:00           UpTrend    UpWard     0     0.00000  4343.62000  4344.29000  4342.30000  4342.66000  noise candle skipped (trendCandles=1/3)
+2026-08-19 03:50:00           UpTrend    UpWard     0     0.00000  4342.66000  4344.65000  4341.17000  4341.40000  noise candle skipped (trendCandles=1/3)
+2026-08-19 03:55:00         DownTrend  DownWard     0     0.00000  4341.32000  4342.30000  4337.05000  4337.91000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 04:00:00         DownTrend  DownWard     0     0.00000  4337.79000  4339.89000  4324.46000  4332.37000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 04:05:00           UpTrend    UpWard     0     0.00000  4332.44000  4342.73000  4331.38000  4340.33000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 04:10:00           UpTrend    UpWard     0     0.00000  4340.38000  4343.95000  4336.97000  4343.81000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 04:15:00           UpTrend    UpWard     0     0.00000  4343.83000  4346.24000  4334.46000  4337.81000  noise candle skipped (trendCandles=2/3)
+2026-08-19 04:20:00           UpTrend    UpWard     0     0.00000  4337.81000  4340.11000  4332.97000  4337.35000  noise candle skipped (trendCandles=2/3)
+2026-08-19 04:25:00           UpTrend    UpWard     0     0.00000  4337.40000  4342.57000  4335.51000  4342.29000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 04:30:00           UpTrend    UpWard     0     0.00000  4342.38000  4351.18000  4342.30000  4350.70000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 04:35:00  WaitingForReversal    UpWard     0     0.00000  4350.70000  4356.32000  4350.24000  4355.31000  trend UpWard added candle (trendCandles=3/3)
+2026-08-19 04:40:00  WaitingForReversal    UpWard     0     0.00000  4355.34000  4357.52000  4354.10000  4355.46000  trend UpWard extended (trendCandles=4)
+2026-08-19 04:45:00  WaitingForReversal    UpWard     1     0.00000  4355.41000  4356.60000  4350.83000  4351.07000  R1 recorded (reversalCount=1)
+2026-08-19 04:45:00   WaitingForEntry    UpWard     1  4353.06000  4355.41000  4356.60000  4350.83000  4351.07000  confirm reversal: type=Body, entry=4353.06000, SL=4357.52000, waiting for entry
+2026-08-19 04:45:00   WaitingForEntry    UpWard     1  4353.06000  4355.41000  4356.60000  4350.83000  4351.07000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 04:50:00   WaitingForEntry    UpWard     0  4353.06000  4350.99000  4355.02000  4350.47000  4353.41000  ENTRY REACHED by SELL BODY (candle body covers entry=4353.06000)
+2026-08-19 04:50:00    ExecutingTrade    UpWard     1  4353.06000  4350.99000  4355.02000  4350.47000  4353.41000  ENTRY REACHED (SELL) at entry=4353.06000, executionPrice=4353.06000
+2026-08-19 04:45:00         DownTrend  DownWard     0     0.00000  4355.41000  4356.60000  4350.83000  4351.07000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-19 04:50:00         DownTrend  DownWard     0     0.00000  4350.99000  4355.02000  4350.47000  4353.41000  noise candle skipped (trendCandles=1/3)
+2026-08-19 04:55:00           UpTrend    UpWard     0     0.00000  4353.41000  4356.64000  4352.70000  4356.44000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 05:00:00           UpTrend    UpWard     0     0.00000  4356.41000  4357.20000  4351.59000  4354.29000  noise candle skipped (trendCandles=1/3)
+2026-08-19 05:05:00           UpTrend    UpWard     0     0.00000  4354.42000  4357.10000  4352.86000  4355.77000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 05:10:00         DownTrend  DownWard     0     0.00000  4355.95000  4356.02000  4352.49000  4353.50000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 05:15:00         DownTrend  DownWard     0     0.00000  4353.62000  4360.73000  4352.47000  4358.79000  noise candle skipped (trendCandles=1/3)
+2026-08-19 05:20:00           UpTrend    UpWard     0     0.00000  4358.79000  4362.00000  4357.84000  4359.86000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 05:25:00           UpTrend    UpWard     0     0.00000  4359.87000  4361.25000  4358.93000  4359.64000  noise candle skipped (trendCandles=1/3)
+2026-08-19 05:30:00         DownTrend  DownWard     0     0.00000  4359.60000  4360.18000  4355.60000  4356.82000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 05:35:00         DownTrend  DownWard     0     0.00000  4356.79000  4358.29000  4354.12000  4355.23000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 05:40:00         DownTrend  DownWard     0     0.00000  4355.20000  4358.24000  4354.78000  4355.26000  noise candle skipped (trendCandles=2/3)
+2026-08-19 05:45:00         DownTrend  DownWard     0     0.00000  4355.29000  4357.22000  4354.13000  4355.51000  noise candle skipped (trendCandles=2/3)
+2026-08-19 05:50:00  WaitingForReversal  DownWard     0     0.00000  4355.48000  4356.45000  4352.92000  4353.96000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 05:55:00  WaitingForReversal  DownWard     1     0.00000  4353.98000  4355.06000  4351.44000  4354.92000  R1 recorded (reversalCount=1)
+2026-08-19 05:55:00  WaitingForReversal  DownWard     1     0.00000  4353.98000  4355.06000  4351.44000  4354.92000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 06:00:00  WaitingForReversal  DownWard     2     0.00000  4354.92000  4356.06000  4352.70000  4355.63000  R2 recorded (reversalCount=2)
+2026-08-19 06:00:00  WaitingForReversal  DownWard     2     0.00000  4354.92000  4356.06000  4352.70000  4355.63000  R2 did NOT break trend level; both failed -> next trend
+2026-08-19 06:00:00           UpTrend    UpWard     0     0.00000  4354.92000  4356.06000  4352.70000  4355.63000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-19 06:05:00         DownTrend  DownWard     0     0.00000  4355.58000  4355.58000  4351.92000  4353.68000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 06:10:00         DownTrend  DownWard     0     0.00000  4353.66000  4355.26000  4353.39000  4354.45000  noise candle skipped (trendCandles=1/3)
+2026-08-19 06:15:00         DownTrend  DownWard     0     0.00000  4354.44000  4356.10000  4351.78000  4352.72000  noise candle skipped (trendCandles=1/3)
+2026-08-19 06:20:00         DownTrend  DownWard     0     0.00000  4352.74000  4355.76000  4351.81000  4355.63000  noise candle skipped (trendCandles=1/3)
+2026-08-19 06:25:00           UpTrend    UpWard     0     0.00000  4355.66000  4357.92000  4355.66000  4357.03000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 06:30:00           UpTrend    UpWard     0     0.00000  4357.05000  4358.37000  4355.86000  4356.93000  noise candle skipped (trendCandles=1/3)
+2026-08-19 06:35:00           UpTrend    UpWard     0     0.00000  4356.95000  4360.33000  4356.92000  4358.13000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 06:40:00           UpTrend    UpWard     0     0.00000  4358.04000  4358.73000  4356.93000  4358.44000  noise candle skipped (trendCandles=2/3)
+2026-08-19 06:45:00         DownTrend  DownWard     0     0.00000  4358.52000  4358.80000  4356.32000  4357.79000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 06:50:00         DownTrend  DownWard     0     0.00000  4357.78000  4358.44000  4355.69000  4355.72000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 06:55:00  WaitingForReversal  DownWard     0     0.00000  4355.70000  4356.51000  4354.73000  4354.96000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 07:00:00  WaitingForReversal  DownWard     0     0.00000  4355.12000  4356.21000  4353.43000  4353.78000  trend DownWard extended (trendCandles=4)
+2026-08-19 07:05:00  WaitingForReversal  DownWard     1     0.00000  4353.80000  4354.81000  4353.06000  4354.40000  R1 recorded (reversalCount=1)
+2026-08-19 07:05:00  WaitingForReversal  DownWard     1     0.00000  4353.80000  4354.81000  4353.06000  4354.40000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 07:10:00  WaitingForReversal  DownWard     2     0.00000  4354.40000  4354.90000  4353.55000  4354.64000  R2 recorded (reversalCount=2)
+2026-08-19 07:10:00  WaitingForReversal  DownWard     2     0.00000  4354.40000  4354.90000  4353.55000  4354.64000  R2 did NOT break trend level; both failed -> next trend
+2026-08-19 07:10:00           UpTrend    UpWard     0     0.00000  4354.40000  4354.90000  4353.55000  4354.64000  ConvertReversalToTrend: promoted 2 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=2)
+2026-08-19 07:15:00           UpTrend    UpWard     0     0.00000  4354.62000  4354.95000  4350.06000  4352.34000  noise candle skipped (trendCandles=2/3)
+2026-08-19 07:20:00         DownTrend  DownWard     0     0.00000  4352.34000  4352.82000  4350.80000  4351.66000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 07:25:00         DownTrend  DownWard     0     0.00000  4351.71000  4351.71000  4350.24000  4351.15000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 07:30:00         DownTrend  DownWard     0     0.00000  4351.15000  4352.04000  4349.61000  4349.66000  noise candle skipped (trendCandles=2/3)
+2026-08-19 07:35:00  WaitingForReversal  DownWard     0     0.00000  4349.64000  4350.65000  4346.49000  4346.52000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 07:40:00  WaitingForReversal  DownWard     0     0.00000  4346.55000  4347.49000  4344.92000  4346.46000  trend DownWard extended (trendCandles=4)
+2026-08-19 07:45:00  WaitingForReversal  DownWard     1     0.00000  4346.49000  4347.07000  4345.82000  4346.60000  R1 recorded (reversalCount=1)
+2026-08-19 07:45:00  WaitingForReversal  DownWard     1     0.00000  4346.49000  4347.07000  4345.82000  4346.60000  R1 did NOT break trend level; R2 gets the opportunity
+2026-08-19 07:50:00  WaitingForReversal  DownWard     1     0.00000  4346.59000  4346.63000  4343.77000  4344.82000  trend resumed before R2; R1 discarded as noise
+2026-08-19 07:55:00  WaitingForReversal  DownWard     1     0.00000  4344.81000  4348.49000  4344.40000  4348.46000  R1 recorded (reversalCount=1)
+2026-08-19 07:55:00   WaitingForEntry  DownWard     1  4346.91667  4344.81000  4348.49000  4344.40000  4348.46000  confirm reversal: type=Body, entry=4346.91667, SL=4343.77000, waiting for entry
+2026-08-19 07:55:00   WaitingForEntry  DownWard     1  4346.91667  4344.81000  4348.49000  4344.40000  4348.46000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 08:00:00   WaitingForEntry  DownWard     0  4346.91667  4348.44000  4350.67000  4346.26000  4347.25000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4346.91667)
+2026-08-19 08:00:00    ExecutingTrade  DownWard     1  4346.91667  4348.44000  4350.67000  4346.26000  4347.25000  ENTRY REACHED (BUY) at entry=4346.91667, executionPrice=4346.91667
+2026-08-19 07:55:00           UpTrend    UpWard     0     0.00000  4344.81000  4348.49000  4344.40000  4348.46000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-19 08:00:00           UpTrend    UpWard     0     0.00000  4348.44000  4350.67000  4346.26000  4347.25000  noise candle skipped (trendCandles=1/3)
+2026-08-19 08:05:00         DownTrend  DownWard     0     0.00000  4347.35000  4347.80000  4342.35000  4342.46000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 08:10:00         DownTrend  DownWard     0     0.00000  4342.57000  4342.77000  4338.70000  4338.90000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 08:15:00  WaitingForReversal  DownWard     0     0.00000  4338.89000  4339.51000  4336.66000  4337.65000  trend DownWard added candle (trendCandles=3/3)
+2026-08-19 08:20:00  WaitingForReversal  DownWard     1     0.00000  4337.64000  4342.56000  4337.41000  4341.43000  R1 recorded (reversalCount=1)
+2026-08-19 08:20:00   WaitingForEntry  DownWard     1  4340.59333  4337.64000  4342.56000  4337.41000  4341.43000  confirm reversal: type=Body, entry=4340.59333, SL=4336.66000, waiting for entry
+2026-08-19 08:20:00   WaitingForEntry  DownWard     1  4340.59333  4337.64000  4342.56000  4337.41000  4341.43000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 08:25:00   WaitingForEntry  DownWard     0  4340.59333  4341.44000  4345.25000  4340.47000  4345.19000  ENTRY REACHED by BUY SHADOW (candle wick covers entry=4340.59333)
+2026-08-19 08:25:00    ExecutingTrade  DownWard     1  4340.59333  4341.44000  4345.25000  4340.47000  4345.19000  ENTRY REACHED (BUY) at entry=4340.59333, executionPrice=4340.59333
+2026-08-19 08:20:00           UpTrend    UpWard     0     0.00000  4337.64000  4342.56000  4337.41000  4341.43000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=UpWard, trendCandles=1)
+2026-08-19 08:25:00           UpTrend    UpWard     0     0.00000  4341.44000  4345.25000  4340.47000  4345.19000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 08:30:00           UpTrend    UpWard     0     0.00000  4345.33000  4345.34000  4336.85000  4338.36000  noise candle skipped (trendCandles=2/3)
+2026-08-19 08:35:00           UpTrend    UpWard     0     0.00000  4338.44000  4342.95000  4336.73000  4342.87000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 08:40:00           UpTrend    UpWard     0     0.00000  4342.88000  4343.57000  4339.89000  4342.25000  noise candle skipped (trendCandles=1/3)
+2026-08-19 08:45:00         DownTrend  DownWard     0     0.00000  4342.21000  4342.26000  4335.18000  4337.03000  seed trend: trend=DownWard, trendCandles=1
+2026-08-19 08:50:00         DownTrend  DownWard     0     0.00000  4337.03000  4338.22000  4335.02000  4335.33000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 08:55:00         DownTrend  DownWard     0     0.00000  4335.33000  4338.77000  4335.13000  4335.58000  noise candle skipped (trendCandles=2/3)
+2026-08-19 09:00:00           UpTrend    UpWard     0     0.00000  4335.60000  4341.28000  4335.21000  4337.54000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 09:05:00           UpTrend    UpWard     0     0.00000  4337.63000  4340.34000  4335.31000  4338.89000  noise candle skipped (trendCandles=1/3)
+2026-08-19 09:10:00           UpTrend    UpWard     0     0.00000  4338.89000  4341.75000  4337.04000  4337.41000  noise candle skipped (trendCandles=1/3)
+2026-08-19 09:15:00           UpTrend    UpWard     0     0.00000  4337.39000  4346.16000  4336.81000  4345.27000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 09:20:00  WaitingForReversal    UpWard     0     0.00000  4345.16000  4348.29000  4344.71000  4345.97000  trend UpWard added candle (trendCandles=3/3)
+2026-08-19 09:25:00  WaitingForReversal    UpWard     1     0.00000  4346.10000  4346.86000  4340.50000  4343.21000  R1 recorded (reversalCount=1)
+2026-08-19 09:25:00   WaitingForEntry    UpWard     1  4343.09667  4346.10000  4346.86000  4340.50000  4343.21000  confirm reversal: type=Body, entry=4343.09667, SL=4348.29000, waiting for entry
+2026-08-19 09:25:00   WaitingForEntry    UpWard     1  4343.09667  4346.10000  4346.86000  4340.50000  4343.21000  REVERSAL CONFIRMED by R1 (body/shadow break)
+2026-08-19 09:30:00   WaitingForEntry    UpWard     0  4343.09667  4343.21000  4343.32000  4337.02000  4338.55000  ENTRY REACHED by SELL BODY (candle body covers entry=4343.09667)
+2026-08-19 09:30:00    ExecutingTrade    UpWard     1  4343.09667  4343.21000  4343.32000  4337.02000  4338.55000  ENTRY REACHED (SELL) at entry=4343.09667, executionPrice=4343.09667
+2026-08-19 09:25:00         DownTrend  DownWard     0     0.00000  4346.10000  4346.86000  4340.50000  4343.21000  Trade completed: preserved successful reversal candle(s): promoted 1 reversal + 0 waited candle(s) into next trend (trend=DownWard, trendCandles=1)
+2026-08-19 09:30:00         DownTrend  DownWard     0     0.00000  4343.21000  4343.32000  4337.02000  4338.55000  trend DownWard added candle (trendCandles=2/3)
+2026-08-19 09:35:00           UpTrend    UpWard     0     0.00000  4338.56000  4345.62000  4338.54000  4343.93000  seed trend: trend=UpWard, trendCandles=1
+2026-08-19 09:40:00           UpTrend    UpWard     0     0.00000  4343.95000  4344.32000  4341.45000  4341.87000  noise candle skipped (trendCandles=1/3)
+2026-08-19 09:45:00           UpTrend    UpWard     0     0.00000  4341.86000  4344.09000  4340.73000  4343.78000  noise candle skipped (trendCandles=1/3)
+2026-08-19 09:50:00           UpTrend    UpWard     0     0.00000  4343.78000  4347.81000  4343.78000  4347.68000  trend UpWard added candle (trendCandles=2/3)
+2026-08-19 09:55:00  WaitingForReversal    UpWard     0     0.00000  4347.68000  4349.38000  4347.34000  4349.02000  trend UpWard added candle (trendCandles=3/3)
+2026-08-19 10:00:00  WaitingForReversal    UpWard     0     0.00000  4349.05000  4349.44000  4349.05000  4349.23000  trend UpWard extended (trendCandles=4)
+2026-08-20 10:40:00  WaitingForReversal    UpWard     0     0.00000  4491.76000  4491.76000  4491.76000  4491.76000  no reversal, trend NOT extended (not valid continuation)
+==============================================

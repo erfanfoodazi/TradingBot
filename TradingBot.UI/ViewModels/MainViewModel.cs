@@ -919,7 +919,17 @@ public partial class MainViewModel : ObservableObject
             var symbol = SelectedSymbol.Name;
             var candles = BackTestData;
 
-            var result = await Task.Run(() => BackTestEngine.Run(symbol, candles));
+            SymbolInfoResponseDto? symbolInfo = null;
+            try
+            {
+                symbolInfo = await _tradingService.GetSymbolInfoAsync(symbol);
+            }
+            catch
+            {
+                symbolInfo = null;
+            }
+
+            var result = await Task.Run(() => BackTestEngine.Run(symbol, candles, symbolInfo: symbolInfo));
 
             BackTestResult = result;
             BackTestTrades = result.Trades;

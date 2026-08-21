@@ -1,5 +1,7 @@
 namespace TradingBot.UI.BackTest;
 
+using TradingBot.UI.Strategy;
+
 /// <summary>
 /// Aggregate result of a backtest run plus the individual trades.
 /// </summary>
@@ -40,5 +42,9 @@ public sealed class BackTestResult
 
     public List<BackTestTrade> Trades { get; set; } = [];
 
-    public List<string> Log { get; set; } = [];
+    /// <summary>
+    /// Per-candle decisions captured from the strategy (and the entry
+    /// simulation) so the back test can be reviewed candle by candle.
+    /// </summary>
+    public List<StrategyDecision> Decisions { get; set; } = [];
 }

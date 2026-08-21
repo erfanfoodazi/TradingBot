@@ -16,6 +16,16 @@ namespace TradingBot.UI.Strategy;
 /// A trend is a sequence of valid candles of the same direction.
 /// Every valid continuation must break/touch the relevant level of the
 /// previous trend candle without breaking/touching the opposite level.
+/// In addition the candle's COLOR must agree with the trend:
+/// an UP trend requires a green candle (Close > Open); a DOWN trend
+/// requires a red candle (Close < Open).
+///
+/// NOISE
+/// -----
+/// Noise candles skipped while a trend is being built are NOT discarded.
+/// If the trend later breaks, the saved noise candles are replayed through
+/// a fresh trend build (oldest first, followed by the breaking candle) so
+/// they can seed or extend the next trend instead of being lost.
 ///
 /// REVERSAL
 /// --------
@@ -106,6 +116,14 @@ public class ManualStrategy
     private readonly object _gate = new();
 
     /// <summary>
+    /// Raised after the strategy commits to a decision for a candle.
+    ///
+    /// Used by the back test engine to build a per-candle review log.
+    /// Production subscribers should keep the handler cheap.
+    /// </summary>
+    public event Action<StrategyDecision>? DecisionLogged;
+
+    /// <summary>
     /// Valid trend candles only.
     /// </summary>
     private readonly List<CandleResponseDto> _trend = [];
@@ -118,6 +136,15 @@ public class ManualStrategy
     /// - used for a successful setup and later promoted after trade.
     /// </summary>
     private readonly List<CandleResponseDto> _reversals = [];
+
+    /// <summary>
+    /// Noise candles skipped while a trend is being built.
+    ///
+    /// They are preserved so that if the trend breaks they can be replayed
+    /// through a fresh trend build and potentially seed the next trend
+    /// (just like waited-for-entry and reversal candles are preserved).
+    /// </summary>
+    private readonly List<CandleResponseDto> _noise = [];
 
     /// <summary>
     /// Candles counted while waiting for the Entry price.
@@ -286,6 +313,11 @@ public class ManualStrategy
                 $"entry={_entry:F5}, " +
                 $"executionPrice={executionPrice:F5}, " +
                 $"bid={tick.Bid:F5}, ask={tick.Ask:F5}.");
+
+            RaiseDecision(
+                $"ENTRY REACHED ({(sell ? "SELL" : "BUY")}) at " +
+                $"entry={_entry:F5}, executionPrice={executionPrice:F5}",
+                tick.Time);
         }
 
         if (shouldTrade)
@@ -320,6 +352,10 @@ public class ManualStrategy
                 Log(
                     $"Candle {candle.Time:HH:mm:ss} queued while ExecutingTrade " +
                     $"(pending={_pendingDuringExecution.Count}).");
+
+                RaiseDecision(
+                    $"queued while ExecutingTrade (pending={_pendingDuringExecution.Count})",
+                    candle);
                 return;
             }
 
@@ -333,6 +369,11 @@ public class ManualStrategy
                 Log(
                     $"WaitingForEntry candle {_waitedForEntryPoint.Count}/" +
                     $"{_maxWaitForEntryPoint}: {candle.Time:HH:mm:ss}");
+
+                RaiseDecision(
+                    $"waiting for entry candle {_waitedForEntryPoint.Count}/" +
+                    $"{_maxWaitForEntryPoint}",
+                    candle);
 
                 if (_waitedForEntryPoint.Count >= _maxWaitForEntryPoint)
                 {
@@ -424,10 +465,11 @@ public class ManualStrategy
                (breaksHigh && breaksLow);
     }
 
-    private static bool IsValidUpward(
+private static bool IsValidUpward(
         CandleResponseDto candle,
         CandleResponseDto prev)
         => IsBullish(candle) &&
+           candle.Close > candle.Open &&
            candle.High >= prev.High &&
            candle.Low > prev.Low;
 
@@ -435,6 +477,7 @@ public class ManualStrategy
         CandleResponseDto candle,
         CandleResponseDto prev)
         => IsBearish(candle) &&
+           candle.Close < candle.Open &&
            candle.Low <= prev.Low &&
            candle.High < prev.High;
 
@@ -462,6 +505,7 @@ public class ManualStrategy
     {
         _trend.Clear();
         _reversals.Clear();
+        _noise.Clear();
 
         _countOfRevers = 0;
         _modeOfRevers = ReversMode.None;
@@ -493,6 +537,10 @@ public class ManualStrategy
             $"trend={_modeOfTrend}, " +
             $"trendCandles={_trend.Count}, " +
             $"state={_state}.");
+
+        RaiseDecision(
+            $"seed trend: trend={_modeOfTrend}, trendCandles={_trend.Count}",
+            candle);
     }
 
     private void ProcessTrendBuilding(CandleResponseDto candle)
@@ -508,10 +556,20 @@ public class ManualStrategy
         // counted as real trend candles instead of being skipped.
         if (IsNoise(candle, lastTrend))
         {
+            // Preserve the noise candle: it may be the start of the next
+            // trend if the current trend breaks (see PromoteNoiseToNextTrend).
+            _noise.Add(candle);
+
             Log(
-                $"Noise candle {candle.Time:HH:mm:ss} skipped. " +
+                $"Noise candle {candle.Time:HH:mm:ss} saved (pending). " +
                 $"trend={_modeOfTrend}, " +
-                $"trendCandles={_trend.Count}/{_minTrendCandles}.");
+                $"trendCandles={_trend.Count}/{_minTrendCandles}, " +
+                $"savedNoise={_noise.Count}.");
+
+            RaiseDecision(
+                $"noise candle saved (trendCandles={_trend.Count}/{_minTrendCandles}, " +
+                $"savedNoise={_noise.Count})",
+                candle);
 
             return;
         }
@@ -531,7 +589,7 @@ public class ManualStrategy
                 $"Trend {_modeOfTrend} broken at " +
                 $"{candle.Time:HH:mm:ss}. Reseeding trend.");
 
-            SeedTrend(candle);
+            PromoteNoiseToNextTrend(candle, "Trend broken");
             return;
         }
 
@@ -542,6 +600,10 @@ public class ManualStrategy
             $"{candle.Time:HH:mm:ss} -> " +
             $"trendCandles={_trend.Count}/{_minTrendCandles}, " +
             $"state={_state}.");
+
+        RaiseDecision(
+            $"trend {_modeOfTrend} added candle (trendCandles={_trend.Count}/{_minTrendCandles})",
+            candle);
     }
 
     private void UpdateTrendState()
@@ -553,6 +615,52 @@ public class ManualStrategy
                 : _modeOfTrend == TrendMode.DownWard
                     ? StrategyState.DownTrend
                     : StrategyState.WaitingForTrend;
+
+        // Once the trend is confirmed the building-phase noise is stale and
+        // must not be replayed later.
+        if (_state == StrategyState.WaitingForReversal)
+            _noise.Clear();
+    }
+
+    /// <summary>
+    /// When a trend breaks, the noise candles that were skipped while it was
+    /// being built are replayed through a fresh trend build, oldest first,
+    /// followed by the breaking candle itself.
+    ///
+    /// This mirrors how reversal (R1/R2) and waited-for-entry candles are
+    /// preserved: a candle that was "noise" for the old trend may be the
+    /// seed or a continuation of the NEXT trend.
+    /// </summary>
+    private void PromoteNoiseToNextTrend(
+        CandleResponseDto breakingCandle,
+        string reason)
+    {
+        var noiseTemp = _noise.ToList();
+        _noise.Clear();
+
+        if (noiseTemp.Count == 0)
+        {
+            SeedTrend(breakingCandle);
+            return;
+        }
+
+        ResetToWaitingForTrend();
+
+        foreach (var noiseCandle in noiseTemp)
+            ProcessCandle(noiseCandle);
+
+        ProcessCandle(breakingCandle);
+
+        Log(
+            $"{reason}: replayed {noiseTemp.Count} noise candle(s) " +
+            $"+ breaking candle {breakingCandle.Time:HH:mm:ss} into next trend. " +
+            $"trend={_modeOfTrend}, trendCandles={_trend.Count}, state={_state}.");
+
+        RaiseDecision(
+            $"{reason}: replayed {noiseTemp.Count} noise candle(s) + " +
+            $"breaking candle into next trend (trend={_modeOfTrend}, " +
+            $"trendCandles={_trend.Count})",
+            breakingCandle);
     }
 
     #endregion
@@ -586,6 +694,10 @@ public class ManualStrategy
                     $"reference H={_lastReversalTrend.High}, " +
                     $"L={_lastReversalTrend.Low}.");
 
+                RaiseDecision(
+                    $"R1 recorded (reversalCount=1)",
+                    candle);
+
                 // R1 is checked against LAST TREND.
                 if (BreaksLastTrendLevel(candle, _lastReversalTrend))
                 {
@@ -596,12 +708,20 @@ public class ManualStrategy
                         $"type={_modeOfRevers}, " +
                         $"entry={_entry:F5}, " +
                         $"state={_state}.");
+
+                    RaiseDecision(
+                        $"REVERSAL CONFIRMED by R1 (body/shadow break)",
+                        candle);
                 }
                 else
                 {
                     Log(
                         $"R1 did NOT break the original Trend level. " +
                         $"R2 gets the second opportunity.");
+
+                    RaiseDecision(
+                        $"R1 did NOT break trend level; R2 gets the opportunity",
+                        candle);
                 }
 
                 return;
@@ -617,6 +737,16 @@ public class ManualStrategy
                     $"Trend {_modeOfTrend} extended: " +
                     $"{candle.Time:HH:mm:ss} -> " +
                     $"trendCandles={_trend.Count}.");
+
+                RaiseDecision(
+                    $"trend {_modeOfTrend} extended (trendCandles={_trend.Count})",
+                    candle);
+            }
+            else
+            {
+                RaiseDecision(
+                    $"no reversal, trend NOT extended (not valid continuation)",
+                    candle);
             }
 
             return;
@@ -644,6 +774,10 @@ public class ManualStrategy
                     $"reference H={referenceTrend.High}, " +
                     $"L={referenceTrend.Low}.");
 
+                RaiseDecision(
+                    $"R2 recorded (reversalCount=2)",
+                    candle);
+
                 // R2 is also checked against the SAME LAST TREND.
                 if (BreaksLastTrendLevel(candle, referenceTrend))
                 {
@@ -657,6 +791,10 @@ public class ManualStrategy
                         $"type={_modeOfRevers}, " +
                         $"entry={_entry:F5}, " +
                         $"state={_state}.");
+
+                    RaiseDecision(
+                        $"REVERSAL CONFIRMED by R2 (body/shadow break)",
+                        candle);
                 }
                 else
                 {
@@ -666,6 +804,10 @@ public class ManualStrategy
                         $"R2 did NOT break the original Trend level. " +
                         $"Both reversal opportunities failed. " +
                         $"R1 + R2 -> next Trend.");
+
+                    RaiseDecision(
+                        $"R2 did NOT break trend level; both failed -> next trend",
+                        candle);
 
                     ConvertReversalToTrend();
                 }
@@ -689,6 +831,10 @@ public class ManualStrategy
                     $"R1 ({_reversals.Count} candle) discarded as noise. " +
                     $"{candle.Time:HH:mm:ss} -> trendCandles={_trend.Count + 1}.");
 
+                RaiseDecision(
+                    $"trend resumed before R2; R1 discarded as noise",
+                    candle);
+
                 // R1 turned out to be noise, not a genuine reversal
                 // opportunity — drop it instead of leaving it pending.
                 _reversals.Clear();
@@ -697,6 +843,12 @@ public class ManualStrategy
                 _lastReversalTrend = null;
 
                 _trend.Add(candle);
+            }
+            else
+            {
+                RaiseDecision(
+                    $"R1 pending; candle is not reversal and not continuation",
+                    candle);
             }
 
             return;
@@ -808,6 +960,11 @@ public class ManualStrategy
             $"referenceTrend={lastTrend.Time:HH:mm:ss}, " +
             $"reversalType={_modeOfRevers}, " +
             $"entry={_entry:F5}.");
+
+        RaiseDecision(
+            $"confirm reversal: type={_modeOfRevers}, entry={_entry:F5}, " +
+            $"SL={_structuralSl:F5}, waiting for entry",
+            breakingCandle);
     }
 
     #endregion
@@ -818,20 +975,31 @@ public class ManualStrategy
     /// Calculates Entry from last trend and reversals.
     ///
     /// UP trend (bearish reversal):
-    ///   High -> last Trend candle's High (structural reference).
+    ///   High -> the HIGHER of (last Trend candle's High, highest High
+    ///           among recorded reversal candles (R1/R2)).
     ///   Low  -> lowest Low among recorded reversal candles (R1/R2).
     ///
     /// DOWN trend (bullish reversal):
-    ///   Low  -> last Trend candle's Low (structural reference).
+    ///   Low  -> the LOWER of (last Trend candle's Low, lowest Low
+    ///           among recorded reversal candles (R1/R2)).
     ///   High -> highest High among recorded reversal candles (R1/R2).
     ///
     /// UP trend / SELL:
-    ///   Body   -> 1/3 from range Low toward range High.
-    ///   Shadow -> 1/2 from range Low toward range High.
+    ///   1 reversal candle:
+    ///     Body   -> 1/3 from range Low toward range High.
+    ///     Shadow -> 1/2 from range Low toward range High.
+    ///   2 reversal candles (R1 + R2):
+    ///     always 1/2 from range Low toward range High.
     ///
     /// DOWN trend / BUY:
-    ///   Body   -> 2/3 from range Low toward range High.
-    ///   Shadow -> 1/2 from range Low toward range High.
+    ///   1 reversal candle:
+    ///     Body   -> 2/3 from range Low toward range High.
+    ///     Shadow -> 1/2 from range Low toward range High.
+    ///   2 reversal candles (R1 + R2):
+    ///     always 1/2 from range Low toward range High.
+    ///
+    /// structuralSl is still anchored to the last Trend candle only
+    /// (referenceTrend), not to the combined High/Low used for range.
     /// </summary>
     private double CalculateEntry()
     {
@@ -849,30 +1017,34 @@ public class ManualStrategy
         if (_modeOfTrend == TrendMode.UpWard)
         {
 
-            trendHigh = referenceTrend.High;
+            trendHigh = Math.Max(referenceTrend.High, _reversals.Max(c => c.High));
             trendLow = _reversals.Min(c => c.Low);
 
             range = trendHigh - trendLow;
 
-            entry = _modeOfRevers == ReversMode.Body
-                ? trendLow + (range / 3.0)
-                : trendLow + (range / 2.0);
+            entry = _reversals.Count >= 2
+                ? trendLow + (range / 2.0)
+                : _modeOfRevers == ReversMode.Body
+                    ? trendLow + (range / 3.0)
+                    : trendLow + (range / 2.0);
 
-            _structuralSl = referenceTrend.High;
+            _structuralSl = trendHigh;
         }
         else if (_modeOfTrend == TrendMode.DownWard)
         {
 
-            trendLow = referenceTrend.Low;
+            trendLow = Math.Min(referenceTrend.Low, _reversals.Min(c => c.Low));
             trendHigh = _reversals.Max(c => c.High);
 
             range = trendHigh - trendLow;
 
-            entry = _modeOfRevers == ReversMode.Body
-                ? trendLow + (range * 2.0 / 3.0)
-                : trendLow + (range / 2.0);
+            entry = _reversals.Count >= 2
+                ? trendLow + (range / 2.0)
+                : _modeOfRevers == ReversMode.Body
+                    ? trendLow + (range * 2.0 / 3.0)
+                    : trendLow + (range / 2.0);
 
-            _structuralSl = referenceTrend.Low;
+            _structuralSl = trendLow;
         }
         else
         {
@@ -905,43 +1077,7 @@ public class ManualStrategy
     /// The reversal data is copied before clearing it.
     /// </summary>
     private void ConvertReversalToTrend()
-    {
-        var reversTemp = _reversals.ToList();
-
-        if (reversTemp.Count == 0)
-        {
-            ResetToWaitingForTrend();
-            return;
-        }
-
-        _trend.Clear();
-
-        foreach (var candle in reversTemp)
-            _trend.Add(candle);
-
-        _reversals.Clear();
-        _waitedForEntryPoint.Clear();
-
-        _countOfRevers = 0;
-
-        _modeOfRevers = ReversMode.None;
-
-        _entry = 0;
-        _structuralSl = 0;
-
-        _lastReversalTrend = null;
-
-        DetermineTrendDirectionFromSeed();
-
-        UpdateTrendState();
-
-        Log(
-            $"ConvertReversalToTrend: promoted " +
-            $"{reversTemp.Count} reversal candle(s) into next trend. " +
-            $"trend={_modeOfTrend}, " +
-            $"trendCandles={_trend.Count}, " +
-            $"state={_state}.");
-    }
+        => PromoteReversalsToNextTrend("ConvertReversalToTrend");
 
     /// <summary>
     /// IMPORTANT:
@@ -953,8 +1089,23 @@ public class ManualStrategy
     /// Therefore a successful trade does NOT destroy reversal data.
     /// </summary>
     private void PromoteReversalToTrendAfterTrade()
+        => PromoteReversalsToNextTrend("Trade completed: preserved successful reversal candle(s)");
+
+    /// <summary>
+    /// Promotes the current reversal candles (R1/R2) into the next Trend.
+    ///
+    /// The candles that closed while waiting for the Entry price are real
+    /// market structure too - they are replayed through the new Trend so they
+    /// are NOT lost. Replaying them through <see cref="ProcessCandle"/> keeps
+    /// the usual noise / continuation / reseed rules intact.
+    ///
+    /// IMPORTANT:
+    /// The reversal data is copied before clearing it.
+    /// </summary>
+    private void PromoteReversalsToNextTrend(string reason)
     {
         var reversTemp = _reversals.ToList();
+        var waitedTemp = _waitedForEntryPoint.ToList();
 
         if (reversTemp.Count == 0)
         {
@@ -969,6 +1120,7 @@ public class ManualStrategy
 
         _reversals.Clear();
         _waitedForEntryPoint.Clear();
+        _noise.Clear();
 
         _countOfRevers = 0;
 
@@ -983,13 +1135,25 @@ public class ManualStrategy
 
         UpdateTrendState();
 
+        foreach (var candle in waitedTemp)
+            ProcessCandle(candle);
+
         Log(
-            $"Trade completed: preserved " +
-            $"{reversTemp.Count} successful reversal candle(s) " +
-            $"as next Trend. " +
+            $"{reason}: promoted " +
+            $"{reversTemp.Count} reversal candle(s) and " +
+            $"{waitedTemp.Count} waited candle(s) into next trend. " +
             $"trend={_modeOfTrend}, " +
             $"trendCandles={_trend.Count}, " +
             $"state={_state}.");
+
+        if (reversTemp.Count > 0)
+        {
+            RaiseDecision(
+                $"{reason}: promoted {reversTemp.Count} reversal + " +
+                $"{waitedTemp.Count} waited candle(s) into next trend " +
+                $"(trend={_modeOfTrend}, trendCandles={_trend.Count})",
+                reversTemp[^1]);
+        }
     }
 
     private void DetermineTrendDirectionFromSeed()
@@ -1247,6 +1411,7 @@ public class ManualStrategy
         _trend.Clear();
         _reversals.Clear();
         _waitedForEntryPoint.Clear();
+        _noise.Clear();
 
         _modeOfTrend = TrendMode.None;
         _modeOfRevers = ReversMode.None;
@@ -1362,6 +1527,48 @@ public class ManualStrategy
     {
         Debug.WriteLine(
             $"[ManualStrategy][{_symbol}] {message}");
+    }
+
+    /// <summary>
+    /// Emits a structured decision for the given candle so the back test can
+    /// produce a per-candle review log.
+    /// </summary>
+    private void RaiseDecision(string decision, CandleResponseDto candle)
+    {
+        DecisionLogged?.Invoke(new StrategyDecision
+        {
+            Time = candle.Time,
+            State = _state,
+            Trend = _modeOfTrend,
+            Reversal = _modeOfRevers,
+            ReversalCount = _countOfRevers,
+            Entry = _entry,
+            Open = candle.Open,
+            High = candle.High,
+            Low = candle.Low,
+            Close = candle.Close,
+            Decision = decision,
+        });
+    }
+
+    private void RaiseDecision(string decision, DateTime time)
+    {
+        var forming = _forming;
+
+        DecisionLogged?.Invoke(new StrategyDecision
+        {
+            Time = time,
+            State = _state,
+            Trend = _modeOfTrend,
+            Reversal = _modeOfRevers,
+            ReversalCount = _countOfRevers,
+            Entry = _entry,
+            Open = forming?.Open ?? 0,
+            High = forming?.High ?? 0,
+            Low = forming?.Low ?? 0,
+            Close = forming?.Close ?? 0,
+            Decision = decision,
+        });
     }
 
     #endregion

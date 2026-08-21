@@ -205,12 +205,15 @@ public static class BackTestEngine
         string symbol,
         List<CandleResponseDto> candles,
         double startingBalance = 10_000,
-        double spread = DefaultSpread)
+        double spread = DefaultSpread,
+        SymbolInfoResponseDto? symbolInfo = null)
     {
         var started = DateTime.UtcNow;
 
         var account = new BackTestAccountService { Balance = startingBalance };
         var trading = new BackTestTradingService();
+        if (symbolInfo is not null)
+            trading.SymbolInfo = symbolInfo;
         var strategy = new ManualStrategy(trading, account, symbol);
 
         var openTrades = new List<BackTestTrade>();
@@ -223,6 +226,9 @@ public static class BackTestEngine
             StartingBalance = startingBalance,
             StartedAt = started,
         };
+
+        // Capture every decision the strategy makes, candle by candle.
+        strategy.DecisionLogged += d => result.Decisions.Add(d);
 
         double peak = startingBalance;
         double maxDrawdown = 0;
@@ -246,7 +252,7 @@ public static class BackTestEngine
 
             // Simulate ticks that touch the entry level, if the strategy is
             // waiting for one.
-            SimulateEntry(symbol, candle, strategy, trading, spread);
+            SimulateEntry(symbol, candle, strategy, trading, spread, result);
 
             // Capture any trade that just opened so its OpenTime matches the
             // candle that triggered it.
@@ -293,7 +299,8 @@ public static class BackTestEngine
         CandleResponseDto candle,
         ManualStrategy strategy,
         BackTestTradingService trading,
-        double spread)
+        double spread,
+        BackTestResult result)
     {
         if (strategy.CurrentState != ManualStrategy.StrategyState.WaitingForEntry)
             return;
@@ -303,8 +310,16 @@ public static class BackTestEngine
 
         if (trend == ManualStrategy.TrendMode.UpWard)
         {
-            // SELL -> Bid reaches Entry. The wick touching the entry is enough.
-            if (candle.High >= entry)
+            // SELL: the candle's body or shadow must collide with the ENTRY
+            // point itself (the blue dot). The entry price must be inside the
+            // candle's range [Low..High]; a candle that only pokes its wick up
+            // to the entry (or gaps above it) is NOT enough.
+            bool reached = candle.Low <= entry && entry <= candle.High;
+            bool body = BodyTouches(candle, entry);
+
+            LogEntryCheck(result, candle, "SELL", entry, body, reached);
+
+            if (reached)
             {
                 trading.CurrentBid = entry;
                 trading.CurrentAsk = entry + spread;
@@ -319,10 +334,17 @@ public static class BackTestEngine
         }
         else if (trend == ManualStrategy.TrendMode.DownWard)
         {
-            // BUY -> Ask reaches Entry. Candles are bid-based, so the ask is
-            // bid + spread; the bid Low must reach entry - spread for the ask
-            // to actually touch the entry.
-            if (candle.Low <= entry - spread)
+            // BUY: the candle's body or shadow must collide with the ENTRY
+            // point itself (the blue dot). The entry price must be inside the
+            // candle's range [Low..High]. Candles are bid-based, so the tick is
+            // built as Bid = entry - spread / Ask = entry; the strategy's
+            // OnTick (Ask <= entry) then triggers and fills at the entry.
+            bool reached = candle.Low <= entry && entry <= candle.High;
+            bool body = BodyTouches(candle, entry);
+
+            LogEntryCheck(result, candle, "BUY", entry, body, reached);
+
+            if (reached)
             {
                 trading.CurrentBid = entry - spread;
                 trading.CurrentAsk = entry;
@@ -335,6 +357,47 @@ public static class BackTestEngine
                 });
             }
         }
+    }
+
+    /// <summary>
+    /// True when the entry level lies inside the candle's body
+    /// (Open..Close), i.e. the BODY collides with the entry point.
+    /// </summary>
+    private static bool BodyTouches(
+        CandleResponseDto candle,
+        double level)
+    {
+        double lo = Math.Min(candle.Open, candle.Close);
+        double hi = Math.Max(candle.Open, candle.Close);
+        return level >= lo && level <= hi;
+    }
+
+    private static void LogEntryCheck(
+        BackTestResult result,
+        CandleResponseDto candle,
+        string side,
+        double entry,
+        bool body,
+        bool reached)
+    {
+        result.Decisions.Add(new StrategyDecision
+        {
+            Time = candle.Time,
+            State = ManualStrategy.StrategyState.WaitingForEntry,
+            Trend = side == "SELL"
+                ? ManualStrategy.TrendMode.UpWard
+                : ManualStrategy.TrendMode.DownWard,
+            Entry = entry,
+            Open = candle.Open,
+            High = candle.High,
+            Low = candle.Low,
+            Close = candle.Close,
+            Decision = reached
+                ? (body
+                    ? $"ENTRY REACHED by {side} BODY (candle body covers entry={entry:F5})"
+                    : $"ENTRY REACHED by {side} SHADOW (candle wick covers entry={entry:F5})")
+                : $"entry NOT reached by {side} (body/shadow did not cover entry={entry:F5})",
+        });
     }
 
     private static void ResolveOpenTrades(
@@ -501,12 +564,31 @@ public static class BackTestEngine
 
         sb.AppendLine("----------------------------------------------");
         sb.AppendLine("Notes:");
-        sb.AppendLine("  - Entry (touch): the wick reaching the entry price is enough");
-        sb.AppendLine("    to open the trade (Bid for SELL, Ask for BUY).");
+        sb.AppendLine("  - Entry: while waiting for the entry price (max 2 candles)");
+        sb.AppendLine("    the strategy enters ONLY when one of the waiting candles'");
+        sb.AppendLine("    BODY or SHADOW actually covers the entry point (the blue dot):");
+        sb.AppendLine("    the entry price must be inside the candle's range [Low..High].");
+        sb.AppendLine("    SELL -> the candle must rise so its range covers the entry.");
+        sb.AppendLine("    BUY  -> the candle must fall so its range covers the entry.");
         sb.AppendLine("  - SL/TP are resolved against the High/Low of the candles that");
         sb.AppendLine("    follow the entry candle.");
         sb.AppendLine("  - Trades still open at the end of the data are closed at the");
         sb.AppendLine("    last candle close and marked EndOfData.");
+
+        sb.AppendLine("==============================================");
+        sb.AppendLine("          PER-CANDLE DECISION LOG");
+        sb.AppendLine("==============================================");
+        sb.AppendLine($"{"Time",19}  {"State",16}  {"Trend",8}  {"Rev",4}  {"Entry",10}  {"O",9}  {"H",9}  {"L",9}  {"C",9}  Decision");
+        sb.AppendLine("----------------------------------------------");
+
+        foreach (var d in result.Decisions)
+        {
+            sb.AppendLine(
+                $"{d.Time:yyyy-MM-dd HH:mm:ss}  {d.State,16}  " +
+                $"{d.Trend,8}  {d.ReversalCount,4}  {d.Entry,10:F5}  " +
+                $"{d.Open,9:F5}  {d.High,9:F5}  {d.Low,9:F5}  {d.Close,9:F5}  {d.Decision}");
+        }
+
         sb.AppendLine("==============================================");
 
         return sb.ToString();
