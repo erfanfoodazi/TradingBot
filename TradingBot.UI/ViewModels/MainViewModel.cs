@@ -222,7 +222,7 @@ public partial class MainViewModel : ObservableObject
         var type = SelectedIndicator?.Type;
         _chartService.SetIndicators(type is null ? [] : [type.Value]);
         HasOscillatorIndicator =
-            type is IndicatorType.Rsi or IndicatorType.Stochastic or IndicatorType.Macd;
+            type is IndicatorType.Rsi or IndicatorType.Stochastic or IndicatorType.Macd or IndicatorType.Atr;
     }
 
     public MainViewModel(

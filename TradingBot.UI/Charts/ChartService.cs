@@ -363,12 +363,6 @@ public class ChartService : IChartService
             AddLine(plot, ToPoints(values, xs), VwapColor, 1.5f);
         }
 
-        if (_indicators.Contains(IndicatorType.Atr))
-        {
-            var values = TechnicalIndicators.Atr(candles, AtrPeriod);
-            AddLine(plot, ToPoints(values, xs), AtrColor, 1.5f);
-        }
-
         if (_indicators.Contains(IndicatorType.Fibonacci))
         {
             var fib = TechnicalIndicators.FibonacciRetracement(candles, Math.Min(candles.Count, 500));
@@ -450,6 +444,13 @@ public class ChartService : IChartService
                     var bars = plot.Add.Bars(histXs.ToArray(), histYs.ToArray());
                     bars.Color = MacdHistogramColor;
                 }
+                any = true;
+            }
+
+            if (_indicators.Contains(IndicatorType.Atr))
+            {
+                var values = TechnicalIndicators.Atr(candles, AtrPeriod);
+                AddLine(plot, ToPoints(values, xs), AtrColor, 1.5f);
                 any = true;
             }
         }

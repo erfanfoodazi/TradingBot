@@ -426,11 +426,12 @@ public class ManualStrategy
     /// </summary>
     private static bool IsNoise(
         CandleResponseDto candle,
-        CandleResponseDto prev)
+        CandleResponseDto prev,
+        int trendCount)
     {
         bool breaksHigh = candle.High >= prev.High;
         bool breaksLow = candle.Low <= prev.Low;
-
+        
         // Custom noise rules.
         // NOTE: these reuse the same >=/<= boundary semantics as
         // breaksHigh/breaksLow above (instead of strict >/<) so that a
@@ -457,7 +458,7 @@ public class ManualStrategy
         {
             double bodyToRangeRatio = bodySize / totalRange;
 
-            if (bodyToRangeRatio <= 0.10)
+            if (bodyToRangeRatio <= 0.10 && trendCount < 3)
                 return true;
         }
 
@@ -485,7 +486,7 @@ private static bool IsValidUpward(
         CandleResponseDto candle,
         CandleResponseDto lastTrend)
     {
-        if (IsNoise(candle, lastTrend))
+        if (IsNoise(candle, lastTrend, _trend.Count))
         {
             // Preserve the noise candle: it may be the start of the next
             // trend if the current trend breaks (see PromoteNoiseToNextTrend).
@@ -573,7 +574,7 @@ private static bool IsValidUpward(
         // noise if IsNoise() flags it — otherwise noise candles that
         // happen to overlap the structural break conditions were being
         // counted as real trend candles instead of being skipped.
-        if (IsNoise(candle, lastTrend))
+        if (IsNoise(candle, lastTrend, _trend.Count))
         {
             // Preserve the noise candle: it may be the start of the next
             // trend if the current trend breaks (see PromoteNoiseToNextTrend).
